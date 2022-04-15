@@ -1,0 +1,223 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>create-discount</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-item-divider sticky>
+</ion-item-divider> -->
+<ion-content [scrollEvents]="true">
+
+  <div class="summary">
+    <div>
+      <p class="fs-14 ">
+        Summary
+      </p>
+      <p class="fs-10  sitefontmedium grey-info-text">
+        Wed, February 10, 2021, 7:31 PM
+      </p>
+    </div>
+    <div>
+      <ion-button (click)="viewDetails()" class="view-details outline-btn">
+        <span class="fs-12 sitefontmedium">View details</span>
+      </ion-button>
+    </div>
+  </div>
+  <div class="extra-height">
+
+  </div>
+
+  <form [formGroup]="discountTypeForm" (ngSubmit)="onSaveOffer()">
+    <div class="discount_code">
+      <p class="fs-12 sitefontmedium">Select your outlet</p>
+      <span class="fs-12 grey-info-text mt-10" style="display: block;">
+        Select Single or multiple outlets to which you want to apply this Cuopon code.
+      </span>
+      <ion-item lines="none" [ngClass]="{ 'is-inp-invalid': getValid('outletSelectionTypeV')}"
+        [id]="getValid('outletSelectionTypeV') ? 'is-inp-invalid': ''" (click)="onChangeOutlet()"
+        class="custom-item mt-10">
+        <div *ngIf="this.discountModel['outletIds'].length !== 0">
+          <span class="fs-12 sitefontsemibold primary-dark-clr"> {{this.discountModel['outletIds'].length}} Outlet<span
+              class="sitefontsemibold" *ngIf="this.discountModel['outletIds'].length > 1">s</span> selected</span>
+        </div>
+        <div *ngIf="this.discountModel['outletIds'].length === 0">
+          Please select your outlet
+        </div>
+        <span class="icon-caret-right"></span>
+      </ion-item>
+      <div class="error-view">
+        <div class="error-msg-txt">
+          <div *ngIf="getValid('outletSelectionTypeV')">
+            <span *ngIf="offerFormGrp.outletSelectionTypeV.errors?.required" class="fs-12">
+              Please choose outlet
+            </span>
+          </div>
+        </div>
+      </div>
+      <p class="fs-12 mt-10">Discount code</p>
+      <ion-col size="12" class="p-0">
+        <ion-item [ngClass]="{ 'is-inp-invalid': getValid('couponCode')}"
+          [id]="getValid('couponCode') ? 'is-inp-invalid': ''" lines="none"
+          class="custom-item fs-14 sitefontmedium mt-10">
+          <ion-input type="text" readonly class="fs-14 sitefontmedium code" formControlName="couponCode"
+            placeholder="Enter the name of your item" restrictFirstSpace trimValue>
+          </ion-input>
+          <span *ngIf="this.discountTypeForm.controls.couponCode.value" class="sitefontsemibold primary-dark-clr"
+            (click)="changeDiscountCode()">CHANGE</span>
+        </ion-item>
+      </ion-col>
+      <div class="error-view">
+        <div class="error-msg-txt">
+          <div *ngIf="getValid('couponCode')">
+            <span *ngIf="offerFormGrp.couponCode.errors?.required" class="fs-12">
+              Please enter your discount code
+            </span>
+          </div>
+        </div>
+      </div>
+      <ion-button (click)="onGenerateCode()" class="mt-10 generate-btn outline-btn">
+        <span class="fs-12 sitefontmedium">Generate code</span>
+      </ion-button>
+    </div>
+    <div class="underline"></div>
+    <div class="discount_type">
+      <p class="fs-12 sitefontmedium">Select a type of discount</p>
+      <p class="fs-12 grey-info-text w-90 mt-3">Percentage | Fixed amount | Free shipping | Buy X get Y</p>
+      <div [id]="getValid('discountType') ? 'is-inp-invalid': ''" (click)="discountType()"
+        [ngClass]="discountModel['discountType'] === '' ? 'error-box': 'success-box' " class="selection-box mt-10">
+        <div class="d-flex">
+          <p class="fs-12  sitefontmedium">
+            <span *ngIf="discountModel['discountType'] === ''">Set your discount type</span>
+            <span *ngIf="discountModel['discountType'] === 'percentage'">Percentage</span>
+            <span *ngIf="discountModel['discountType'] === 'net'">Fixed</span>
+            <span *ngIf="discountModel['discountType'] === 'freeDelivery'">Free Delivery</span>
+            <span *ngIf="discountModel['discountType'] === 'bogo'">Buy X get Y</span>
+          </p>
+        </div>
+        <div class="fs-12 mt-10 d-flex">
+          <p *ngIf="discountModel['discountType'] === ''">Customize settings for discount type</p>
+          <p *ngIf="discountModel['discountType'] === 'percentage'">Discount based on Selected %.</p>
+          <p *ngIf="discountModel['discountType'] === 'net'">Discount based on Particular amount.</p>
+          <p *ngIf="discountModel['discountType'] === 'freeDelivery'">User won’t be Charged for orders</p>
+          <p *ngIf="discountModel['discountType'] === 'bogo'">Customer buys to customer gets.</p>
+          <span class="icon-back"></span>
+        </div>
+      </div>
+      <div class="error-view">
+
+        <div class="error-msg-txt">
+          <div *ngIf="getValid('discountType')">
+            <span *ngIf="offerFormGrp.discountType.errors?.required" class="fs-12">
+              Please set discount type to proceed further.
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="discountModel['discountType'] === 'percentage' ||discountModel['discountType'] === 'net'"
+      class="underline"></div>
+    <div *ngIf="discountModel['discountType'] === 'percentage' ||discountModel['discountType'] === 'net'"
+      class="applies_to" (click)="discountAppliesTo()">
+      <p class="fs-12 sitefontmedium">Applies to</p>
+      <p class="fs-12 grey-info-text mt-3">All products | Specific Products | Specific Collections</p>
+      <div class="selection-box success-box mt-10">
+        <div class="fs-12 d-flex">
+          <p>{{discountModel['couponAppliesToV']}}</p>
+          <span class="icon-back"></span>
+        </div>
+        <div class="fs-12 mt-10 d-flex">
+          <p>Discount applies to all products</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="discountModel['discountType'] !== 'bogo'" class="underline"></div>
+    <div *ngIf="discountModel['discountType'] !== 'bogo'" class="min_requirement" formGroupName="cart">
+
+      <p class="fs-12 sitefontmedium">Minimum requirements</p>
+      <p class="fs-12 mt-10">users get discount based on these factors</p>
+      <ion-list>
+        <ion-radio-group formControlName="minRequirementV" (ionChange)="requirements($event)">
+          <ion-item lines="none">
+            <ion-radio class="quantity" value="none"></ion-radio>
+            <ion-label class="fs-14  ion-margin-start grey-info-text">None</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-radio class="quantity" value="amount"></ion-radio>
+            <ion-label class="fs-14  ion-margin-start grey-info-text">Minimum purchase amount</ion-label>
+          </ion-item>
+          <div class="requirements" *ngIf="cartFormGrp.minRequirementV.value === 'amount'">
+            <div class="d-flex-input">
+              <ion-input type="number" [ngClass]="{ 'is-inp-invalid': fstLevelForm('cart','minAmount')}"
+                formControlName="minAmount" class="fs-12 ion-custom" placeholder="0.00">
+              </ion-input>
+              <div class="custom-label fs-12">INR</div>
+            </div>
+            <div class="error-view">
+              <div class="error-msg-txt">
+                <div *ngIf="fstLevelForm('cart','minAmount')">
+                  <span class="fs-12" *ngIf="cartFormGrp.minAmount.errors?.required">
+                    Please enter minimum amount
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ion-item lines="none">
+            <ion-radio class="amount" value="quantity"></ion-radio>
+            <ion-label class="fs-14 grey-info-text ion-margin-start">Minimum quantity of items</ion-label>
+          </ion-item>
+
+          <div class="requirements" *ngIf="cartFormGrp.minRequirementV.value === 'quantity'">
+            <div class="d-flex-input">
+              <ion-input type="number" [ngClass]="{ 'is-inp-invalid': fstLevelForm('cart','minQty')}"
+                formControlName="minQty" class="fs-12 ion-custom" placeholder="0.00">
+              </ion-input>
+              <div class="custom-label fs-12">INR</div>
+            </div>
+            <div class="error-view">
+
+              <div class="error-msg-txt">
+                <div *ngIf="fstLevelForm('cart','minQty')">
+                  <span class="fs-12" *ngIf="cartFormGrp.minQty.errors?.required">
+                    Please enter minimum amount
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div *ngIf="cartFormGrp.minRequirementV.value === 'quantity'" class="ion-margin-start ion-padding-start">
+            <div class="d-flex-input">
+              <ion-input type="number" formControlName="minQty" class="fs-12 ion-custom" placeholder="0.00"></ion-input>
+              <div class="custom-label fs-12">INR</div>
+            </div>
+          </div> -->
+
+        </ion-radio-group>
+      </ion-list>
+    </div>
+
+  </form>
+  <app-advance-settings [advanceSettings]='tempDiscountModel' (settingsForm)="settingsValue($event)">
+  </app-advance-settings>
+  <div class="extra-height">
+
+  </div>
+  <ion-row class="footer ion-padding-horizontal">
+    <ion-col>
+      <ion-button expand="block" (click)="dismiss()" class="outline-btn fs-12 sitefontmedium">
+        Discard
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" (click)="onSave()" class="theme-btn sitefontmedium fs-12">
+        Save
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

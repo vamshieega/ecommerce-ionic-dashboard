@@ -1,0 +1,196 @@
+<div class="content">
+  <form [formGroup]="basicDetailsForm">
+    <ion-grid class="p-0">
+      <ion-row>
+        <ion-col class="p-0">
+          <div class="basic-details">
+            <div class="image-section">
+              <input
+                type="file"
+                style="display: none"
+                #file
+                (change)="onRestLogoSelect($event)"
+                accept="image/x-png,image/gif,image/jpeg"
+              />
+              <div
+                class="bg-light-blue insert-images"
+                *ngIf="restLogoUrl === ''"
+              >
+                <ion-img
+                  src="assets/images/insert-picture-icon.svg"
+                  (click)="file.click()"
+                ></ion-img>
+              </div>
+              <div *ngIf="restLogoUrl">
+                <div class="insert-images">
+                  <ion-img
+                    [src]="restLogoUrl"
+                    class="item-image"
+                    (click)="file.click()"
+                  ></ion-img>
+                </div>
+              </div>
+            </div>
+            <div class="insert-images-text">
+              <p class="gray-clr fs-12">
+                *Max of 1MB, atleast 400 x 300 pixels & onlg JPEG and PNG are
+                allowed
+              </p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="border"></div>
+    <ion-grid class="p-0">
+      <ion-row>
+        <ion-col class="p-0">
+          <div class="input-section">
+            <div>
+              <ion-col size="12" class="ion-no-padding">
+                <ion-label for="name" class="fs-12 inp-label">
+                  Store name</ion-label
+                >
+                <ion-item lines="none" class="custom-item">
+                  <ion-input
+                    trimValue
+                    id="name"
+                    type="text"
+                    formControlName="outletName"
+                    ngDefaultControl
+                    maxLength="50"
+                    restrictFirstSpace
+                    autocorrect="off"
+                    placeholder="Name of your store"
+                    [ngClass]="{ 'is-inp-invalid': getValid('outletName')}"
+                  >
+                  </ion-input>
+                </ion-item>
+                <div class="error-view">
+                  <div *ngIf="getValid('outletName')" class="fs-11 fw-4">
+                    <span
+                      *ngIf="basicDetailsForm.controls.outletName.errors?.required"
+                      class="float-left error-msg-txt"
+                    >
+                      Please enter Store Name
+                    </span>
+                    <span
+                      *ngIf="!basicDetailsForm.controls.outletName.errors?.required && basicDetailsForm.controls.outletName.errors?.minlength"
+                      class="float-left error-msg-txt"
+                    >
+                      Please enter atleast 3 Characters
+                    </span>
+                  </div>
+                </div>
+              </ion-col>
+            </div>
+            <div class="p-0">
+              <ion-col size="12" class="ion-no-padding">
+                <ion-label
+                  for="city"
+                  class="fs-12 inp-label"
+                  style="margin-top: 20px"
+                  >Which industry will you be operating in?
+                </ion-label>
+                <ion-item lines="none" class="custom-item">
+                  <ion-select
+                    id="type"
+                    (ionChange)="onChangeBusinessType($event)"
+                    formControlName="businessType"
+                    ngDefaultControl
+                    class="sitefontmedium fs-14"
+                    restrictFirstSpace
+                    trimValue
+                  >
+                    <ion-select-option
+                      *ngFor="let businessList of businessTypeList"
+                      [value]="businessList.key"
+                    >
+                      {{businessList.val}}</ion-select-option
+                    >
+                  </ion-select>
+                </ion-item>
+                <div class="error-view">
+                  <div *ngIf="getValid('businessType')" class="fw-4">
+                    <span
+                      *ngIf="basicDetailsForm.controls.businessType.errors?.required"
+                      class="float-left error-msg-txt"
+                    >
+                      Please select the industry type.
+                    </span>
+                    <!-- <span *ngIf="basicDetailsForm.controls.mobile.errors?.min
+                     || basicDetailsForm.controls.mobile.errors?.max 
+                     || basicDetailsForm.controls.mobile.errors?.pattern" class="float-left error-msg-txt">
+                      Invalid mobile number</span> -->
+                  </div>
+                </div>
+              </ion-col>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="border"></div>
+    <ion-grid class="p-0">
+      <ion-row>
+        <ion-col class="p-0">
+          <div class="address-section">
+            <ion-text class="sitefontmedium fs-12">
+              Want to mark your outlet address ?
+            </ion-text>
+            <ion-text class="sitefontnormal address-text fs-12"
+              >This helps you to manage your delivery, payments etc.. in later
+              stages.</ion-text
+            >
+            <div>
+              <div (click)="onNavigateToManageAddress()" *ngIf="!addressLine" class="new-address">
+                <ion-text
+                  
+                  class="fs-12 ion-text-center"
+                  ><span class="sitefontmedium primary-light-clr"
+                    >"Click here"
+                  </span>
+                  to set your
+                  <span class="sitefontmedium primary-light-clr"
+                    >Outlet address</span
+                  >
+                </ion-text>
+              </div>
+              <div *ngIf="addressLine" class="existed-address">
+                <ion-text
+                  (click)="onNavigateToManageAddress()"
+                  class="sitefontnormal fs-12"
+                >
+                  {{addressLine}}
+                </ion-text>
+                <span
+                  class="icon-pen fs-12"
+                  (click)="onNavigateToManageAddress()"
+                ></span>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</div>
+
+<ion-footer class="ion-no-border">
+  <ion-row class="footer ion-padding-horizontal">
+    <ion-col>
+      <ion-button expand="block" class="outline-btn fs-12" (click)="onBack()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button
+      expand="block"
+      class="theme-btn fs-12"
+      (click)="onBasicDetailsSubmit()"
+      >
+      Save & Proceed
+    </ion-button>
+  </ion-col>
+</ion-row>
+</ion-footer>

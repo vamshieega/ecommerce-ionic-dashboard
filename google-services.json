@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "521524263993",
+    "firebase_url": "https://restaurant-panel-d80b6.firebaseio.com",
+    "project_id": "restaurant-panel-d80b6",
+    "storage_bucket": "restaurant-panel-d80b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521524263993:android:abeed692e14f8d142861e8",
+        "android_client_info": {
+          "package_name": "com.yumzy.partnerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521524263993-fedgv9ludvqigla2ne5h0g4kqgflh9mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsuTLIF0MD21ng0GWl8Npu8RoSrnbd2-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521524263993-fedgv9ludvqigla2ne5h0g4kqgflh9mj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

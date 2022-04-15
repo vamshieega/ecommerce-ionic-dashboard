@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar class="white-color header-color">
+    <ion-title>Color Palette Modal
+
+      <ion-icon (click)="cancel()" class="fs-22 float-right white-color" name="close"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="color-palette-modal">
+    <div class="modal-body">
+      <div class="color-palette-list row">
+        <ion-row *ngFor="let palette of paletteList ; let i= index" class="palette-card" (click)="setSelected(i)"
+          [ngClass]="{selected: selectedIndex === i}">
+          <span class="fs-12 mb-4">Palette {{i+1}}</span>
+          <div class="color-list">
+            <div class="color-palettes mr-1" [style.background]="palette.primaryColor"> </div>
+            <div class="color-palettes mr-1" [style.background]="palette.primaryColorGrd1"> </div>
+            <div class="color-palettes mr-1" [style.background]="palette.primaryColorGrd2"> </div>
+            <div class="color-palettes mr-1" [style.background]="palette.secondaryColor"> </div>
+          </div>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <div class="ion-text-center">
+    <ion-button class="theme-btn px-5 fs-15 mt-3" (click)="save()">SAVE</ion-button>
+  </div>
+</ion-footer>

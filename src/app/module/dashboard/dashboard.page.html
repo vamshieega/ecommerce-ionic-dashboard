@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>cds
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-img class="p-0" src='assets/icon/logo-x.svg'></ion-img>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="content-section">
+  <div class="content-text">
+    <ion-text class="primary-dark-clr sitefontsemibold fs-20"> Welcome to YumzyX</ion-text>
+    <ion-text class="sitefontnormal fs-12">
+      Watch our tutorial videos to quickly set up your outlet and access other features such as category creation,
+      creating a discount, and social media integration.
+    </ion-text>
+  </div>
+  <div class="dashboard-tutorial">
+    <div class="img-section" (click)="openVideoPlayer()">
+      <ion-img src="assets/images/Saly-37.png">
+      </ion-img>
+      <p class="position-center pointer"><span class="icon-play-video play-icon-shadow black-color"></span></p>
+    </div>
+  </div>
+  <div class="border"></div>
+  <div class="content-text-create">
+    <ion-text class="fs-13">it only takes <span class="sitefontmedium primary-light-clr">Few steps</span> and <span
+        class="sitefontmedium primary-light-clr">30 minutes</span> of your time to get your business up and running
+    </ion-text>
+  </div>
+  <ion-grid *ngFor="let dashboardList of dashboardStepsList">
+    <ion-row>
+      <ion-col class="p-0">
+        <ion-label>
+          <p class=" fs-10 step-sequence " style="margin-top: 12px;">{{dashboardList.stepSequence}} <span
+              *ngIf="dashboardList?.status ==='complete'" class="icon-check-circle-fill fs-14"></span></p>
+          <p class="sitefontmedium fs-12" style="margin-top: 12px;">{{dashboardList.stepTitle}}</p>
+          <p class="fs-10" style="margin-top: 6px;">{{dashboardList.stepDescription}}</p>
+          <!-- <p class="sitefontmedium fs-12" style="margin-top: 6px;">{{dashboardList.anchor}}</p> -->
+          <ion-button class="theme-btn fs-12" [disabled]="dashboardList?.status === 'complete'"
+            (click)="onClickButton(dashboardList)">{{dashboardList.createButton}}</ion-button>
+        </ion-label>
+        <div class="img-section" (click)="openVideoPlayer(dashboardList.videoUrl)"
+          [ngStyle]="{'background-color': dashboardList?.stepBgColor}">
+          <ion-img src="{{dashboardList.stepImg}}">
+          </ion-img>
+          <p class="position-center pointer"><span class="icon-play-video play-icon-shadow black-color"></span></p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

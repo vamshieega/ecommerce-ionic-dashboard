@@ -1,0 +1,25 @@
+ion-content {
+  .maxList {
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+    margin: 1rem;
+    flex-direction: column;
+  }
+  .minList {
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+    margin: 0 1rem;
+    flex-direction: column;
+    height: 100%;
+  }
+  .circle {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: -3px 4px;
+    border-radius: 50%;
+    background-color: var(--primary-light-clr);
+  }
+}

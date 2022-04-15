@@ -1,0 +1,118 @@
+<div class="daywise">
+  <ion-text class="fs-12 sitefontmedium"
+    >You can Select multiple days, but timings will be same for all
+    selections.</ion-text
+  >
+  <form [formGroup]="weekdayForm">
+    <ion-grid class="p-0">
+      <ion-row formArrayName="weekdays">
+        <div *ngFor="let days of weekDaysList;let i = index">
+          <div
+            class="txt-checkbox"
+            [ngClass]="{'active-days': weekdayForm.controls['weekdays']['controls'][i].value === true }"
+          >
+            <input #checkbox type="checkbox" [formControlName]="i" />
+            <div class="title-label">
+              <span class="fs-12 sitefontnormal"> {{days.val}}</span>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+    </ion-grid>
+
+    <div style="border-bottom: 1px solid #f0eff4"></div>
+    <div class="time-slot">
+      <div formArrayName="slots" style="position: relative">
+        <ion-grid
+          class="p-0"
+          *ngFor="let time of weekdayForm.get('slots')['controls'] ;let j = index"
+          [formGroupName]="j"
+        >
+          <ion-row>
+            <ion-col size="4" class="p-0">
+              <p class="fs-10 sitefontnormal">Open</p>
+              <ion-select
+                class="fs-14"
+                formControlName="startTime"
+                (ionChange)="onChangeTime(time,j)"
+              >
+                <ion-select-option *ngIf="j === 0" value="24Hours">
+                  24 Hours
+                </ion-select-option>
+                <ion-select-option
+                  [value]="timeVal.key"
+                  class="fs-14"
+                  *ngFor="let timeVal of slotTimeList"
+                >
+                  {{timeVal.value}}
+                </ion-select-option>
+              </ion-select>
+              <div class="error-view mx-2">
+                <div class="fs-11 fw-4">
+                  <div
+                    *ngIf="time.get('startTime').status && (time.get('startTime').dirty || time.get('startTime').touched) && time.get('startTime').errors?.required"
+                    class="float-left error-msg-txt"
+                  >
+                    Please Select Time
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+            <ng-container
+              *ngIf="time.controls['startTime'].value !== '24Hours' && time.controls['endTime'].value !== '1159'"
+            >
+              <ion-col size="1" class="p-0" style="text-align: center">
+                -
+              </ion-col>
+              <ion-col size="4" class="p-0">
+                <p class="fs-10 sitefontnormal">Close</p>
+
+                <ion-select
+                  (ionChange)="onChangeTime(time,j)"
+                  class="fs-14"
+                  formControlName="endTime"
+                >
+                  <ion-select-option
+                    [value]="timeVal.key"
+                    class="fs-14"
+                    *ngFor="let timeVal of slotTimeList"
+                  >
+                    {{timeVal.value}}
+                  </ion-select-option>
+                </ion-select>
+                <div class="error-view ml-5">
+                  <div class="fs-11 fw-4">
+                    <span
+                      *ngIf="time.get('endTime').status && (time.get('endTime').dirty || time.get('endTime').touched) && time.get('endTime').errors?.required"
+                      class="float-left error-msg-txt"
+                    >
+                      Please Select Time
+                    </span>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="2" class="p-0"> </ion-col>
+              <ion-col size="1" class="p-0">
+                <ion-img
+                  class="remove-icon"
+                  src="assets/icon/icon-cancel.svg"
+                  (click)="onRemoveHours(j)"
+                  *ngIf="j > 0"
+                  style="position: absolute; top: -95px; right: 0px"
+                >
+                </ion-img>
+                <ion-img
+                  *ngIf="j === weekdayForm.controls['slots']['controls'].length -1 && showAddMore"
+                  (click)="onAddNewHours()"
+                  src="assets/icon/icon-add.svg"
+                  style="position: absolute; top: calc(100% - 10px); right: 0px"
+                ></ion-img>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <div style="border-bottom: 1px solid #f0eff4"></div>
+  </form>
+</div>

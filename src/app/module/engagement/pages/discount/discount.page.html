@@ -1,0 +1,105 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Discount</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-item-divider sticky>
+  <ion-row class="outlet_info">
+    <ion-col class="col_border">
+      <div *ngIf="getOutletTotalCount() !== 1">
+        <p class="fs-12">
+          <span class="primary-light-clr ion-padding-end" (click)="onChangeOutlet()">{{locality}} </span>
+          <span class="primary-dark-clr icon-arrow-dropdown fs-10"></span>
+        </p>
+      </div>
+    </ion-col>
+    <ion-col class="ion-no-padding col_border">
+      <ion-button expand="block" [routerLink]="createDisRouteUrl" class="item_btn fs-12">
+        <span class="sitefontsemibold">Create Discount</span>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-item-divider>
+<div style="height: 56px;" *ngIf="discountPresent === 'YES'" class="d-flex underline ph-20">
+  <div class="d-flex2">
+    <div *ngFor="let status of couponStatusList;let i = index">
+      <p class="fs-14 ion-text-capitalize name  sitefontmedium" [class.active-status]="selectedValue === i"
+        (click)="onNavigate(status,i)">
+        {{status}} </p>
+    </div>
+  </div>
+  <ion-button class="filter">
+    <span class="icon-filter-stripe fs-12"></span>
+    <span class="fs-12 sitefontmedium">Filter</span>
+  </ion-button>
+</div>
+<ion-content>
+  <div *ngIf="discountPresent === 'NO'">
+    <div class="container">
+      <div [ngStyle]="{'background-image': backgroundImageURL$ | async}" class="background-img">
+      </div>
+      <div class="ion-text-center ion-margin-top">
+        <p class="black-color sitefontmedium fs-16">Create Discounts</p>
+        <p class="black-color fs-12 ion-padding-top">Create discounts to attract new customers, promote new products to
+          your existing customers, and increase your sales.</p>
+      </div>
+    </div>
+    <ion-button expand="block" [routerLink]="createDisRouteUrl" class="theme-btn fs-12">
+      <span class="sitefontsemibold">Create Discount</span>
+    </ion-button>
+  </div>
+  <div class="discount-section" *ngIf="discountPresent === 'YES'">
+    <ng-container *ngFor="let cop of couponList;let i = index">
+      <div class="couponList">
+        <div class="coupon_details">
+          <div class="d-flex">
+            <div>
+              <p class="grey-info-text sitefontmedium fs-14">Code: <span
+                  class="primary-dark-clr sitefontsemibold">{{cop.couponCode}}</span></p>
+            </div>
+            <div>
+              <ion-toggle [checked]="cop.status === 'active'" (ionChange)="switch(cop,i,$event)">
+              </ion-toggle>
+            </div>
+          </div>
+          <p class="fs-12 ion-padding-top">out of 14 6 applied</p>
+          <p class="fs-12 mt-10" *ngFor="let term of cop?.terms">
+            <span class="blue-dot"></span>{{term}}
+          </p>
+        </div>
+        <div class="underline"></div>
+        <div (click)="onEditCoupon(cop)" class="ph-20 ion-margin-vertical">
+          <div class="d-flex">
+            <div>
+              <p class="fs-12 grey-info-text">
+                Schedule :
+                <span class="sitefontmedium success-color">
+                  {{cop.activeSlots.dateSpan.startDate
+                  | date: 'dd/MM/yyyy'}} - {{cop.activeSlots.dateSpan.endDate
+                  | date: 'dd/MM/yyyy'}}
+                </span>
+              </p>
+            </div>
+            <div>
+              <span class="icon-back fs-12"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ion-padding-horizontal">
+      </div>
+    </ng-container>
+    <div *ngIf="couponList.length === 0">
+      <div class="container">
+        <div [ngStyle]="{'background-image': backgroundImageURL$ | async}" class="background-img">
+        </div>
+        <div class="ion-text-center ion-margin-top">
+          <p>No {{offerType}} offer found!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

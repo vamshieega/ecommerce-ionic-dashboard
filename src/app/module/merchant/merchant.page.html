@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-info">
+      <div class="header-left">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+          <span>Account Info</span>
+        </ion-buttons>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+  <form class="ion-padding-horizontal fs-14" [formGroup]="userForm">
+    <ion-row>
+      <ion-col class="ion-margin-top" size="12">
+        <ion-label class=" sitefontregular">Account Holder Name</ion-label>
+        <ion-input type="text" formControlName="userName" class="inp-control disabled 
+        fontsitemedium black-color" readonly></ion-input>
+      </ion-col>
+      <ion-col class="ion-margin-top" size="12">
+        <ion-label class="sitefontregular">Phone Number</ion-label>
+        <ion-input type="text" formControlName="mobile" class="inp-control disabled fs-14 fontsitemedium black-color"
+          readonly></ion-input>
+      </ion-col>
+      <ion-col class="ion-margin-top" size="12">
+        <ion-label class="sitefontregular">Email</ion-label>
+        <ion-input type="text" formControlName="email" class="inp-control disabled fs-14 fontsitemedium black-color"
+          readonly></ion-input>
+      </ion-col>
+      <ion-col class="ion-margin-top" size="12">
+        <ion-label class="sitefontregular">Number of Outlets</ion-label>
+        <ion-input type="text" formControlName="numberOfOutlets" class="inp-control disabled fontsitemedium black-color"
+          readonly></ion-input>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

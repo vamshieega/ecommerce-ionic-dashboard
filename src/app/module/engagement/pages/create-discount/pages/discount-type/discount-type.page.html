@@ -1,0 +1,255 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>discount-type</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="discountTypeForm" (ngSubmit)="onSaveOffer()">
+
+    <div class="discount_type">
+      <p class="fs-12 sitefontmedium">Type of discount</p>
+      <p class="fs-12 mt-10 grey-info-text">Discount type helps you to Customise offers, that you want to provide to
+        users.</p>
+      <div (click)="getData()" class="card-radio-view d-flex">
+        <div class="top">
+          <label class="radio-card">
+            <input type="radio" formControlName="discountType" class="radio" id="veg" name="discountType"
+              value="percentage">
+            <span class="radio-details">
+              <span class="fs-12 sitefontmedium radio-name "> Percentage</span>
+              <p class="fs-12 mt-10">Discount based on Selected %.</p>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" class="radio" formControlName="discountType" id="nonVeg" name="discountType"
+              value="net">
+            <span class="radio-details">
+              <span class="fs-12 sitefontmedium radio-name">Fixed amount</span>
+              <p class="fs-12 mt-10">Discount based on Particular amount.</p>
+            </span>
+          </label>
+        </div>
+        <div class="top">
+          <label class="radio-card">
+            <input type="radio" class="radio" formControlName="discountType" id="veg" name="discountType"
+              value="freeDelivery">
+            <span class="radio-details">
+              <span class="fs-12 sitefontmedium radio-name "> Free shipping</span>
+              <p class="fs-12 mt-10">User won’t be Charged for orders</p>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" class="radio" formControlName="discountType" id="nonVeg" name="discountType"
+              value="bogo">
+            <span class="radio-details">
+              <span class="fs-12 sitefontmedium radio-name">Buy X get Y</span>
+              <p class="fs-12 mt-10">Customer buys to customer gets.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="underline"></div>
+
+    <!-- percentage -->
+
+    <div class="percentage" *ngIf="discountTypeForm.controls.discountType.value === 'percentage'">
+      <p class="fs-12 sitefontmedium">Percentage type</p>
+      <p class="fs-12 mt-10 grey-info-text">Enter discount percentage</p>
+      <div formGroupName="percentage">
+        <div class="d-flex-input">
+          <ion-input [ngClass]="{ 'is-inp-invalid': fstLevelForm('percentage','discountValue')}" type="text"
+            formControlName="discountValue" class="fs-12 ion-custom" placeholder="0.00">
+          </ion-input>
+          <div class="custom-label fs-12">INR</div>
+        </div>
+        <div class="error-view">
+          <div class="error-msg-txt">
+            <div *ngIf="fstLevelForm('percentage','discountValue')">
+              <span class="fs-12" *ngIf="percentageFormGrp.discountValue.errors?.required">
+                Please enter minimum amount
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub_underline"></div>
+        <div class="d-flex-horizontal">
+          <p class="fs-12 sitefontmedium">Want to keep maximum discount price?</p>
+          <ion-toggle (ionChange)="switchdisc($event)" formControlName="maxDiscountOptedV"> </ion-toggle>
+        </div>
+
+        <div *ngIf="percentageFormGrp.maxDiscountOptedV.value === true" class="d-flex-input">
+          <ion-input type="text" class="fs-12 ion-custom" formControlName="maxDiscount" placeholder="0.00"></ion-input>
+          <div class="custom-label fs-12">INR</div>
+        </div>
+        <div class="extra-height"></div>
+      </div>
+    </div>
+    <!-- fixedAmount -->
+    <div class="fixedAmount" *ngIf="discountTypeForm.controls.discountType.value === 'net'">
+      <p class="fs-12 sitefontmedium">Fixed amount type</p>
+      <p class="fs-12 mt-10 grey-info-text">Enter discount value</p>
+      <div class="d-flex-input" formGroupName="net">
+        <ion-input [ngClass]="{ 'is-inp-invalid': fstLevelForm('net','discountValue')}" type="text"
+          formControlName="discountValue" class="fs-12 ion-custom" placeholder="0.00"></ion-input>
+        <div class="custom-label fs-12">INR</div>
+      </div>
+      <div class="error-view">
+        <div class="error-msg-txt">
+          <div *ngIf="fstLevelForm('net','discountValue')">
+            <span class="fs-12" *ngIf="netFormGrp.discountValue.errors?.required">
+              Please enter minimum amount
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- freeShipping -->
+    <div class="freeShipping" *ngIf="discountTypeForm.controls.discountType.value === 'freeDelivery'">
+      <p class="fs-12 sitefontmedium">Free shipping</p>
+      <p class="fs-12 mt-10 light-blue-clr">
+        Set your <span class="sitefontbold">'Minimum requirements'</span> by <span
+          class="sitefontbold">'Confirming'</span> Discount type.
+      </p>
+    </div>
+
+    <!-- buyXgetY -->
+    <div class="padding-20" *ngIf="discountTypeForm.controls.discountType.value === 'bogo'" formGroupName="bogo">
+      <div formGroupName="satisfies">
+
+        <div>
+          <p class="fs-12 sitefontmedium">Buy X get Y</p>
+          <p class="fs-12 mt-10 light-blue-clr">
+            Set your Conditions for
+            <span class="sitefontbold">
+              Customer buys</span> to <span class="sitefontbold">Costumer gets.</span>
+          </p>
+          <div class="sub_underline"></div>
+          <p class="fs-12 sitefontmedium">Customer buys</p>
+          <ion-list>
+            <ion-radio-group formControlName="buysV">
+              <ion-item lines="none">
+                <ion-radio class="quantity" value="min-item"></ion-radio>
+                <ion-label class="fs-14  ion-margin-start grey-info-text">Minimum quantity of items</ion-label>
+              </ion-item>
+              <ion-item lines="none" class="disabled-event">
+                <ion-radio class="amount" value="min-amount"></ion-radio>
+                <ion-label class="fs-14 grey-info-text ion-margin-start">Minimum purchase amount</ion-label>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </div>
+
+        <div class="sub_underline2"></div>
+        <div>
+          <div *ngIf="bogoFormGrp.satisfies.controls.buysV.value === 'min-amount' ">
+            <p class="fs-12 grey-info-text">Enter discount value</p>
+            <div class="d-flex-input">
+              <ion-input type="text" class="fs-12 ion-custom" placeholder="0.00"></ion-input>
+              <div class="custom-label fs-12">INR</div>
+            </div>
+          </div>
+          <div *ngIf="bogoFormGrp.satisfies.controls.buysV.value === 'min-item' ">
+            <p class="fs-12 grey-info-text">Enter quantity value</p>
+            <div class="d-flex-input">
+              <ion-input type="text" class="fs-12 ion-custom" placeholder="quantity"></ion-input>
+            </div>
+          </div>
+          <p class="fs-12 grey-info-text mt-10">Any items from</p>
+
+
+
+          <ion-label for="city" class="fs-12 inp-label ion-margin-top">Select Item Category
+          </ion-label>
+          <ion-item lines="none" class="custom-item">
+            <ion-select class="fs-12" value="items" formControlName="itemSelectionV" placeholder="Select outletname">
+              <ion-select-option value="items"> Specific products</ion-select-option>
+              <ion-select-option value="category">Specific collections</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+
+
+
+
+
+          <div class="sub_underline"></div>
+          <ion-button (click)="productModal()" class="ion-margin-top browse-btn outline-btn">
+            <span class="fs-12 sitefontmedium">Browse</span>
+          </ion-button>
+
+
+          <p class="fs-12 mt-10 light-blue-clr">No collections added at least one product must be added.</p>
+          <div class="sub_underline"></div>
+
+        </div>
+
+      </div>
+
+
+
+      <div formGroupName="gets">
+        <p class="fs-12 sitefontmedium">Customer GETS</p>
+        <p class="fs-12 grey-info-text mt-10">Enter discount value</p>
+        <div class="d-flex-input">
+          <ion-input type="text" class="fs-12 ion-custom" placeholder="quantity"></ion-input>
+        </div>
+        <p class="fs-12 grey-info-text mt-10">Any items from</p>
+        <ion-label for="city" class="fs-12 inp-label ion-margin-top">Select Item Category
+        </ion-label>
+        <ion-item lines="none" class="custom-item">
+          <ion-select class="fs-12" value="items" formControlName="itemSelectionV" placeholder="Select outletname">
+            <ion-select-option value="items"> Specific products</ion-select-option>
+            <ion-select-option value="category">Specific collections</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+        <div class="sub_underline"></div>
+        <p class="fs-12">temp search input</p>
+        <ion-button (click)="productModal()" class="mt-10 browse-btn outline-btn">
+          <span class="fs-12 sitefontmedium">Browse</span>
+        </ion-button>
+        <p class="fs-12 mt-10 light-blue-clr ion-margin-bottom">No collections added at least one product must be added.
+        </p>
+      </div>
+
+
+      <div class="sub_underline2"></div>
+      <div>
+        <p class="fs-12 sitefontmedium">As a discounted value</p>
+        <ion-list>
+          <ion-radio-group>
+            <ion-item lines="none">
+              <ion-radio class="quantity" value="cord"></ion-radio>
+              <ion-label class="fs-14  ion-margin-start grey-info-text">Percentage</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-radio class="amount" value="cord2"></ion-radio>
+              <ion-label class="fs-14 grey-info-text ion-margin-start">Free</ion-label>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+        <div class="sub_underline2"></div>
+        <div class="d-flex-horizontal mt-10">
+          <p class="fs-12 sitefontmedium">Set a maximum number of user per order</p>
+          <ion-toggle> </ion-toggle>
+        </div>
+        <ion-input type="text" class="mt-10 fs-12 ion-custom order_value" placeholder="0.00"></ion-input>
+      </div>
+      <div class="extra-height">
+
+      </div>
+    </div>
+
+  </form>
+  <ion-button expand="block" (click)="onSaveOffer()"
+    class="footer ion-padding-horizontal theme-btn sitefontmedium fs-12">
+    Confirm Discount Type
+  </ion-button>
+</ion-content>

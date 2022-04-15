@@ -1,0 +1,31 @@
+
+
+
+agm-map {
+    width: 100%;
+    height: 50vh;
+    position: relative;
+  
+    ::ng-deep .gm-svpc {
+      display: none;
+    }
+}
+
+.hr {
+    border-top: 1px solid var(--layout-bg-color);
+}
+
+ion-range {
+    --bar-height: 6px;
+    --bar-border-radius: 10px;
+    --knob-background: var(--primary-dark-clr);
+    --bar-background: var(--layout-bg-color);
+    --bar-background-active: var(--primary-dark-clr);
+}
+
+ion-footer {
+  padding: 10px 20px 20px;
+  ion-button {
+    width: 100%;
+  }
+}

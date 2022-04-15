@@ -1,0 +1,19 @@
+// ion-item{
+//     --ion-item-background: var(--disabled-color);
+//     border: 0px;
+// //    background-color: var(--grey-info-text);
+// }
+.inp-control {
+    border: 1.6px solid var(--from-box-color);
+    border-radius: 3px;
+    width: 100%;
+    max-width: 335px;
+    text-indent: 10px;
+    height: 42px;
+    outline: none;
+  }
+  
+.disabled {
+    --background: var(--disabled-color);
+    border: 1px solid va(--from-box-color);
+}

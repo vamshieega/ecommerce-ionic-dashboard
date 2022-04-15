@@ -1,0 +1,42 @@
+<ion-content>
+  <div class="content">
+    <form [formGroup]="discountCodeForm">
+      <p class="fs-12 ion-margin-top">Discount code</p>
+      <ion-col size="12" class="p-0">
+        <ion-item  [ngClass]="{ 'is-inp-invalid': getValid('couponCode')}" lines="none" class="custom-item fs-14 sitefontmedium mt-10">
+          <ion-input type="text" maxLength="12" formControlName="couponCode" class="fs-14 sitefontmedium"
+            placeholder="Enter the code" restrictFirstSpace trimValue>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <div class="error-view">
+        <div *ngIf="getValid('couponCode')" class="fw-4 float-left error-msg-txt">
+          <span *ngIf="this.discountCodeForm.controls.couponCode.errors?.required" class="">
+            Please enter your discount code
+          </span>
+          <span *ngIf="this.discountCodeForm.controls.couponCode.errors?.minlength">
+            Please enter atleast 3 char your discount code
+          </span>
+        </div>
+      </div>
+
+      <p class="fs-12 sitefontmedium ion-margin-top light-blue-clr">Click 'Save & Update' to continue or cancel to
+        revert.</p>
+    </form>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-row class="p-0">
+    <ion-col>
+      <ion-button (click)="dismiss()" expand="block" class="outline-btn fs-12 sitefontmedium">
+        Cancel
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="save()" expand="block" class="theme-btn sitefontmedium fs-12">
+        Save & Update
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

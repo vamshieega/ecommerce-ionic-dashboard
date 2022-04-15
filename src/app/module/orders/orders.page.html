@@ -1,0 +1,133 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <div class="header-info">
+            <div class="header-left">
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                    <!-- <ion-menu-toggle>
+            <ion-img src="assets\icon\menu.svg"></ion-img> 
+        </ion-menu-toggle>  -->
+                </ion-buttons>
+            </div>
+            <div class="header-center">
+                <ion-img src="assets\icon\Yumzyx_logo.svg"></ion-img>
+            </div>
+        </div>
+    </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true">
+    <ion-refresher slot="fixed" (ionRefresh)="pullToRefresh($event)">
+        <ion-refresher-content pulling-icon="arrow-down-outline" pulling-text="Pull to refresh..."
+            refreshing-text="Refreshing..." refreshing-spinner="circles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-item-divider *ngIf='listlength!== 0' class="ion-no-padding" sticky>
+        <ion-searchbar placeholder="Search by order number" type="number"
+            (keypress)="commonService.onlyNumberAllow($event)" (ionChange)="searchOrder($event)" animated
+            [formControl]="searchControl"></ion-searchbar>
+    </ion-item-divider>
+    <div class="ion-text-center background-image" *ngIf='listlength === 0'>
+        <div class="image-content-new-user">
+            <ion-img src="assets\icon\no-orders.png" class="image-view"></ion-img>
+            <p class="black-color sitefontmedium image-status  fs-16">No Orders</p>
+            <p class="black-color image-txt fs-12">You haven’t received any orders</p>
+        </div>
+    </div>
+    <div class="ion-text-center background-image" *ngIf='setOrderListLength'>
+        <div class="image-content">
+            <ion-img src="assets\icon\no-orders.png" class="image-view"></ion-img>
+            <p class="black-color sitefontmedium  image-status  fs-16">Order Not Found</p>
+            <p class="black-color image-txt fs-12">Please enter a valid order number</p>
+        </div>
+    </div>
+    <ion-slides *ngIf='listlength === 0'>
+    </ion-slides>
+    <ion-slides *ngFor="let order of orderList;  index as i">
+        <ion-grid>
+            <ion-row class="ordersList" (click)="onOrderItemClick(order,i)">
+                <ion-col class="ion-align-self-start" size=7>
+                    <ion-text>
+                        <p class="sitefontsemibold fs-14"> ORDER : #{{order.orderNum}}</p>
+                    </ion-text>
+                    <div class="grey-info-text  sitefontmedium fs-12">
+                        <span class="text-capitalize" *ngFor="let menu of order.items | slice:0:1;let isLast=last">
+                            {{menu['name']}}{{isLast ? '' : ', '}}</span>
+                        <span *ngIf="(order.items.length)-1 > 0">
+                            {{(order.items.length)-1}} + More</span>
+                    </div>
+                    <ion-text>
+                        <p class="grey-info-text fs-10 sitefontmedium" *ngIf="outletList.length > 1"> {{order.locality}}
+                        </p>
+                    </ion-text>
+                    <ion-text *ngIf="orderModelKey === 'pastOrders'">
+                        <p class="grey-info-text fs-10 sitefontmedium"> {{order.status.date | date: 'EEE, MMMM d, y,
+                            h:mm a'}} </p>
+                    </ion-text>
+                    <div *ngIf="orderModelKey === 'acceptanceWait'"
+                        class="text-button-color fs-10 sitefontlight ion-padding-top">
+                        Received <span>{{order.timeElapsed + intervalTimeElapsed}}</span> minutes ago
+                    </div>
+                </ion-col>
+                <ion-col size=5 class="sitefontlight right-content">
+                    <div class="order-type ion-text-end"
+                        *ngIf="isSelfPickup(order)  &&  orderModelKey !== 'pastOrders'">
+                        <img class="order-type-img " src="assets\icon\self-pickup.svg">
+                        <span class="fs-12  light-blue-clr sitefontmedium  ">Self-Pickup</span>
+                    </div>
+                    <div class="order-type ion-text-end" *ngIf="isScheduled(order) && orderModelKey !== 'pastOrders'">
+                        <img class="order-type-img" src="assets\icon\date-range.svg">
+                        <span class="fs-12  primary-dark-color  order-type-txt sitefontmedium">Scheduled order</span>
+                    </div>
+                    <div class="order-type ion-text-end order-type-img"
+                        *ngIf="!isScheduled(order) && !isSelfPickup(order) && orderModelKey !== 'pastOrders'">
+                        <img class="order-type-img" src="assets\icon\delivery.svg" alt="">
+                        <span class="fs-12  primary-light-clr  order-type-txt sitefontmedium">Delivery</span>
+                    </div>
+                    <div class="order-type" *ngIf="getCompletedOrderStatus(order)  && orderModelKey === 'pastOrders'">
+                        <div class="order-type-img">
+                            <span class="checkmark">
+                                <div class="checkmark_success"></div>
+                                <div class="checkmark_right"> </div>
+                                <div class="checkmark_left"> </div>
+                            </span>
+                        </div>
+                        <span class="fs-10 order-type-txt success-color sitefontmedium">Order delivered </span>
+                    </div>
+                    <div class="order-type" *ngIf="getRejectOrderStatus(order) && orderModelKey === 'pastOrders'">
+                        <div class="order-type-img">
+                            <span class="checkmark">
+                                <div class="checkmark_error"></div>
+                                <div class="checkmark_cross1"> </div>
+                                <div class="checkmark_cross2"> </div>
+                            </span>
+                        </div>
+                        <span class="fs-10  order-type-txt error-color sitefontmedium">{{rejectionType}}</span>
+                    </div>
+                    <img class="right-arrow" src="assets\icon\arrow-round-back.svg" alt="">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-slides>
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col size=12>
+            <ion-segment scrollable mode="md" (ionChange)="segmentChanged()" [(ngModel)]="segment">
+                <ion-segment-button (click)="onOrderStatusTypeChange(status.modelKey)"
+                    *ngFor="let status of orderStatusList;let i = index;" mode="md" [id]="i" [value]="i">
+                    <div class="align-items-center">
+                        <ion-label [ngClass]="{'icon-timer': i === 4}"
+                            [class.selected]="orderModelKey === 'pastOrders'">
+                            {{ status?.name }}
+                            <ion-badge [class.selected]="orderModelKey === status?.modelKey"
+                                *ngIf="status?.modelKey !=='outForDelivery' && status?.modelKey !=='pastOrders'">
+                                {{orderModel[status?.modelKey].length}}
+                            </ion-badge>
+                        </ion-label>
+                    </div>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-col>
+    </ion-row>
+</ion-footer>

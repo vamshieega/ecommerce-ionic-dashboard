@@ -1,0 +1,43 @@
+<div class="custom-op-timing">
+  <ion-text class="fs-12 black-color sitefontmedium"
+    >You can Edit or Add new timings by clicking Edit timings below.</ion-text
+  >
+  <div class="edit-timing">
+    <div (click)="onNavigateCustomTiming()">
+      <span class="fs-12 icon-pen"></span>
+      <ion-text class="fs-12 primary-dark-clr sitefontmedium"
+        >Edit timing</ion-text
+      >
+    </div>
+  </div>
+  <ion-grid class="p-0 black-color">
+    <ion-row
+      *ngFor="let day of days;index as i"
+      [ngClass]="{'inActive-day' : timings[i]?.operational === false}"
+    >
+      <ion-col size="2" class="p-0 fs-14 ion-text-capitalize ion-text-left">
+        {{day}}</ion-col
+      >
+      <ion-col size="4" class="p-0"></ion-col>
+      <ion-col size="6" class="p-0">
+        <div *ngIf="timings[i]?.operational">
+          <div *ngFor="let slots of timings[i].slots">
+            <span
+              *ngIf="slots.startTime === '0000' && slots.endTime === '2359';else allSlots"
+            >
+              <p class="fs-14 ion-text-center">24 Hours</p>
+            </span>
+            <ng-template #allSlots>
+              <span class="all-slots">
+                <p class="fs-14 ion-text-center">
+                  {{getSlots(slots.startTime) +" - " + getSlots(slots.endTime)}}
+                </p>
+              </span>
+            </ng-template>
+          </div>
+        </div>
+        <div class="ion-text-center" *ngIf="!timings[i]?.operational">-</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

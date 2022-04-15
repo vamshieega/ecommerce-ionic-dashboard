@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <p class="fs-14 p-0" (click)="backPage()" slot="start">
+            <span class="icon-back ion-padding"></span>
+        </p>
+        <ion-title class="fs-14 sitefontmedium">Variant options</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <form [formGroup]="itemVariantForm">
+        <ion-row class="variant_name">
+            <ion-col size=4>
+                <span class="primary-light-clr fs-12">Variant Name : </span>
+            </ion-col>
+            <ion-col size=8>
+                <ion-item lines="none" class="variant-item">
+                    <ion-input formControlName="addonName" (ionChange)="onAddonFormSubmit($event)"
+                        placeholder="Enter variant name">
+                    </ion-input>
+                    <span class="text-button-color icon-pen fs-12"></span>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </form>
+    <div class="underline"> </div>
+    <ion-row class="ion-padding" style="margin-left: 2px;">
+        <ion-col size=12>
+            <p class="fs-14 black-color sitefontmedium">Set variant options</p>
+        </ion-col>
+        <ion-col size=12>
+            <p class="fs-12 grey-info-text">Create variants options based on your variant requirements.</p>
+        </ion-col>
+    </ion-row>
+    <ion-row [ngClass]="{'disabledOption': !this.itemVariantForm.value.addonName}" (click)="addOptions()"
+        class="variant-msg ion-margin-bottom">
+        <ion-col size=12 class="ion-no-padding">
+            <div class="ion-text-center success-color fs-12">
+                <span class=" sitefontbold">Add variant options</span>
+                <p style="margin-top: 7px;">Build your own customisation</p>
+            </div>
+        </ion-col>
+    </ion-row>
+    <div class="ion-padding-top variantLine"> </div>
+    <ion-row class="ion-padding">
+        <ion-col size=12 class="p-0">
+            <p class="fs-12 sitefontmedium text-button-color" style="margin-left: 4px;">List of variants</p>
+        </ion-col>
+        <ion-col>
+            <div class="heading_line"></div>
+        </ion-col>
+    </ion-row>
+    <ion-row class="variant_options" *ngFor="let options of variantOptions; let i = index;">
+        <ion-col style="padding: 10px;" size=12>
+            <p class="fs-10 grey-info-text">Option name</p>
+            <p class="fs-14 sitefontmedium"> {{options.optionName}} </p>
+        </ion-col>
+        <ion-row class="option_values">
+            <ion-col size=3.4 style="margin-left: 5px;" class="ion-no-padding">
+                <p class="fs-10 grey-info-text">Variant type</p>
+                <p class="fs-14 sitefontmedium">{{getVegNonVegItem(options.isVeg,options.containsEgg)}}</p>
+            </ion-col>
+            <ion-col size=4.5 class="col_border ion-no-padding">
+                <p class="fs-10 grey-info-text">Price Of Variant</p>
+                <p class="fs-14 sitefontmedium ">{{currency.symbol}} {{options.originalCost}}</p>
+            </ion-col>
+            <ion-col size=3.8 class="col_border ion-no-padding">
+                <p class="fs-10 grey-info-text">Discount Price</p>
+                <p class="fs-14 sitefontmedium">{{currency.symbol}} {{options.cost}}
+                    <span *ngIf="options.cost === '' || options.cost === null ">{{options.originalCost}}</span>
+                </p>
+            </ion-col>
+        </ion-row>
+        <div class="underline ion-margin-top"></div>
+        <ion-row>
+            <ion-col class="sitefontmedium">
+                <button (click)="editOptions(i)" ion-button full no-margin class="item_btn">Edit</button>
+                <button (click)="deleteOption(i)" ion-button full no-margin class="item_btn">Delete</button>
+            </ion-col>
+        </ion-row>
+    </ion-row>
+    <div *ngIf="variantOptions.length === 0" class="ion-text-center no_variants">
+        <span class="fs-12 black-color sitefontmedium">"You haven't created any variant options."</span>
+    </div>
+</ion-content>

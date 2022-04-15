@@ -1,0 +1,39 @@
+.custom-op-timing {
+  ion-text {
+    color: var(--grey-info-text);
+  }
+  .edit-timing {
+    padding-top: 20px;
+    > div {
+      display: inline-flex;
+      align-items: center;
+      background: var(--layout-bg-color);
+      padding: 12px;
+      border: 1px solid #3d2643;
+      border-radius: 20px;
+      ion-text {
+        padding-left: 10px;
+      }
+    }
+  }
+  ion-row {
+    padding: 24px 0px;
+    border-bottom: 1px solid var(--disabled-color);
+    display: flex;
+    ion-col {
+      > div .all-slots {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .inActive-day {
+    ion-col {
+      color: var(--grey-info-text);
+    }
+  }
+  .time-slot {
+    text-align: start;
+  }
+}

@@ -1,0 +1,91 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>discount-schedule</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="discuntSchedule">
+    <div class="p-20">
+      <p class="fs-12 sitefontmedium">Discount Scheduling</p>
+      <p class="fs-12 grey-info-text mt-10">Helps you to managing customized timeline in availing the offer</p>
+    </div>
+    <div formGroupName="activeSlots">
+      <div class="ph-20 card-radio-view d-flex">
+        <label class="radio-card" (click)="radioChange('all-day')">
+          <input type="radio" formControlName="category" class="radio" id="veg" name="category" value="all-day">
+          <span class="radio-details">
+            <span class="fs-12 sitefontmedium radio-name "> All day</span>
+            <p class="fs-12 mt-10">Same timings for all days in a week</p>
+          </span>
+        </label>
+        <label class="radio-card" (click)="radioChange('weekdays')">
+          <input type="radio" class="radio" formControlName="category" id="nonVeg" name="category" value="weekdays">
+          <span class="radio-details">
+            <span class="fs-12 sitefontmedium radio-name">Daywise</span>
+            <p class="fs-12 mt-10">Set individual timings</p>
+          </span>
+        </label>
+        <label class="radio-card" (click)="radioChange('slots')">
+          <input type="radio" class="radio" formControlName="category" id="veg" name="category" value="slots">
+          <span class="radio-details">
+            <span class="fs-12 sitefontmedium radio-name "> Specific Time</span>
+            <p class="fs-12 mt-10">Schedule timings for individual days</p>
+          </span>
+        </label>
+      </div>
+      <div class="underline"></div>
+      <div class="p-20">
+        <div>
+          <p class="fs-12 light-blue-clr">Discount will be applied to All days in a week till it reach end date</p>
+        </div>
+        <div *ngIf="activeSlots.category.value === 'weekdays'">
+          <p class="fs-12">You can Select multiple days, but timings will be same for all selections.</p>
+          <div class="mt-10" class="tempclass">
+            <div formArrayName="weekdays" *ngFor="let wDays of weekDaysList;let i = index">
+              <div class="txt-checkbox">
+                <input type="checkbox" id="feature1" [formControlName]="i" />
+                <div class="title-label">
+                  <span class="fs-14 sitefontmedium">
+                    {{wDays.val}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="activeSlots.category.value === 'slots'">
+
+          <ion-row class="mt-10">
+            <ion-col size="4.5" class="fs-12">Start date</ion-col>
+            <ion-col size="1"></ion-col>
+            <ion-col size="4.5" class="fs-12">End date</ion-col>
+          </ion-row>
+          <ion-row formGroupName="slots">
+            <ion-col size=4.5>
+              <ion-datetime formControlName="startTime" displayFormat="h:mm A" minuteValues="0,30"
+                placeholder="start time"></ion-datetime>
+            </ion-col>
+            <ion-col size="1" class="ion-text-center">
+              <span class="date-center">-</span>
+            </ion-col>
+            <ion-col size=4.5>
+              <ion-datetime formControlName="endTime" displayFormat="h:mm A" [minuteValues]="minuteValues"
+                placeholder="end time">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+
+          <p class="fs-12 light-blue-clr">This discount Starts at 08:00 AM and Ends at 09:00 PM with the respective
+            Scheduled date.</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</ion-content>
+
+<ion-button expand="block" (click)="submit()" class="ion-margin theme-btn fs-12 sitefontmedium">
+  Confirm Discount Schedule
+</ion-button>

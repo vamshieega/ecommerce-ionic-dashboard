@@ -1,0 +1,94 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Menu Items</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-item-divider sticky>
+  <ion-row class="outlet_info">
+    <ion-col size=7 class="col_border">
+      <div *ngIf="getOutletTotalCount() !== 1">
+        <p class="fs-12">
+          <span class="primary-light-clr ion-padding-end" (click)="onChangeOutlet()">{{locality}} </span>
+          <span class="primary-dark-clr icon-arrow-dropdown fs-10"></span>
+        </p>
+      </div>
+    </ion-col>
+    <ion-col size=3.2 class="ion-no-padding col_border">
+      <ion-button  expand="block" (click)="addNewItem()" class="item_btn fs-12">
+        <span class="sitefontsemibold">ADD ITEM</span>
+      </ion-button>
+    </ion-col>
+    <ion-col (click)="searchOrder($event)" size=1.8>
+      <p class="ion-text-center">
+        <span class="icon-search-small fs-20"></span>
+      </p>
+    </ion-col>
+  </ion-row>
+</ion-item-divider>
+<ion-content [scrollEvents]="true">
+  <div *ngIf="itemCatPreSent === 'YES'">
+    <div *ngFor="let item of menuListDisplay; let i = index">
+      <div id="{{item._id}}" [ngClass]="{'underline': item.showCat === true && i !== 0 , 'itemUnderline': i!==0}"></div>
+      <div id="{{item.cat_id}}">
+        <ion-row>
+          <ion-col *ngIf="item.showCat" class="ion-padding-bottom subcategory_title fs-12">
+            <span class="fs-14 ion-padding sitefontsemibold">{{item.cat_name}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-horizontal">
+          <ion-col size=3.8 *ngIf="item.imageUrl.length > 40">
+            <div class="image-item">
+              <span class="icon-indicator fs-25" [ngClass]="getVegNonVegItem(item?.isVeg,item?.containsEgg)"></span>
+              <img [src]="item.imageUrl" alt="">
+            </div>
+          </ion-col>
+          <ion-col size=1.1 *ngIf="item.imageUrl.length < 40">
+            <span class="icon-indicator fs-19" [ngClass]="getVegNonVegItem(item?.isVeg,item?.containsEgg)"></span>
+          </ion-col>
+          <ion-col size={{checkImage(item.imageUrl.length)}}>
+            <div [ngClass]="{item_info: checkImage(item.imageUrl.length) === 8.9}">
+              <p class="black-color fs-12 sitefontmedium">{{item.name}}</p>
+              <p class="currency black-color fs-14 sitefontmedium">
+                <span>{{currency.symbol}}</span>{{item.price}}
+              </p>
+              <ion-text *ngIf="item.description !=='' " class="fs-12 dark-gray sitefontnormal">
+                {{MoreText(item.description)}}
+                <span class="fs-12 dark-gray sitefontnormal" *ngIf="item.description.length > 36"
+                  (click)="itemView(item)">...More</span>
+              </ion-text>
+              <div class="action_btns fs-12">
+                <button ion-button full no-margin (click)="itemView(item)" class="">View</button>
+                <button ion-button full no-margin (click)="editMenuItem(item)" class="ion-margin-start">Edit</button>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col size=2>
+            <ion-toggle [checked]="item.availableForOrder" (ionChange)="switchOnOff($event,item.id,i)">
+            </ion-toggle>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <ion-button class="fab-btn" (click)="onChangeCategory()">
+      <span class="icon-filter-stripe fs-12"></span>
+      <span class="fs-12 sitefontmedium">Categories</span>
+    </ion-button>
+  </div>
+</ion-content>
+<ion-footer *ngIf="itemCatPreSent === 'NO'">
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" class="outline-btn fs-12">
+        Add Category
+      </ion-button>
+    </ion-col>
+    <ion-col size=6 *ngIf="menuListDisplay.length === 0">
+      <ion-button type="button" expand="block" class="theme-btn fs-12">
+        Add menu
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

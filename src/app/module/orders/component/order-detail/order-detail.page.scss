@@ -1,0 +1,24 @@
+.header-center {
+  position: absolute;
+  text-align: center;
+  left: 36%;
+  top: 50%;
+  transform: translate(-20%, -50%);
+}
+ion-button {
+  --ripple-color: transparent;
+}
+.accept-btn {
+  float: right;
+  width: 100%;
+}
+//updating button in local component
+.back-btn {
+  border: 1px solid var(--primary-dark-clr);
+  --background: transparent;
+  color: var(--primary-dark-clr);
+  height: 46px;
+  border-radius: 3px;
+  --ripple-color: transparent;
+  font-family: "Poppins-medium";
+}

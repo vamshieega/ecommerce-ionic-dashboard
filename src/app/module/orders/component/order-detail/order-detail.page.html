@@ -1,0 +1,93 @@
+<ion-header class="order-header">
+  <ion-toolbar>
+    <div class="header-info">
+      <div class="header-left">
+        <!-- [routerLink]="'/home/orders'" -->
+        <p (click)="backpage()" class="fs-19"><span class="icon-back ion-padding" style="width: 20px;"></span>
+        </p>
+      </div>
+      <div class="header-center ">
+        <p class="fs-14 sitefontmedium"> Order #{{orderObj?.orderNum}}</p>
+        <p class="fs-12"> {{orderObj?.creationDate | date: 'EEE, MMMM d, y, h:mm a' }}</p>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- when we are in orders page and got notification, when we click on received order, we are not getting the orderObj -->
+  <app-item-details *ngIf="btnName === 'MORE ACTIONS'" [orderObj]="orderObj">
+  </app-item-details>
+  <app-order-view-and-billing *ngIf="btnName === 'VIEW ITEMS'" [orderObj]="orderObj" [orderId]="orderId">
+  </app-order-view-and-billing>
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-row *ngIf="orderModelKey === 'outForDelivery' || orderModelKey === 'pastOrders'">
+    <ion-col>
+      <ion-button (click)="switchBtn()" expand="block" class="back-btn fs-12">
+        {{btnName}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="orderModelKey === 'acceptanceWait'">
+    <ion-col>
+      <ion-button (click)="switchBtn()" expand="block" class="back-btn fs-12">
+        {{btnName}}
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button type="button" class="theme-btn accept-btn fs-12" (click)="onChangeStatus('foodPreparation')">
+        {{getBtnText('acceptanceWait')}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="orderModelKey === 'foodPreparation'" class="accept-btn">
+    <ion-col>
+      <ion-button (click)="switchBtn()" expand="block" class="back-btn fs-12">
+        {{btnName}}
+      </ion-button>
+    </ion-col>
+    <ion-col class="accept-btn">
+      <ion-button expand="block" class="theme-btn accept-btn fs-12 " (click)="onChangeStatus('foodReady')">
+        {{getBtnText('foodPreparation')}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="orderModelKey === 'foodReady'" class="accept-btn">
+    <ion-col>
+      <ion-button (click)="switchBtn()" expand="block" class="back-btn fs-12">
+        {{btnName}}
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!scheduleOrder(orderObj) && !isSelfPickupOrder(orderObj)
+    && orderObj && orderObj.config && orderObj.config.delivery &&
+    orderObj.config.delivery.provider !== 'self'">
+      <ion-button expand="block" class="theme-btn accept-btn fs-12 " (click)="onChangeStatus('outForDelivery')">
+        {{getBtnText('foodReady')}}
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="scheduleOrder(orderObj) && !isSelfPickupOrder(orderObj)">
+      <ion-button expand="block" class="theme-btn accept-btn fs-12 " (click)="onChangeStatus('complete')">
+        {{getBtnText('foodReady')}}
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!scheduleOrder(orderObj) && !isSelfPickupOrder(orderObj)
+    && orderObj && orderObj.config && orderObj.config.delivery &&
+    orderObj.config.delivery.provider === 'self' ">
+      <ion-button expand="block" class="theme-btn accept-btn fs-12 " (click)="onChangeStatus('complete')">
+        {{getBtnText('foodReady')}}
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="isSelfPickupOrder(orderObj) && !scheduleOrder(orderObj)">
+      <ion-button expand="block" class="theme-btn accept-btn fs-12 " (click)="onChangeStatus('complete')">
+        {{getBtnText('foodReady')}}
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="isSelfPickupOrder(orderObj) && scheduleOrder(orderObj)">
+      <ion-button expand="block" class="theme-btn accept-btn fs-12 " (click)="onChangeStatus('complete')">
+        {{getBtnText('foodReady')}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

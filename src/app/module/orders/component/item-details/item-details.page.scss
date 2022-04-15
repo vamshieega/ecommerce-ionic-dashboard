@@ -1,0 +1,41 @@
+.under-line {
+  border-bottom: 1px solid var(--layout-bg-color);
+  width: 100%;
+}
+
+.error-color {
+  color: var(--error-color);
+}
+
+.instructions {
+  background: var(--layout-bg-color);
+  padding: 15px 10px 15px 10px;
+  border: 2px dashed var(--grey-info-text);
+  position: relative;
+}
+
+.instructions:after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 2px solid var(--layout-bg-color);
+  pointer-events: none;
+}
+
+.items {
+  bottom: 100px;
+  text-align: center;
+  z-index: 9;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: var(--error-color);
+  .arrow-down {
+    position: relative;
+    top: 2px;
+    left: 2px;
+  }
+}

@@ -1,0 +1,23 @@
+<ion-content id="my-content">
+  <div [ngClass]="menuList.length > 4 ? 'maxList' : 'minList'">
+    <div *ngFor="let menu of menuList">
+      <ion-row class="fs-14" [ngClass]="menu.cat_name === selectedCategoryName ?
+           'primary-dark-clr sitefontmedium': 'sitefontnormal grey-info-text'">
+        <ion-col size=1>
+          <div [ngClass]="{'circle': menu.cat_name === selectedCategoryName}">
+          </div>
+        </ion-col>
+        <ion-col size=9.5 style="margin-top: 3px;">
+          <div (click)="selectedCategory(menu.cat_name,menu.cat_id)">
+            {{menu.cat_name}}
+          </div>
+        </ion-col>
+        <ion-col size=1.5>
+          <div style="text-align: end;">
+            {{menu.item_count}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,81 @@
+<ion-content>
+  <ion-col size=12>
+    <ion-icon (click)="previousPage()" class="fs-30 backicon " name="arrow-back-outline"></ion-icon>
+  </ion-col>
+  <ion-grid>
+    <ion-row>
+      <ion-col size=12 class="ion-no-padding">
+        <div class="ion-text-center">
+          <ion-text class="sitefontsemibold fs-22">
+            {{header}}
+          </ion-text>
+        </div>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding">
+        <div class="ion-text-center">
+          <ion-text ion-padding class="sitefontsemibold fs-20">
+            Enter OTP
+          </ion-text>
+        </div>
+      </ion-col>
+      <ion-col size=12 class="otp-input ion-padding-top">
+        <div class="ion-text-center">
+          <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+        </div>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding" *ngIf="isOtpValid">
+        <div class="ion-text-center">
+          <ion-text class="error-view">
+            Please enter the 4 Digit Code
+          </ion-text>
+        </div>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding" *ngIf="!isOtpValid">
+        <div class="ion-text-center">
+          <ion-text class="error-view">
+            Please enter the OTP
+          </ion-text>
+        </div>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding">
+        <div class="ion-text-center sitefontnormal">
+          <div class="fs-13">
+            <ion-text *ngIf="!showResend">
+              Didn't receive OTP ?
+            </ion-text>
+          </div>
+          <div>
+            <ion-row>
+              <ion-col>
+                <ion-text *ngIf="!showResend">
+                  Resend in &nbsp; 00 : {{seconds}}
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </div>
+          <ion-text *ngIf="showResend" (click)="resend()" class="fs-14 error-view">
+            Resend Code
+          </ion-text>
+        </div>
+      </ion-col>
+      <ion-col size=12>
+        <div class="ion-text-center fs-13">
+          <ion-text>
+            <b>OTP send to </b>
+            <ion-text class="text-blue">{{mobileForm.controls.countryCode.value}}-
+              {{mobileForm.controls.mobile.value}}
+            </ion-text>
+          </ion-text>
+        </div>
+      </ion-col>
+      <ion-col size=12 class="ion-text-center text-blue">
+        <ion-text (click)="previousPage()">
+          Incorrect Number ?
+        </ion-text>
+      </ion-col>
+      <ion-col size=12 class="ion-padding-top">
+        <ion-button class="theme-btn" expand="block" (click)="onVerifyOTP()" type="submit">Verify</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

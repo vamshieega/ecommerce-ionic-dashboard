@@ -1,0 +1,89 @@
+<ion-row class="content-row">
+  <form [formGroup]="fssaiForm" *ngIf="formInit">
+    <ion-item lines="none" class="toggle-btns">
+      <ion-label class="sitefontmedium fs-14 primary-dark-clr">Do you have FSSAI License Number ?</ion-label>
+      <label class="switch mx-3 mb-0">
+        <input type="checkbox" formControlName="fssaiEntered">
+        <span class="slider round custom-toggle"></span>
+      </label>
+    </ion-item>
+
+    <div class="line"></div>
+
+
+    <div *ngIf="fssaiForm.controls.fssaiEntered.value" class="ion-padding-horizontal w-100">
+
+      <div>
+        <ion-label class="fs-12 sitefontregular">License Number</ion-label>
+        <ion-input type="text"  (keypress)="($event.charCode >= 48 && $event.charCode < 58)" [ngClass]="{ 'is-inp-invalid':getValid('lic')}" maxlength="14" formControlName="lic"autocomplete="off" restrictFirstSpace (keypress)="onKeyPress($event)" class="inp-control fs-14 fontsitemedium black-color" type="text" placeholder="Enter License Number"></ion-input>
+        <div class="error-view">
+          <div *ngIf="getValid('lic')" class="fs-11 fw-4">
+              <span *ngIf="fssaiForm.controls.lic.errors?.required"
+                  class="float-left error-msg-txt">
+                  Please enter License Number
+              </span>
+              <span *ngIf="fssaiForm.controls.lic.errors?.min" class="float-left error-msg-txt">
+                  License Number can be min 14 Number long.
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <ion-label class="fs-12 sitefontregular">Valid Upto</ion-label>
+        <ion-datetime (ionChange)="onDateChange($event)" class="fs-14 fontsitemedium inp-control" [min]="startMinDate" [max]="maxYear" [ngClass]="{ 'is-inp-invalid':getValid('validUpto')}" formControlName="validUpto" restrictFirstSpace placeholder="DD-MM-YYYY"></ion-datetime>
+
+        <div class="error-view">
+          <div *ngIf="getValid('validUpto')" class="fs-11 fw-4">
+              <span *ngIf="fssaiForm.controls.validUpto.errors?.required"
+                  class="float-left error-msg-txt">
+                  Please enter Valid Upto
+              </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="inline-flex">
+        <span class="fs-12 fontsiteregular">Certificate&emsp;</span>
+        <span class="fs-12 fontsiteregular light-grey-color">(Allowed formats .jpg .pdf .jpeg .doc .png .dpcx, Maximum size 2MB)</span>
+      </div>
+
+      <ion-item lines="none" class="ion-no-padding">
+        <input #uploadFile type="file" class="none" (change)="onCertificateSelect($event)">
+        <ion-button *ngIf="!isViewCertificate" class="upload-btn sitefontmedium" (click)="uploadFile.click()">Upload</ion-button>
+        <ion-button *ngIf="!isViewCertificate" (click)="viewCertificate()" class="view-btn sitefontmedium">View</ion-button>
+      </ion-item>
+      <!-- <div *ngIf="!isViewCertificate">
+          <a class="view-certificate">
+              <span class="fs-12">{{certificateName}} </span>
+          </a>
+      </div> -->
+
+    </div>
+
+    <div class="notif" *ngIf="!fssaiForm.controls.fssaiEntered.value">
+      <div class="custom-card">
+        <span class="close" (click)="close($event)">&#10006;</span>
+        <!-- <span class="info-icon">icon</span> -->
+        <p class="fs-12 dark-primary-color">Click <b>"Save & Proceed"</b> if don’t have a Fssai Number or certificate.</p>
+      </div>
+    </div>
+    
+  </form>
+</ion-row>
+
+<ion-footer class="ion-no-border">
+  <ion-row class="footer ion-padding-horizontal">
+    <ion-col>
+      <ion-button expand="block" class="outline-btn fs-12" (click)="back()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" class="theme-btn   fs-12 " (click)="saveAndProceed()">
+        Save & Proceed
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

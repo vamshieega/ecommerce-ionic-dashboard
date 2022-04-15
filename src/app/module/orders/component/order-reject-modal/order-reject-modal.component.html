@@ -1,0 +1,56 @@
+<!-- <ion-header class="modal-hdr">
+  <div class="ion-text-center">
+    <ion-text class="white-color"> 
+      Reason for Cancellation  
+    </ion-text>
+  </div> 
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selected_value" lines="none" (ionChange)="onChangeOptions($event.target.value)">
+      <ion-item>
+        <ion-label>Outlet Close</ion-label>
+        <ion-radio slot="start" [value]="outletClose"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Item Out Of Stock</ion-label>
+        <ion-radio slot="start" [value]="itemOutOfStock"></ion-radio>
+      </ion-item>
+      <form class="ion-padding" [formGroup]="rejectReasonForm">
+        <div class="ion-padding-horizontal" formArrayName="items">
+          <div *ngFor="let item of itemsList;let i = index">
+            <ion-checkbox color="primary" [id]="i" [name]="i" [formControlName]="i"
+              (ionChange)="onMenuItemChange($event,i,item?.itemId)" (click)="onChangeOptions('ITEM')"></ion-checkbox>
+            <ion-label [title]='item?.name'> {{item.name}} </ion-label>
+          </div>
+        </div>
+      </form>
+      <ion-item>
+        <ion-label>Other</ion-label>
+        <ion-radio slot="start" [value]="other" (ionChange)="onChangeOptions($event.target.value)"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  <ion-row>
+    <ion-col class="ion-padding">
+      <ion-item lines="none" class="custom-item">
+        <ion-input placeholder="Enter other Reason" [(ngModel)]="comment" (click)="onChangeOptions('COMMENT')">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-row class="ion-padding">
+    <ion-col>
+      <ion-button expand="block" class="outline-btn fs-12  " (click)="dismiss()">
+        CANCEL
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" class="theme-btn   fs-12 " (click)="onReasonSubmit()">
+        Save
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer> -->

@@ -1,0 +1,46 @@
+.theme-btn {
+    color: var(--white-clr);
+    --background: var(--primary-dark-clr) 0% 0% no-repeat padding-box !important;
+    font-weight: 400;
+    height: 46px;
+    @extend .common-btn;
+    &:hover {
+        --box-shadow: 0px 0px 5px var(--primary-dark-clr);
+    }
+}
+
+ion-button { 
+    --background-activated: none !important;
+}
+
+.outline-btn {
+    border: 1px solid var(--primary-dark-clr);
+    --background: transparent;
+    color: var(--primary-dark-clr);
+    height: 46px;
+    @extend .common-btn;
+
+    &:hover {
+        box-shadow: 0px 0px 5px var(--primary-dark-clr);
+        border: 1px solid transparent;
+    }
+}
+ion-button {
+    text-transform: none;
+}
+
+.reject-btn {
+    border-color: var(--error-color) !important;
+    color: var(--error-color) !important;
+  
+    &:hover {
+      box-shadow: 0px 0px 5px var(--error-color);
+    }
+}
+
+.accept-btn {
+    color: var(--white-clr);
+    --background: var(--success-color) 0% 0% no-repeat padding-box !important;
+     height: 46px;
+    @extend .common-btn;
+}

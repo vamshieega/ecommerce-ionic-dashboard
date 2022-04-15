@@ -1,0 +1,68 @@
+<div class="inner-content">
+  <ion-row *ngIf="this.item_id?.imageUrl.length > 40" class="ion-no-padding image_item">
+    <img [src]="this.item_id?.imageUrl" alt="image">
+  </ion-row>
+  <ion-row class="ion-padding">
+    <ion-col size=1.1 class="ion-no-padding">
+      <span class="icon-indicator fs-19"
+        [ngClass]="getVegNonVegItem(this.item_id?.isVeg,this.item_id?.containsEgg)"></span>
+    </ion-col>
+    <ion-col class="ion-no-padding" size=10.9>
+      <p class="black-color fs-14 sitefontmedium">{{this.item_id?.name}}</p>
+      <p class="item_space black-color fs-14 sitefontmedium">{{currency?.symbol}} {{this.item_id?.price}}</p>
+      <ng-template [ngIf]="this.item_id?.description !=='' " [ngIfElse]="noDescription">
+        <ion-text class="fs-12 dark-gray sitefontnormal">
+          {{this.item_id?.description}}
+        </ion-text>
+      </ng-template>
+      <ng-template #noDescription>
+        <ion-text class="fs-12">Description N/A
+          <p class="fs-10">(You haven't wrote item description)</p>
+        </ion-text>
+      </ng-template>
+    </ion-col>
+  </ion-row>
+  <div class="bottom-fields">
+    <div class="under-line"></div>
+    <ion-row class="ion-padding">
+      <ion-col size=1.1 class="p-0"></ion-col>
+      <ion-col size=10.9 class="ion-no-padding">
+        <div class="fs-12 grey-info-text ">
+          UNAVAILABLE TILL :
+          <span class="primary-dark-clr sitefontmedium ion-padding-start"> {{this.item_id?.nextAvailable |date:
+            'dd-MM-yyyy | h:mm a':'+0530'}}</span>
+          <span *ngIf="this.item_id?.nextAvailable === '' "> - </span>
+        </div>
+      </ion-col>
+      <ion-col size=1.1 class="p-0">
+      </ion-col>
+      <ion-col size=10.9 class="item_space p-0">
+        <p class="fs-12 grey-info-text">
+          ADDONS :
+          <span
+            class="fs-14 primary-dark-clr sitefontmedium">{{getAddonVariantCount(this.item_id?.addons).addon}}</span>
+          <span class="ion-padding-horizontal"> | </span>
+          <span>VARIANTS :
+            <span class="fs-14 primary-dark-clr sitefontmedium">
+              {{getAddonVariantCount(this.item_id?.addons).variant}}
+            </span>
+          </span>
+        </p>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+<ion-footer class="ion-padding-horizontal ion-no-border">
+  <ion-row class="ion-padding-bottom">
+    <ion-col>
+      <ion-button expand="block" (click)="editMenuItem(this.item_id)" class="outline-btn fs-14 sitefontmedium">
+        Edit
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="removeMenuItem(this.item_id)" expand="block" class="theme-btn fs-14 sitefontmedium">
+        Delete
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

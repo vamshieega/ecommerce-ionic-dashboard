@@ -1,0 +1,41 @@
+<ion-header>
+  <div class="image">
+    <div class="circle icon-cross" (click)="dismiss()">
+    </div>
+  </div>
+  <p class="fs-18 title ion-text-center">
+    Select Outlet
+  </p>
+</ion-header>
+<ion-content [scrollEvents]="true" id="my-content">
+  <div class="outletList">
+    <div class="outlets">
+      <ion-list class="outletList">
+        <ion-radio-group [value]="selectedOutletName">
+          <div *ngFor="let outlet of outletList; let i = index">
+            <ion-item id="{{outlet?.outletId}}"
+              (click)="outletDetails(outlet?.outletName,outlet?.outletId,outlet?.locality)">
+              <ion-radio value="{{outlet?.outletName}}"></ion-radio>
+              <div>
+                <p [ngClass]="{'primary-dark-color fs-16 sitefontmedium': selectedOutlet === outletList[i]?.outletName }"
+                  class="ion-padding-horizontal sitefontregular black-color" style="transform: translateY(18px);">
+                  {{outlet?.outletName}}</p>
+                <p class="sitefontnormal ion-padding-horizontal grey-info-text fs-12"
+                  style="padding-top: 20px; padding-bottom: 12px;"> {{outlet?.locality}}</p>
+              </div>
+            </ion-item>
+          </div>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <ion-row class="accept-btn">
+    <ion-col class="accept-btn">
+      <ion-button expand="block" (click)="onSelect()" class="sitefontmedium theme-btn fs-14">
+        Confirm Selection
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

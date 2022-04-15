@@ -1,0 +1,165 @@
+ion-row.heading {
+  padding: 10px 10px 10px 14px;
+  background-color: var(--layout-bg-color);
+}
+
+.dashed {
+  border-top: 2px var(--grey-info-text) dashed;
+  width: 100%;
+  margin: 10px 0px 8px 0px;
+}
+
+.cancelbtn {
+  border-radius: 25px;
+  --box-shadow: none;
+  --ripple-color: transparent;
+  height: 37px;
+}
+
+.schedule_icon {
+  position: relative;
+  .orderTypeImg {
+    width: 11px;
+    margin: 7px 5px 5px 0px;
+    //display: inline-grid;
+  }
+  .schedule-text {
+    position: absolute;
+    top: 4px;
+    left: 21px;
+  }
+  .self-pick-text {
+    position: absolute;
+    top: 2px;
+    left: 19px;
+  }
+}
+
+.dail-phone {
+  padding: 5px 5px 5px 1px;
+  background: var(--success-color);
+  border-radius: 3px;
+  width: 27px;
+  margin: 7px 0 0 0;
+  .dail-icon {
+    height: 16px;
+    width: 24px;
+  }
+}
+
+.upicon {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  height: 25px;
+  width: 10px;
+}
+
+.downicon {
+  height: 25px;
+  width: 10px;
+}
+
+.hideaccordion {
+  display: none;
+}
+
+.under-line {
+  margin: 6px 0 6px 0;
+  border-bottom: 1px solid var(--layout-bg-color);
+  width: 100%;
+}
+
+.thick-line {
+  margin: 0;
+  border-bottom: 5px solid var(--layout-bg-color);
+}
+// Global color not applying, tried here
+.grey-info-text {
+  color: var(--grey-info-text) !important;
+}
+
+.pb5 {
+  padding: 5px 0 5px 0;
+}
+
+.order-summary {
+  position: relative;
+  margin: 5px 0px 5px 0px;
+  .error-color {
+    color: var(--error-color) !important;
+  }
+  .order-summary-txt {
+    position: absolute;
+    top: 4px;
+  }
+}
+.checkmark {
+  display: inline-block;
+  width: 22px;
+  height: 10px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+
+  .checkmark_success {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: var(--success-color);
+    border-radius: 11px;
+    left: 0;
+    top: 0;
+  }
+
+  //global error color not applying using here
+  .error-color {
+    color: var(--error-color) !important;
+  }
+
+  .checkmark_error {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: var(--error-color);
+    border-radius: 11px;
+    left: 0;
+    top: 0;
+  }
+
+  .checkmark_cross1 {
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    background-color: #fff;
+    left: 6px;
+    top: 3px;
+  }
+
+  .checkmark_cross2 {
+    position: absolute;
+    width: 8px;
+    height: 2px;
+    background-color: var(--white-clr);
+    left: 3px;
+    top: 6px;
+  }
+
+  .checkmark_right {
+    position: absolute;
+    width: 2px;
+    height: 9px;
+    background-color: #fff;
+    left: 7px;
+    top: 2px;
+  }
+
+  .checkmark_left {
+    position: absolute;
+    width: 4px;
+    height: 2px;
+    background-color: var(--white-clr);
+    left: 4px;
+    top: 9px;
+  }
+}

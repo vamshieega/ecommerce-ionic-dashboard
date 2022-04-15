@@ -1,0 +1,133 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <p class="fs-14" (click)="onBack()" slot="start"><span class="icon-back ion-padding"></span>
+    </p>
+    <ion-title class="fs-14 sitefontmedium">Manage Location</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="basicDetailsForm">
+    <form formGroupName="address">
+      <div class="map-section">
+        <div>
+          <input type="text" class="fs-14" placeholder="Search by Outlet name or Location" #placesRef="ngx-places"
+            formControlName="addressLine" [options]="addressOptionsCity" (lat)="lat = $event" (lng)="lng = $event"
+            (onAddressChange)="handleAddressChange($event)" ngx-google-places-autocomplete id="autocomplete">
+          <span class="icon-search-small"></span>
+        </div>
+
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="mapZoom" [styles]="customStyle"
+          (mapReady)="mapReady($event)">
+        </agm-map>
+        <img src="../../../../assets/images/icons/agm-map-icons/restauranticon.svg" class="marker" alt="">
+        <ion-img src="./assets/icon/current-location.svg" class="currentLocation fs-24 fw-7"
+          (click)="setCurrentPosition()"></ion-img>
+      </div>
+      <div class="address-section">
+
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="fs-12 inp-label">Building address</ion-label>
+          <ion-item lines="none" class="custom-item">
+            <ion-input id="apartmentAddress" autocomplete="off" class="fs-14"
+              [ngClass]="{ 'is-inp-invalid': getAddressValid('address','apartmentAddress')}"
+              placeholder="Flat no, Plot no, Street name, Area" formControlName="apartmentAddress" maxLength="150"
+              restrictFirstSpace trimValue>
+            </ion-input>
+          </ion-item>
+          <div class="error-view">
+            <div *ngIf="getAddressValid('address','apartmentAddress')" class="fs-11 fw-4">
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['apartmentAddress'].errors?.required"
+                class="float-left error-msg-txt">
+                Please enter Building Address
+              </span>
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['apartmentAddress'].errors?.minlength"
+                class=" float-left error-msg-txt">
+                Please enter atleast 3 Characters</span>
+
+              <!-- <span *ngIf="basicDetailsForm?.get('address')['controls']['apartmentAddress'].hasError('whitespace')"
+                class=" float-left error-msg-txt">
+                Please enter valid Characters</span> -->
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="fs-12 inp-label">Locality</ion-label>
+          <ion-item lines="none" class="custom-item">
+            <ion-input autocomplete="off" id="locality"
+              [ngClass]="{ 'is-inp-invalid': getAddressValid('address','locality')}"
+              class="inp-control input-fields input-field" formControlName="locality" maxLength="50" class="fs-14"
+              placeholder='Your Outlet locality' restrictFirstSpace trimValue></ion-input>
+          </ion-item>
+          <div class="error-view">
+            <div *ngIf="getAddressValid('address','locality')" class="fs-11 fw-4">
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['locality'].errors?.required"
+                class="float-left error-msg-txt">
+                Please enter the locality
+              </span>
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['locality'].errors?.minlength"
+                class=" float-left error-msg-txt">
+                Please enter atleast 3 Characters</span>
+              <!-- <span *ngIf="basicDetailsForm?.get('address')['controls']['locality'].hasError('whitespace')"
+                class=" float-left error-msg-txt">
+                Please enter valid Characters</span> -->
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="fs-12 inp-label">Pin code</ion-label>
+          <ion-item lines="none" class="custom-item">
+            <ion-input class="fs-14" onlyNumber [ngClass]="{ 'is-inp-invalid': getAddressValid('address','pincode')}"
+              placeholder='Enter your Pincode' autocomplete="off" id="pincode" formControlName="pincode" maxLength="6"
+              restrictFirstSpace trimValue>
+            </ion-input>
+          </ion-item>
+          <div class="error-view">
+            <div *ngIf="getAddressValid('address','pincode')" class="fs-11 fw-4">
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['pincode'].errors?.required"
+                class="float-left error-msg-txt">
+                Please enter the Pincode
+              </span>
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['pincode'].errors?.minlength"
+                class=" float-left error-msg-txt">
+                Pincode Should be 6 digits</span>
+              <!-- <span *ngIf="basicDetailsForm?.get('address')['controls']['pincode'].hasError('whitespace')"
+                class=" float-left error-msg-txt">
+                Please enter valid Characters</span> -->
+
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="fs-12 inp-label">Land mark</ion-label>
+          <ion-item lines="none" class="custom-item">
+            <ion-input autocomplete="off" id="landmark"
+              [ngClass]="{ 'is-inp-invalid': getAddressValid('address','landmark')}"
+              class="inp-control input-fields input-field" formControlName="landmark" maxLength="50" class="fs-14"
+              restrictFirstSpace trimValue placeholder="Landmark near your outlet">
+            </ion-input>
+          </ion-item>
+          <div class="error-view">
+            <div *ngIf="getAddressValid('address','landmark')" class="fs-11 fw-4">
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['landmark'].errors?.required"
+                class="float-left error-msg-txt">
+                Please enter the Landmark
+              </span>
+              <span *ngIf="basicDetailsForm?.get('address')['controls']['landmark'].errors?.minlength"
+                class=" float-left error-msg-txt">
+                Please enter atleast 3 Characters</span>
+              <!-- <span *ngIf="basicDetailsForm?.get('address')['controls']['landmark'].hasError('whitespace')"
+                class=" float-left error-msg-txt">
+                Please enter valid Characters</span> -->
+
+            </div>
+          </div>
+        </ion-col>
+        <div class="button-section">
+          <ion-button class="theme-btn fs-12" (click)="onBack()"> Back</ion-button>
+          <ion-button class="theme-btn fs-12" (click)="onSaveAddress()">Save address</ion-button>
+        </div>
+      </div>
+    </form>
+  </form>
+
+</ion-content>

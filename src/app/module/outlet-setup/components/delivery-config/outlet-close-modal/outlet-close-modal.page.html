@@ -1,0 +1,28 @@
+<ion-content scrollY="false">
+  <div class="image">
+    <div class="circle icon-calendar primary-light-clr fs-20">
+      <!-- <img src="../../../assets/icon/logout-color.svg" alt=""> -->
+    </div>
+  </div>
+  <p class="fs-16 sitefontmedium  primary-dark-clr ion-text-center">
+    Do you want to close outlet on this day?
+  </p>
+  <p class="fs-12 ion-padding-top ion-text-center grey-info-text">
+    You will loose all of your unsaved data, <br>
+    click <span class="sitefontbold">‘Cancel’ to return</span> to page or <span class="sitefontbold">‘Confirm’ to Close</span>
+  </p>
+</ion-content>
+<ion-footer  class="ion-no-border ion-padding">
+  <ion-row class="accept-btn">
+    <ion-col>
+      <ion-button expand="block" (click)="dismiss()" class="back-btn fs-14">
+        Cancel
+      </ion-button>
+    </ion-col>
+    <ion-col class="accept-btn">
+      <ion-button expand="block" (click)="onCloseOutlet()" class="sitefontmedium theme-btn fs-14">
+        Confirm
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

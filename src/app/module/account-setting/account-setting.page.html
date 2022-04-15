@@ -1,0 +1,213 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-info">
+      <div class="header-left">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+          <span>Account Settings</span>
+        </ion-buttons>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="ion-padding-horizontal" [formGroup]="accountConfigForm" (ngSubmit)="onItemLayoutSubmit()"
+    *ngIf="accountConfigForm || step.status == stepStatus.complete">
+
+    <ng-template #layoutDescription>
+      <div>
+        <p class="fs-10 sitefontmedium pending-color">Best seller</p>
+        <p class="fs-14 sitefontmedium cyan-blue-color">Item name</p>
+        <p class="fs-10 sitefontlight txt-btn-clr">Item description will be displayed here ...</p>
+        <p class="fs-10 sitefontmedium cyan-blue-color"> show more</p>
+        <p class="fs-10 sitefontmedium black-color">1xx /-</p>
+      </div>
+    </ng-template>
+
+       <div class="ion-margin-top">
+        <ion-label for="storeName" class="inp-label">Domain name</ion-label>
+        <input id="storeName" class="inp-control form-text-color" type="text" #storeName formControlName="storeName"
+          placeholder="Store Name" placeholder="Enter your domain URL here"
+          [readOnly]="domainResponseData || dataSaved">
+      </div>
+      <div   class="error-view  w-100">
+        <div *ngIf="storeNameUrl && !accountConfigForm.controls.storeName.errors?.minlength">
+          <span class="fs-10 black-color">{{storeNameUrl}} </span> <span class="success-color fs-12"> is
+            available</span>
+        </div>
+        <span *ngIf="accountConfigForm.controls.storeName.errors?.required && 
+      (accountConfigForm.controls.storeName.errors?.touched || accountConfigForm.controls.storeName.errors?.dirty)"
+          class="error-msg-txt">
+          Please enter domain name</span>
+        <span *ngIf="accountConfigForm.controls.storeName.errors?.minlength" class="error-msg-txt">
+          Please enter atleast 3 Characters</span>
+        <span *ngIf="isDomainPresent" class="error-msg-txt">
+          Store Name is already Present.</span>
+      </div>
+    
+    <ion-row>
+      <ion-col size=10.1 class="ion-no-padding">
+        <p class="fs-14 fw-5 primary-dark-clr">Pick a color palette </p>
+        <span class="dummy-txt-clr fs-12">
+          Use one of the 25 available color palette
+        </span>
+      </ion-col>
+      <ion-col size=1.9 class="ion-no-padding">
+        <button class="clr-picker-btn icon-color-picker fs-12 primary-dark-clr" type="button"
+          (click)="openColorPalette()">
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size=6>
+        <div class="inp-group position-relative">
+          Primary Color
+          <input type="text" class="inp-control dark-gray-clr " placeholder="Primary Color" [value]="primaryColor"
+            (keypress)="onKeyPress($event, 7)" (input)="onColorChange($event, 'PC')" formControlName="primaryColor"
+            [ngClass]="{ 'is-inp-invalid': getValid('primaryColor')}">
+          <input [(colorPicker)]="primaryColor" [style.background]="primaryColor" [cpOKButton]="true"
+            [cpOKButtonText]="'Select'" [cpCancelButton]="true" [cpSaveClickOutside]="false" [cpDisableInput]="false"
+            (colorPickerSelect)="onSelectPrimaryColor($event)" [cpOutputFormat]="'hex'" class="color-picker-css" />
+        </div>
+      </ion-col>
+      <ion-col size=6>
+        <div class="inp-group position-relative">
+          Secondary Color
+          <input type="text" class="inp-control  dark-gray-clr" placeholder="Secondary Color" [value]="secondaryColor"
+            (keypress)="onKeyPress($event, 7)" (input)="onColorChange($event, 'SC')" fromControlName="secondaryColor"
+            [ngClass]="{ 'is-inp-invalid': getValid('secondaryColor')}">
+          <input [(colorPicker)]="secondaryColor" [style.background]="secondaryColor" [cpOKButton]="true"
+            [cpOKButtonText]="'Select'" [cpCancelButton]="true" [cpSaveClickOutside]="false" [cpDisableInput]="false"
+            (colorPickerSelect)="onSelectSecColor($event)" [cpOutputFormat]="'hex'" class="color-picker-css" />
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size=12>
+        <div class="row my-3 error-color" *ngIf="showClrError">
+          <span class="fs-12 fw-5 sitefontmedium">Secondary color palette doesn’t fit with selected primary
+            palette</span>
+        </div>
+      </ion-col>
+      <ion-col size=12>
+        <label class="black-color fs-14 mb-3 sitefontmedium">Select a Layout you want to display for your
+          items</label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top"
+      [class]="menuDisplayCode == menuLayoutCode.NORMAL_MENU_ITEM ? 'high-opacity ' : 'light-opacity'">
+      <ion-col size=1 class="ion-no-padding">
+        <input type="radio" id="normalItem" name="menuDisplayType" value="{{menuLayoutCode.NORMAL_MENU_ITEM}}"
+          (click)="onSelectMenuLayout(menuLayoutCode.NORMAL_MENU_ITEM)" formControlName="menuDisplayType"
+          [checked]="checked">
+      </ion-col>
+      <ion-col size=11 class="ion-no-padding">
+        <label class="primary-dark-clr" for="normalItem">Normal items without image</label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [class]="menuDisplayCode == menuLayoutCode.NORMAL_MENU_ITEM ? 'card-radio' : 'card-radio-view'">
+      <ion-col size=10>
+        <ng-template [ngTemplateOutlet]="layoutDescription"></ng-template>
+      </ion-col>
+      <ion-col size=2>
+        <button type="button" class="fs-12 sitefontmedium text-white btn-add">ADD</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top"
+      [class]="menuDisplayCode == menuLayoutCode.NORMAL_MENU_ITEM_WITH_LEFT_IMG ? 'high-opacity ' : 'light-opacity'">
+      <ion-col class="ion-no-padding" size=1>
+        <input type="radio" id="leftItem" name="menuDisplayType"
+          value="{{menuLayoutCode.NORMAL_MENU_ITEM_WITH_LEFT_IMG}}"
+          (click)="onSelectMenuLayout(menuLayoutCode.NORMAL_MENU_ITEM_WITH_LEFT_IMG)" formControlName="menuDisplayType">
+      </ion-col>
+      <ion-col size=11 class="ion-no-padding">
+        <label class="primary-dark-clr" for="leftItem">Image on left side</label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row
+      [class]="menuDisplayCode == menuLayoutCode.NORMAL_MENU_ITEM_WITH_LEFT_IMG ? 'card-radio' : 'card-radio-view'">
+      <ion-col size=3>
+        <img src="assets\icon\insert-picture-icon.svg" height="80px" width="80px">
+      </ion-col>
+      <ion-col size=7>
+        <ng-template [ngTemplateOutlet]="layoutDescription"></ng-template>
+      </ion-col>
+      <ion-col size=2>
+        <button type="button" class="fs-12 sitefontmedium text-white btn-add">ADD</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top"
+      [class]="menuDisplayCode == menuLayoutCode.NORMAL_MENU_ITEM_WITH_RIGHT_IMG ? 'high-opacity ' : 'light-opacity'">
+      <ion-col size=1 class="ion-no-padding">
+        <input type="radio" id="rightItem" name="menuDisplayType"
+          value="{{menuLayoutCode.NORMAL_MENU_ITEM_WITH_RIGHT_IMG}}"
+          (click)="onSelectMenuLayout(menuLayoutCode.NORMAL_MENU_ITEM_WITH_RIGHT_IMG)"
+          formControlName="menuDisplayType">
+      </ion-col>
+      <ion-col size=11 class="ion-no-padding">
+        <label class="primary-dark-clr" for="rightItem">Image on right side</label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row
+      [class]="menuDisplayCode == menuLayoutCode.NORMAL_MENU_ITEM_WITH_RIGHT_IMG ? 'card-radio' : 'card-radio-view'">
+      <ion-col size=9>
+        <ng-template [ngTemplateOutlet]="layoutDescription"></ng-template>
+      </ion-col>
+      <ion-col size=3 class="position-relative">
+        <img src="assets\icon\insert-picture-icon.svg" height="80px" width="80px" class="position-relative">
+        <button type="button" class="center-button-img fs-12 sitefontmedium text-white btn-add">ADD</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top"
+      [class]="menuDisplayCode == menuLayoutCode.TOP_ITEM ? 'high-opacity ' : 'light-opacity'">
+      <ion-col size=1 class="ion-no-padding">
+        <input type="radio" id="centerItem" name="menuDisplayType" value="{{menuLayoutCode.TOP_ITEM}}"
+          (click)="onSelectMenuLayout(menuLayoutCode.TOP_ITEM)" formControlName="menuDisplayType">
+      </ion-col>
+      <ion-col size=11 class="ion-no-padding">
+        <label class="primary-dark-clr" for="centerItem">Image at center</label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [class]="menuDisplayCode == menuLayoutCode.TOP_ITEM ? 'card-radio-center' : 'card-radio-view-center'">
+      <ion-col size=12 class="ion-no-padding">
+        <div class="ion-padding-top">
+          <img src="assets\icon\insert-picture-icon.svg" height="70px" width="180px">
+        </div>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding">
+        <div class="ion-text-center">
+          <p class="fs-14 sitefontmedium cyan-blue-color">Item name</p>
+        </div>
+      </ion-col>
+      <ion-col size=6 class="ion-no-padding">
+        <div class="ion-text-center">
+          <p class="fs-10 sitefontmedium black-color">1xx /-</p>
+        </div>
+      </ion-col>
+      <ion-col size=6 class="ion-no-padding">
+        <div class="ion-text-center">
+          <button type="button" class="fs-12 sitefontmedium text-white btn-add">ADD</button>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-padding-top">
+        <ion-button expand="block" type="Submit" class="sitefontmedium theme-btn fs-14">
+          save
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

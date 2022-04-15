@@ -1,0 +1,177 @@
+ion-content {
+  .content-text {
+    padding: 24px 20px 0px 20px;
+    ion-text {
+      color: var(--grey-info-text);
+    }
+  }
+}
+.day-slot {
+  ion-grid {
+    padding: 14px 18px;
+    ion-row {
+      flex-wrap: wrap;
+      margin: 24px 0px 10px 0px;
+
+      > div {
+        border-radius: 14px;
+        text-align: center;
+        flex: 0 0 calc(20% - 40px);
+        margin: 0px 10px 20px 0px;
+      }
+    }
+  }
+}
+.time-slot {
+  padding: 16px 20px;
+  .operational-toggle {
+    margin: 10px 0px 24px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    div {
+      display: flex;
+    }
+    span {
+      padding-left: 10px;
+    }
+    .toggle-button-text-on {
+      color: #0eac5d;
+    }
+    .toggle-button-text-off {
+      color: #b4b2b2;
+    }
+  }
+  ion-grid {
+    position: relative;
+    ion-col {
+      p {
+        color: var(--grey-info-text);
+      }
+      ion-img {
+        width: 20px;
+      }
+      .remove-icon {
+        filter: invert(91%) sepia(9%) saturate(120%) hue-rotate(219deg)
+          brightness(84%) contrast(83%);
+      }
+      ion-select {
+        border: 1px solid var(--from-box-color);
+        margin-top: 8px;
+        height: 40px;
+        border-radius: 4px;
+      }
+
+      ion-select::part(icon) {
+        display: none !important;
+      }
+    }
+  }
+}
+.border {
+  height: 8px;
+  background: var(--layout-bg-color);
+}
+.txt-checkbox {
+  position: relative;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  float: left;
+  border: 2px solid var(--secondary-card-btn-clr);
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1px solid #ddddde;
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    cursor: pointer;
+    
+  }
+
+  .title-label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    line-height: 25px;
+    transition: 0.5s ease;
+    span {
+      color: #707070;
+      font-weight: 400;
+    }
+  }
+}
+.active-days {
+  background-color: var(--success-overlay-color);
+  border: none;
+  span {
+    color: var(--success-color) !important;
+    font-weight: 500;
+  }
+}
+.selected-days {
+  background-color: var(--layout-bg-color);
+  border: 1px solid var(--primary-dark-clr);
+  span {
+    color: var(--primary-dark-clr) !important;
+    font-weight: 400;
+  }
+}
+.selected-active-days {
+  border: 1px solid var(--success-color);
+  span {
+    font-weight: 600;
+  }
+}
+input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 37px;
+  height: 20px;
+  background: #e8e8e8;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+label:after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--white-clr);
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+input:checked + label {
+  background: var(--success-color);
+}
+
+input:checked + label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+ion-footer {
+  padding: 10px 20px 20px;
+  ion-button {
+    width: 100%;
+  }
+}

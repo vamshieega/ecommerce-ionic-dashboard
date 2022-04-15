@@ -1,0 +1,89 @@
+<ion-header class="ion-no-border">
+  <ion-searchbar [formControl]="outletSearch" placeholder="Search outlets" type="text" animated>
+  </ion-searchbar>
+</ion-header>
+<ion-content>
+  <!-- If we use Ion item, screen is flickering while searching, hence using html  -->
+  <!-- <ion-list>
+    <ion-item lines="none"  *ngFor="let entry of outletList; let i=index" (ionChange)="change($event,i)">
+      <ion-label>{{entry.outletName}}</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    </ion-item>
+  </ion-list> -->
+
+
+
+  <!-- <div class="checked-items">
+    <div *ngFor="let entry of productList; let i=index" class="custom-control checkbox-view">
+      <input type="checkbox" class="custom-control-input" id="outletName{{i}}" [checked]="entry.isChecked"
+        (click)="change($event,i,entry)">
+      <label class="custom-control-label fs-15"
+        for="outletName{{i}}">{{entry.name}}</label>
+    </div>
+  </div> -->
+
+
+
+  <!-- commented code for outlet selection -->
+  <div class="search-block" *ngIf="this.requiredFor === 'outlets'">
+    <div class="checked-items">
+      <div *ngFor="let outlet of outletList; let i=index" class="custom-control checkbox-view">
+        <input type="checkbox" class="custom-control-input" id="outletName{{i}}" [checked]="outlet.isChecked"
+          (click)="change($event,i,outlet)">
+        <label [ngClass]="{'label_checked': outlet.isChecked === true }" class="custom-control-label fs-15"
+          for="outletName{{i}}">{{outlet.outletName}}</label>
+      </div>
+    </div>
+    <div *ngIf="outletList.length === 0 &&  isSearching" class="no_outlets">
+      No outlets found
+    </div>
+  </div>
+
+
+
+
+  <div class="search-block" *ngIf="this.requiredFor === 'items'">
+    <div class="checked-items">
+      <div *ngFor="let product of productList; let i=index" class="custom-control checkbox-view">
+        <input type="checkbox" class="custom-control-input" id="outletName{{i}}" [checked]="product.isChecked"
+          (click)="change($event,i,product)">
+        <label [ngClass]="{'label_checked': product.isChecked === true }" class="custom-control-label fs-15"
+          for="outletName{{i}}">{{product.name}}</label>
+      </div>
+    </div>
+    <div *ngIf="productList.length === 0 &&  isSearching" class="no_outlets">
+      No outlets found
+    </div>
+  </div>
+
+
+  <div class="search-block" *ngIf="this.requiredFor === 'collection'">
+    <div class="checked-items">
+      <div *ngFor="let collection of collectionList; let i=index" class="custom-control checkbox-view">
+        <input type="checkbox" class="custom-control-input" id="outletName{{i}}" [checked]="collection.isChecked"
+          (click)="change($event,i,collection)">
+        <label [ngClass]="{'label_checked': collection.isChecked === true }" class="custom-control-label fs-15"
+          for="outletName{{i}}">{{collection.name}}</label>
+      </div>
+    </div>
+    <div *ngIf="collectionList.length === 0 &&  isSearching" class="no_outlets">
+      No outlets found
+    </div>
+  </div>
+
+
+
+</ion-content>
+
+<ion-row class="ion-padding-horizontal">
+  <ion-col>
+    <ion-button (click)="dismiss()" expand="block" class="outline-btn fs-12 sitefontmedium">
+      Cancel
+    </ion-button>
+  </ion-col>
+  <ion-col>
+    <ion-button (click)="save()" expand="block" class="theme-btn sitefontmedium fs-12">
+      Confirm Selection
+    </ion-button>
+  </ion-col>
+</ion-row>

@@ -1,0 +1,94 @@
+ion-header {
+  box-shadow: 0 2px 2px #00000029;
+  ion-toolbar {
+    --background: var(--layout-bg-color) !important;
+    text-align: center;
+    padding: 0px 48px 0px 0px;
+  }
+}
+
+agm-map {
+  width: 535px;
+  height: 350px;
+  position: relative;
+
+  ::ng-deep .gm-svpc {
+    display: none;
+  }
+}
+// .ion-img{
+
+// }
+.marker {
+  position: absolute;
+  display: block;
+  top: 40%;
+  left: 48%;
+  z-index: 2;
+}
+.map-section {
+  position: relative;
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    input {
+      position: absolute;
+      top: 40px;
+      z-index: 5;
+      width: 90%;
+      height: 48px;
+      padding: 0px 10px 0px 45px;
+      box-shadow: 0 0 4px #00000029;
+      border-radius: 24px;
+      border: none;
+    }
+    :focus {
+      outline: none;
+      border: none;
+    }
+    span {
+      position: absolute;
+      top: 56px;
+      left: 38px;
+      z-index: 5;
+      font-size: 18px;
+      color: var(--grey-info-text);
+    }
+  }
+
+  .currentLocation {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 35px;
+    border: 8px solid var(--white-clr) !important;
+    border-radius: 50%;
+    box-shadow: 0px 3px 6px #00000029;
+  }
+}
+.address-section {
+  box-shadow: 0 -2px 4px #00000029;
+  padding: 20px 20px 0px 20px;
+  ion-item {
+    margin: 7px 0px 0px 0px;
+  }
+  .button-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    ion-button {
+      width: 160px !important;
+      --padding-top: 12px;
+      --padding-bottom: 12px;
+      --border-radius: 4px;
+    }
+    ion-button:first-child {
+      color: var(--black-color);
+      --background: var(--white-clr) !important;
+      border: 1px solid var(--primary-dark-clr);
+      border-radius: 4px;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<ion-content scrollY="false">
+  <div class="image">
+    <div class="circle icon-logout">
+    </div>
+  </div>
+  <p class="fs-16 sitefontmedium  primary-dark-clr ion-text-center">
+    Do you want to logout?
+  </p>
+  <p class="fs-12 ion-padding-top ion-text-center grey-info-text">
+    Click <span class="sitefontbold"> 'cancel to return' </span>
+    or <span class="sitefontbold"> 'confirm to logout'</span>
+  </p>
+</ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <ion-row class="accept-btn">
+    <ion-col>
+      <ion-button expand="block" (click)="dismiss()" class="back-btn fs-14">
+        Cancel
+      </ion-button>
+    </ion-col>
+    <ion-col class="accept-btn">
+      <ion-button expand="block" (click)="logOut()" class="sitefontmedium theme-btn fs-14">
+        Confirm
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

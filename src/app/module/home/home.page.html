@@ -1,0 +1,105 @@
+<ion-app>
+  <ion-split-pane contentId="main-content" class="ion-no-padding">
+    <ion-menu class="custom-ion-menu" contentId="main-content" type="overlay" side="start">
+      <ion-content class="ion-no-padding">
+        <ion-list id="inbox-list">
+          <ion-menu-toggle auto-hide="false">
+            <div routerLink="/home/merchant" class="account-content ion-padding-horizontal ion-margin-top">
+              <p class="sitefontmedium">
+                <ion-text class="profile-img">
+                  <ion-text class="text-center fs-16 first-char-txt ">
+                    {{getFirstChar(userDetails?.userName)}}</ion-text>
+                </ion-text>
+                <span class="username-details">
+                  <span class="fs-12">{{userDetails?.userName}} </span>
+                  <span class="fs-10 position-absolute icon-arrow-dropdown"></span>
+                </span>
+              </p>
+            </div>
+          </ion-menu-toggle>
+          <div class="under-line"></div>
+          <div class="content ion-padding-horizontal">
+            <ion-menu-toggle auto-hide="false">
+              <p class="select-outlet sitefontmedium fs-12" routerLink="/home/manage-outlet">
+                Outlets<span class="icon-arrow-dropdown fs-10  ion-padding-horizontal"></span>
+                <span *ngIf="getOutletOnCount() !== 0" class="outlet-btn-on">ON -
+                  {{getOutletOnCount()}}/{{getOutletTotalCount()}}</span>
+                <span *ngIf="getOutletOnCount() === 0" class="outlet-btn-off">OFF</span>
+              </p>
+            </ion-menu-toggle>
+          </div>
+          <div class="under-line"></div>
+          <div class="ion-padding">
+            <ng-container *ngFor="let menu of sidebarItems;let mInd = index">
+              <ng-container *ngIf="menu.subMenu && menu.subMenu.length>0;else singleItem">
+                <!-- {{menu.collapsed}}  icon-right-arrow-->
+                <div (click)="changeCollapse(menu, mInd, true)" class="sitefontmedium subMenu">
+                  <div class="sub-menu-block">
+                    <span class="fs-15">{{menu.name}}</span>
+                    <span *ngIf="menu.subMenu.length > 0  && !menu.collapsed;else downArrow"
+                      class="ion-padding-start icon-caret-right  fs-10">
+                    </span>
+                    <ng-template #downArrow>
+                      <span class="icon-arrow-dropdown ion-padding-start fs-10" *ngIf="menu.subMenu.length > 0 "></span>
+                    </ng-template>
+                  </div>
+                </div>
+                <!-- sub menu toggling -->
+                <div class="shrink pointer sitefontmedium" [ngStyle]="{'max-height': !menu.collapsed?'800px':'0px'}">
+                  <ion-menu-toggle auto-hide="false" *ngFor="let item of menu.subMenu;let sInd=index">
+                    <ion-item routerDirection="root" [routerLink]="[item.url]" lines="none" detail="false"
+                      routerLinkActive="selected">
+                      <ion-text class="fs-14 ion-padding-start">
+                        {{ item.name }}
+                      </ion-text>
+                    </ion-item>
+                  </ion-menu-toggle>
+                </div>
+              </ng-container>
+              <!-- single item toggling -->
+              <ng-template #singleItem>
+                <ion-menu-toggle auto-hide="false" [ngClass]="{'active-menu': mInd === selectedIndex}">
+                  <ion-item routerDirection="root" [routerLink]="[menu.url]" lines="none" detail="false"
+                    routerLinkActive="selected">
+                    <ion-text class="fs-16">
+                      {{ menu.name }}
+                    </ion-text>
+                  </ion-item>
+                </ion-menu-toggle>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngIf="isFirstOutletComplete">
+              <ion-menu-toggle auto-hide="false" *ngFor="let item of firstOutletComplete; let i = index">
+                <ion-item routerDirection="root" [routerLink]="[item.url]" lines="none" detail="false"
+                  routerLinkActive="selected">
+                  <ion-text class="fs-16">
+                    {{ item.title }}
+                  </ion-text>
+                </ion-item>
+              </ion-menu-toggle>
+            </ng-container>
+          </div>
+        </ion-list>
+        <div class="under-line"> </div>
+        <ion-menu-toggle auto-hide="false">
+          <ion-row class="log-out" (click)="onLogout()">
+            <ion-col class="ion-padding-top">
+              <ion-text class="fs-14 sitefontmedium">
+                Log out
+              </ion-text>
+              <ion-text class="fs-14 icon-logout"></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-menu-toggle>
+        <ion-row class="log-out">
+          <ion-col class="ion-padding-top">
+            <ion-text class="fs-10">
+              version {{this.version}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

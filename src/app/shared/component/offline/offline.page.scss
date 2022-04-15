@@ -1,0 +1,29 @@
+.header-info {
+  position: relative;
+  width: 100%;
+}
+.header-center {
+  position: absolute;
+  text-align: center;
+  left: 44%;
+  top: 50%;
+  transform: translate(-20%, -50%);
+}
+
+.background-image {
+  .image-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%);
+  }
+  .image-view {
+    width: 260px;
+  }
+  .image-status {
+    margin: 35px 0px 15px 0px;
+  }
+  .image-txt {
+    margin: 0px 15px 0px 15px;
+  }
+}

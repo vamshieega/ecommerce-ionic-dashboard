@@ -1,0 +1,118 @@
+
+<ion-grid class="content">
+  <ion-row class="content-row ion-padding-top">
+    <form [formGroup]="financialDetailForm" *ngIf="formInit">
+  
+      <div class="ion-padding-horizontal w-100">
+        <ion-label class="fs-12 sitefontregular">Account Number</ion-label>
+        <ion-input type="text" [ngClass]="{ 'is-inp-invalid': getValid('accountNumber'), 'disabled' : financialDetailsModel.isAccountVerified}" maxlength="14" formControlName="accountNumber" autocomplete="off" onlyNumber 
+        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" class="inp-control fs-14 fontsitemedium black-color" type="text" restrictFirstSpace placeholder="Enter Account Number" [readonly]="financialDetailsModel.isAccountVerified || isEdit"></ion-input>
+      </div>
+      <div class="error-view ion-padding-horizontal">
+        <div *ngIf="getValid('accountNumber')" class="fs-11 fw-4">
+            <span *ngIf="financialDetailForm.controls.accountNumber.errors?.required"
+                class="float-left error-msg-txt">
+                Please enter Account Number
+            </span>
+            <span *ngIf="financialDetailForm.controls.accountNumber.errors?.max"
+                class="float-left error-msg-txt">
+                Account Number can be max 18 Number long.
+            </span>
+  
+            <span *ngIf="financialDetailForm.controls.accountNumber.errors?.min"
+                class="float-left error-msg-txt">
+                Account Number can be min 18 Number long.
+            </span>
+  
+        </div>
+      </div>
+  
+      <div class="ion-padding-horizontal w-100">
+        <ion-label class="fs-12 sitefontregular">Account Holder Name</ion-label>
+        <ion-input type="text" [ngClass]="{ 'is-inp-invalid': getValid('holderName'), 'disabled' : financialDetailsModel.isAccountVerified}" maxlength="14" formControlName="holderName" autocomplete="off" restrictFirstSpace  class="inp-control fs-14 fontsitemedium black-color" type="text" restrictFirstSpace placeholder="Enter Account Holder Name" [readonly]="financialDetailsModel.isAccountVerified || isEdit"></ion-input>
+      </div>
+      <div class="error-view ion-padding-horizontal">
+        <div *ngIf="getValid('holderName')" class="fs-11 fw-4">
+            <span *ngIf="financialDetailForm.controls.holderName.errors?.required"
+                class="float-left error-msg-txt">
+                Please enter your Account Number
+            </span>
+        </div>
+      </div>
+  
+      <div class="ion-padding-horizontal w-100">
+        <ion-label class="fs-12 sitefontregular">Bank Name</ion-label>
+        <ion-input type="text" [ngClass]="{ 'is-inp-invalid': getValid('bankName'), 'disabled' : financialDetailsModel.isAccountVerified}" maxlength="14" formControlName="bankName" autocomplete="off" restrictFirstSpace  class="inp-control fs-14 fontsitemedium black-color" type="text" restrictFirstSpace placeholder="Enter Bank Name" [readonly]="financialDetailsModel.isAccountVerified || isEdit"></ion-input>
+      </div>
+      <div class="error-view ion-padding-horizontal">
+        <div *ngIf="getValid('bankName')" class="fs-11 fw-4">
+            <span *ngIf="financialDetailForm.controls.bankName.errors?.required"
+                class="float-left error-msg-txt">
+                Please enter your Bank Name
+            </span>
+        </div>
+      </div>
+  
+      <div class="ion-padding-horizontal w-100">
+        <ion-label class="fs-12 sitefontregular">IFSC Code</ion-label>
+        <ion-input type="text" [ngClass]="{ 'is-inp-invalid': getValid('ifscCode'), 'disabled' : financialDetailsModel.isAccountVerified}" maxlength="14" formControlName="ifscCode" autocomplete="off" restrictFirstSpace  class="inp-control fs-14 fontsitemedium black-color" type="text" restrictFirstSpace placeholder="Enter IFSC Code" [readonly]="financialDetailsModel.isAccountVerified || isEdit"></ion-input>
+      </div>
+      <div class="error-view ion-padding-horizontal">
+        <div *ngIf="getValid('ifscCode')" class="fs-11 fw-4">
+            <span *ngIf="financialDetailForm.controls.ifscCode.errors?.required"
+                class="float-left error-msg-txt">
+                Enter IFSC Code
+            </span>
+        </div>
+      </div>
+  
+      <p class="fs-12 ion-padding-horizontal grey-info-text" *ngIf="!financialDetailsModel.isAccountVerified && !isEdit">Please <b>check</b> all your <b>details</b> before <b>"Submitting"</b> as they will be <b>locked Safely.</b></p>
+  
+      <p *ngIf="!showEnterAmount() && financialDetailsModel.isAccountVerified" class="fs-12 ion-padding success-color"><span class="icon-information success-color">&nbsp;</span>Your <b>Account</b> is <b>Verified</b>, you can <b>Rise ticket or Contact Support</b> any time if you want to <b>update</b> them.</p>
+
+      <div class="ion-padding" *ngIf="showEnterAmount()">
+            <div class="inp-group">
+
+              <ion-label class="fs-12 sitefontregular">Enter amount</ion-label>
+              <div class="d-flex">
+                <ion-input type="text" maxlength="14" [formControl]="enterAmount"
+                autocomplete="off" restrictFirstSpace onlyNumber class="inp-control ion-custom fs-14 input-fields fontsitemedium black-color"
+                type="text" placeholder="0.00" trimValue min="0" autocomplete="off"></ion-input>
+                <div class="custom-label fs-12">{{currency.name}}</div>
+              </div>
+            </div>
+      </div>
+
+    </form>
+  </ion-row>
+</ion-grid>
+
+<ion-footer class="ion-no-border">
+  <ion-row class="footer ion-padding-horizontal">
+    <ion-col *ngIf="showEnterAmount()">
+      <ion-button expand="block" class="outline-btn fs-12" (click)="onEdit()">
+        Edit
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!showEnterAmount()">
+      <ion-button expand="block" class="outline-btn fs-12" (click)="back()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!showEnterAmount()">
+      <ion-button expand="block" class="theme-btn fs-12" (click)="nextpage()">
+        Save & Proceed
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!financialDetailsModel.isAccountVerified && !isEdit">
+      <ion-button expand="block" class="theme-btn fs-12" (click)="saveDetails()">
+        Submit details
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="showEnterAmount()">
+      <ion-button expand="block" class="theme-btn fs-12" (click)="onAmountVerify()">
+        Verify
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

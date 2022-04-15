@@ -1,0 +1,133 @@
+ion-header {
+  box-shadow: 0 2px 2px #00000029;
+  ion-toolbar {
+    --background: var(--layout-bg-color) !important;
+    padding: 0px 48px 0px 0px;
+    text-align: center;
+  }
+}
+ion-item-divider {
+  .item-divider-wrapper {
+    display: block !important;
+  }
+  .outlet_info {
+    border-bottom: 1px solid var(--layout-bg-color);
+    padding: 16px 16px 5px 16px;
+    width: 100%;
+  }
+  .item_btn {
+    --background: transparent;
+    color: var(--success-color);
+    height: 30px;
+    --ripple-color: transparent;
+    --box-shadow: none;
+    margin-top: 0px;
+    float: right;
+  }
+}
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -55%);
+}
+.background-img {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  height: 150px;
+  width: 275px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+.pv-12 {
+  padding: 0 12px;
+}
+.ph-20 {
+  padding: 0 20px;
+}
+.theme-btn {
+  position: absolute;
+  width: 99%;
+  bottom: 5px;
+}
+.name {
+  position: relative;
+  z-index: 99;
+  padding: 19px 10px 15px 9px;
+  color: var(--grey-number-text);
+}
+.underline {
+  border-bottom: 3px solid var(--disabled-color);
+  width: 100%;
+}
+.active-status {
+  color: var(--primary-dark-clr);
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom: 3px solid var(--primary-light-clr) !important;
+  }
+}
+ion-toggle {
+  width: 38px;
+  height: 20px;
+  padding: 0px;
+  --handle-width: 18px;
+  --handle-height: 18px;
+  --background-checked: var(--success-color);
+  --handle-background: var(--white-clr);
+  --handle-background-checked: var(--white-clr);
+  --handle-spacing: 2px;
+}
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.d-flex2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 60%;
+}
+.couponList {
+  margin: 20px;
+  border: 1px solid var(--from-box-color);
+  border-radius: 5px;
+  .coupon_details {
+    padding: 20px;
+  }
+}
+.filter {
+  --background: var(--primary-dark-clr);
+  --border-radius: 25px;
+  height: 32px;
+  --ripple-color: transparent;
+  --box-shadow: none;
+}
+.blue-dot {
+  background-color: var(--side-nav-button);
+  border-radius: 50%;
+  display: inline-block;
+  padding: 3px;
+  margin-right: 3px;
+  margin-bottom: 2px;
+}
+
+.icon-back {
+  color: var(--success-color);
+  transform: rotate(180deg);
+  display: block;
+  margin-bottom: 3px;
+}

@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <p class="fs-14" slot="start">
+      <span
+        class="icon-back ion-padding"
+        (click)="onNavigateBack()"
+      ></span>
+    </p>
+    <ion-title class="fs-12 sitefontnormal">Delivery calculation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-text ion-padding" [formGroup]="myForm">
+    <p class="fs-12 sitefontmedium ion-padding-bottom">Type of delivery calculation</p>
+    <p class="fs-12 grey-info-text">Help you to set <b>calculations</b> for <b>delivering items</b> to your <b>customers.</b></p>
+    
+    <div class="card-radio-view schedule mb-4 ion-padding-top ion-justify-content-between">
+
+      <label class="radio-card schedule">
+        <input type="radio" class="radio" name="selectionType" formControlName="selectionType" (change)="onValueSwitched($event)" value="cartValueLimit">
+        <span class="radio-details">
+          <span class="fs-12 sitefontmedium"><span class="icon-timer">&nbsp;</span>On cart value</span>
+          <span class="dec-txt black-color fs-10 sitefontlight ">
+            Charges to be calculated based on cart value.
+          </span>
+        </span>
+      </label>
+
+      <label class="radio-card schedule">
+        <input type="radio" class="radio" name="selectionType" formControlName="selectionType" (change)="onValueSwitched($event)" value="byDistance">
+        <span class="radio-details">
+          <span class="fs-12 sitefontmedium"><span class="icon-calendar">&nbsp;</span>Delivery Distance</span>
+          <span class="dec-txt black-color fs-10 sitefontlight">
+            Charges to be calculated on the delivery distance.
+          </span>
+        </span>
+      </label>
+
+    </div>
+
+  </div>
+  <div class="under-line"></div>
+
+  <div class="cart-value ion-padding" *ngIf="calculationType === 'cartValueLimit' || calculationType === 'byDistance'">
+      <app-delivery-price-range [selectionType]="calculationType === 'cartValueLimit' ?'cartValueLimit' : 'byDistance'" [ranges]="ranges" [outletChargeTypeV]="outletChargeTypeV" [maxDistance]="range"></app-delivery-price-range>
+  </div>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-button (click)="onSubmit()" class="theme-btn fs-12"
+    >Confirm delivery calculation</ion-button
+  >
+</ion-footer>

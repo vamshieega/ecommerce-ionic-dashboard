@@ -1,0 +1,181 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <p class="fs-14" slot="start">
+      <span
+        class="icon-back ion-padding"
+        (click)="onNavigateCustomTiming()"
+      ></span>
+    </p>
+    <ion-title class="fs-12 sitefontnormal">Custom timing</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="content-text">
+    <p class="fs-12 sitefontmedium black-color">Custom operational timing</p>
+    <ion-text class="fs-12">One or Multiple Shift timings allowed.</ion-text>
+  </div>
+  <form
+    [formGroup]="operationalForm"
+    (ngSubmit)="onOpHoursSubmit()"
+    *ngIf="formInit"
+  >
+    <div class="day-slot">
+      <ion-grid class="p-0">
+        <ion-row class="ion-justify-content-center">
+          <div *ngFor="let days of weekDaysList;let i = index">
+            <div
+              class="txt-checkbox"
+              [ngClass]="{'active-days': operationalForm.controls[i]['controls']['operational'].value ===  true && operationalForm.controls[i]['controls']['slots']['controls'][0]['controls']['startTime'].value !== '',
+
+                          'selected-days':radio.checked && (operationalForm.controls[i]['controls']['slots']['controls'].length === 0 || operationalForm.controls[i]['controls']['slots']['controls'][0]['controls']['startTime'].value === ''),
+
+                          'selected-active-days':operationalForm.controls[i]['controls']['operational'].value ===  true && radio.checked && operationalForm.controls[i]['controls']['slots']['controls'][0]['controls']['startTime'].value !== ''
+                          }"
+            >
+              <input
+                type="radio"
+                name="weekDays"
+                [value]="days.val"
+                #radio
+                (click)="onSelectDay(i)"
+                [checked]="i == selectedDay"
+              />
+              <div class="title-label">
+                <span class="fs-12"> {{days.val}}</span>
+              </div>
+            </div>
+          </div>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="border"></div>
+    <div class="time-slot" [formGroup]="operationalForm?.controls[selectedDay]">
+      <div class="operational-toggle">
+        <ion-text
+          class="fs-12 sitefontmedium black-color"
+          style="text-transform: capitalize"
+          >{{fullDays[selectedDay] + " Operational timings"}}</ion-text
+        >
+        <div>
+          <input
+            type="checkbox"
+            id="switch"
+            formControlName="operational"
+            (change)="onOperationalClose($event.target['checked'], selectedDay)"
+            #toggleSwitch
+          /> 
+          <label for="switch"></label>
+          <span
+            *ngIf="!toggleSwitch.checked"
+            class="toggle-button-text-off fs-14"
+            >Closed
+          </span>
+          <span *ngIf="toggleSwitch.checked" class="toggle-button-text-on fs-14"
+            >Open
+          </span>
+        </div>
+      </div>
+      <div
+        formArrayName="slots"
+        *ngIf="operationalForm.value[selectedDay].operational"
+      >
+        <ion-grid class="p-0">
+          <div
+            *ngFor="let time of operationalForm?.controls[selectedDay].get('slots')['controls'];
+                index as j
+              "
+            [formGroupName]="j"
+          >
+            <ion-row class="ion-align-items-center">
+              <ion-col size="4" class="p-0">
+                <p class="fs-10 sitefontnormal">Open Time</p>
+                <ion-select
+                  class="fs-14"
+                  formControlName="startTime"
+                  (ionChange)="onChangeTime(time,selectedDay, j)"
+                >
+                  <ion-select-option *ngIf="j === 0" value="24Hours"
+                    >24 Hours</ion-select-option
+                  >
+                  <ion-select-option
+                    [value]="timeVal.key"
+                    class="fs-14"
+                    *ngFor="let timeVal of slotTimeList"
+                  >
+                    {{timeVal.value}}
+                  </ion-select-option>
+                </ion-select>
+                <div class="error-view mx-2">
+                  <div class="fs-11 fw-4">
+                    <div
+                      *ngIf="time.get('startTime').status && (time.get('startTime').dirty || time.get('startTime').touched) && time.get('startTime').errors?.required"
+                      class="float-left error-msg-txt"
+                    >
+                      Please Select Time
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ng-container
+                *ngIf="
+              operationalForm?.controls[selectedDay].value.slots[j].startTime !==
+              '24Hours'
+            "
+              >
+                <ion-col size="1" class="p-0 fw-6 ion-text-center"> - </ion-col>
+                <ion-col size="4" class="p-0">
+                  <p class="fs-10 sitefontnormal">Close Time</p>
+
+                  <ion-select class="fs-14" formControlName="endTime">
+                    <ion-select-option
+                      [value]="timeVal.key"
+                      class="fs-14"
+                      *ngFor="let timeVal of slotTimeList"
+                    >
+                      {{timeVal.value}}
+                    </ion-select-option>
+                  </ion-select>
+                  <div class="error-view ml-5">
+                    <div class="fs-11 fw-4">
+                      <span
+                        *ngIf="time.get('endTime').status && (time.get('endTime').dirty || time.get('endTime').touched) && time.get('endTime').errors?.required"
+                        class="float-left error-msg-txt"
+                      >
+                        Please Select Time
+                      </span>
+                    </div>
+                  </div>
+                </ion-col>
+              </ng-container>
+              <ion-col size="2" class="p-0"> </ion-col>
+              <ion-col size="1" class="p-0">
+                <ion-img
+                class="remove-icon"
+                  src="assets/icon/icon-cancel.svg"
+                  (click)="onRemoveHours(j)"
+                  *ngIf="j > 0"
+                  style="position: absolute; top: -95px; right: 0px"
+                >
+                </ion-img>
+                <ion-img
+                  *ngIf="j === operationalForm.controls[selectedDay]?.value.slots.length-1 && operationalForm.value[selectedDay]?.operational &&
+            operationalForm.controls[selectedDay]?.status !== 'INVALID' &&
+            operationalForm.controls[selectedDay]?.value.slots[0].startTime !==
+              '24Hours'"
+                  (click)="onAddNewHours()"
+                  src="assets/icon/icon-add.svg"
+                  style="position: absolute; top: calc(100% - 10px); right: 0px"
+                ></ion-img>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-grid>
+      </div>
+    </div>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-button (click)="onOpHoursSubmit()" class="theme-btn fs-12"
+    >Save Custom Timings</ion-button
+  >
+</ion-footer>

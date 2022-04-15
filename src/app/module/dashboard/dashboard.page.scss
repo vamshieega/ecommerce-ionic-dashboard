@@ -1,0 +1,117 @@
+ion-header {
+   box-shadow: 0 2px 2px #00000029;
+   ion-toolbar {
+      --background: #f0eff4 !important;
+      padding: 0px 48px 0px 0px;
+      text-align: center;
+   }
+   ion-menu-button {
+      color: var(--black-color);
+   }
+   ion-img {
+      display: inline-block;
+      padding: 15px;
+   }
+}
+.content-section {
+   --padding-top: 24px;
+   .content-text {
+      padding: 0px 20px;
+      ion-text {
+         display: block;
+         text-align: center;
+      }
+      ion-text:last-child {
+         padding-top: 16px;
+         color: var(--grey-info-text);
+      }
+   }
+   .border {
+      margin: 20px 0px 14px 0px;
+      height: 8px;
+      background: #f0eff4;
+   }
+   .content-text-create {
+      padding: 0px 20px 24px 20px;
+      ion-text {
+         display: block;
+         text-align: center;
+      }
+   }
+}
+.dashboard-tutorial {
+   position: relative;
+   margin: auto;
+   margin: 22px 20px 0px 20px;
+   height: 235px;
+   background: #d4a7a2;
+   .img-section {
+      display: flex;
+      justify-content: center;
+   }
+   ion-img {
+      max-width: 100%;
+      position: absolute;
+      bottom: 0px;
+   }
+   .icon-play-video::before {
+      color: #b0bac9;
+   }
+   .play-icon-shadow {
+      top: calc(100% - 59%);
+      left: calc(100% - 53%);
+   }
+}
+ion-grid {
+   margin: 0px 20px 16px 20px;
+   padding: 0px 0px 0px 20px;
+   box-shadow: 0px 0px 2px #0000005d;
+   border-radius: 4px;
+
+   ion-col {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+   ion-label {
+      width: 60%;
+      .step-sequence{
+         display: flex;
+         align-items: center;
+         span{
+            padding-left: 10px;
+         }
+         .icon-check-circle-fill::before{
+            color: var(--success-color);
+         }
+      }
+      p:nth-child(even) {
+         color: var(--black-color);
+      }
+      p:nth-child(odd) {
+         color: var(--grey-info-text) !important;
+      }
+   }
+   ion-button {
+      width: 145px;
+      height: 32px;
+      margin: 12px 0px;
+   }
+   .img-section {
+      width: 40% !important;
+      height: 100% !important;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+}
+.play-icon-shadow {
+   position: absolute;
+   top: 40%;
+   left: 40%;
+   font-size: 30px;
+   background-color: var(--white-clr);
+   border-radius: 50%;
+   border: 3px solid var(--text-button-color);
+}

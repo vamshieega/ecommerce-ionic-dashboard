@@ -1,0 +1,335 @@
+<!--    
+<ion-grid class="ion-no-padding"  *ngIf="orderModelKey !== 'acceptanceWait'"  (click)="accordion('0')">
+ <ion-row class="heading">
+   <ion-col size=10.5>
+     <ion-text class="primary-dark-clr fs-14 sitefontmedium"> 
+      Order Status
+    </ion-text>
+  </ion-col>
+  <ion-col size=1.5>
+       <ion-img  [ngClass]="orderStatus == true ? 'upicon' : 'downicon'" src="assets\icon\down-arrow.svg"></ion-img>    
+  </ion-col>
+</ion-row>
+
+</ion-grid>
+<ion-grid class="ion-no-padding" [ngClass]="orderStatus == true ? '' : 'hideaccordion'">
+ <ion-row>
+<ion-col class="order-status">
+<div *ngFor="let stages of orders let i=index" class="order-stages"  > 
+  <ion-col >
+    <span   [ngClass]="orderModelKey === stages ? 'caution' : 'checkmark'"  class="checkmark">
+      <div 
+      [ngClass]="orderModelKey === stages ? 'caution_circle' : 'checkmark_circle'" ></div>
+      <div 
+      [ngClass]="orderModelKey === stages ? 'caution_symbol' : 'checkmark_stem'" > </div>
+      <div 
+      [ngClass]="orderModelKey === stages ? 'caution_symbol2' : 'checkmark_kick'" > </div>
+    </span>
+    <span  *ngIf="i <  2" class="stage-line">
+      <div class="stage-dashed">
+      </div>
+    </span>
+  </ion-col> 
+</div>
+</ion-col>
+  <div *ngIf="checkDelivery() && getTimeView() && getIscheduled()">
+    <div class="row m-0 pt-3 pb-2 border-bottom-dashed"> 
+      <div class="col-3">
+        <div class="circle position-relative">
+           <img src="assets/images/icons/hot-kitchen-pot.svg" class="position-center">
+        </div>
+      </div>     
+    </div>
+    <div class="row m-0 py-2 border-bottom-dashed" *ngIf="deliveryInfo">
+      <div class="col-3">
+        <div class="circle position-relative">
+           <img src="assets/images/icons/Rider_bike_icon.svg" class="position-center">
+        </div>
+      </div>
+      <div class="col-9 pt-1">
+        <div class="fw-5 fs-12 grey-info-text">Delivery Executive 33</div>
+        <div class="fs-14 fw-4 gray-clr">
+          <p class="fs-12 fw-4 w-75 d-inline-block success-color">Rider Assigned by Market place</p>
+         </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="(orderModelKey !== 'acceptanceWait') && (orderModelKey !== 'foodPreparation') && (orderModelKey !== 'foodReady')">
+  <div class="row m-0 py-2 border-bottom-dashed">
+    <div class="col-3">
+      <div class="circle position-relative">   
+        <img src="assets/images/icons/shopping-bag.svg" class="position-center">
+      </div>
+    </div>
+    <div class="col-9 pt-1">
+      <div class="fw-5 fs-12 grey-info-text">Order Status 44</div>
+      <div class="fs-14 fw-4 gray-clr">
+        <p class="fs-12 fw-4 w-75 d-inline-block success-color"
+          *ngIf="getCompletedOrderStatus(orderObj)">Delivery Sucessful</p>
+        <p class="fs-12 fw-4 w-75 d-inline-block error-color"
+          *ngIf="getRejectOrderStatus(orderObj)">Rejected</p>
+      </div>
+    </div>
+  </div>
+</div> 
+</ion-row>
+</ion-grid>
+-->
+<!-- *ngIf="deliveryInfo?.runner" -->
+<!-- <ion-grid class="ion-no-padding" *ngIf="deliveryInfo?.runner">
+  <div class="under-line"> </div>
+  <ion-row class="ion-padding-horizontal">
+    <ion-col>
+      <ion-text>
+        Rider Info
+      </ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-padding-horizontal">
+    <ion-col size=10.9>
+      <ion-text class=" sitefontmedium fs-14">
+        {{deliveryInfo?.runner?.name}}
+      </ion-text>
+      <p class="grey-info-text fs-12"> From
+        <ion-text class="sitefontsemibold ion-text-uppercase primary-dark-clr fs-14">
+          {{deliveryInfo?.runner?.deliveryPartner}} </ion-text>
+      </p>
+    </ion-col>
+    <ion-col (click)="dailerPad('test')" class="ion-no-padding" size=1.1>
+      <div class="dail-phone">
+        <ion-img src="assets\icon\call.svg" class="dail-icon"></ion-img>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid> -->
+
+<ion-grid class="ion-no-padding" *ngIf="orderObj?.deliveryInfo?.runner" (click)="accordion('0')">
+  <ion-row class="heading">
+    <ion-col size=11.3>
+      <ion-text class="primary-dark-clr fs-14 sitefontmedium">
+        Rider Details
+      </ion-text>
+    </ion-col>
+    <ion-col size=0.7>
+      <ion-img [ngClass]="riderDetails == true ? 'upicon' : 'downicon'" src="assets\icon\down-arrow.svg"></ion-img>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ng-container *ngIf="orderObj?.deliveryInfo?.runner">
+  <ion-grid [ngClass]="riderDetails == true ? '' : 'hideaccordion'" class="ion-padding">
+    <ion-row>
+      <ion-col size=10.9 class=" fs-14 ion-no-padding ">
+        <ion-text class="black-color sitefontmedium">
+          {{orderObj?.deliveryInfo?.runner?.name}}
+        </ion-text>
+        <p class="grey-info-text fs-12"> From
+          <ion-text class="sitefontsemibold ion-text-uppercase primary-dark-clr fs-14">
+            {{orderObj?.deliveryInfo?.provider}} </ion-text>
+        </p>
+      </ion-col>
+      <ion-col (click)="dailerPad(orderObj?.deliveryInfo?.runner?.phone)" class="ion-no-padding" size=1.1>
+        <div class="dail-phone">
+          <ion-img src="assets\icon\call.svg" alt="dial_img" class="dail-icon"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-container>
+
+<ion-grid class="ion-no-padding " (click)="accordion('1')">
+  <ion-row class="heading">
+    <ion-col size=11.3>
+      <ion-text class="primary-dark-clr fs-14 sitefontmedium">
+        Customer Details
+      </ion-text>
+    </ion-col>
+    <ion-col size=0.7>
+      <ion-img [ngClass]="customerInfo == true ? 'upicon' : 'downicon'" src="assets\icon\down-arrow.svg"></ion-img>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid [ngClass]="customerInfo == true ? '' : 'hideaccordion'" class="ion-padding">
+  <ion-row>
+    <ion-col size=10.9 class=" fs-14 ion-no-padding ">
+      <ion-text class="black-color sitefontmedium">
+        {{orderObj?.userOrderData[0]?.customer?.customerName}}
+      </ion-text>
+    </ion-col>
+    <ion-col (click)="dailerPad(orderObj?.userOrderData[0]?.customer?.mobile)" class="ion-no-padding" size=1.1>
+      <div class="dail-phone">
+        <ion-img src="assets\icon\call.svg" alt="dial_img" class="dail-icon"></ion-img>
+      </div>
+    </ion-col>
+    <ion-col class="ion-no-padding" size=10>
+      <p class="sitefontnormal grey-info-text fs-12 sitefontlight">
+        {{orderObj?.userOrderData[0]?.customer?.address?.fullAddress}}
+      </p>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid class="ion-no-padding" (click)="accordion('2')">
+  <ion-row class="heading">
+    <ion-col size=11.3>
+      <ion-text class="primary-dark-clr fs-14 sitefontmedium">
+        Order Details
+      </ion-text>
+    </ion-col>
+    <ion-col size=0.7>
+      <ion-img [ngClass]="orderDetailInfo == true ? 'upicon' : 'downicon'" src="assets\icon\down-arrow.svg"></ion-img>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid class="ion-padding" [ngClass]="orderDetailInfo == true ? '' : 'hideaccordion'">
+  <ion-row *ngIf="isScheduled(orderObj)">
+    <ion-col class="schedule_icon ion-no-padding" size=4.5>
+      <ion-img src="assets\icon\date-range.svg" class="orderTypeImg" alt="calender_img"></ion-img>
+      <span class="fs-12  primary-dark-clr sitefontmedium schedule-text">Scheduled For </span>
+    </ion-col>
+    <ion-col class="ion-text-end primary-dark-clr fs-12" size=7.5>
+      <span> {{orderObj.deliveryInfo.slotInfo.date | date:
+        'd/M/yyyy'}}</span>
+      <span>
+        {{processTimeString(orderObj?.deliveryInfo?.slotInfo?.startTime) }} -
+        {{processTimeString(orderObj?.deliveryInfo?.slotInfo?.endTime) }}
+      </span>
+    </ion-col>
+    <div class="under-line"></div>
+  </ion-row>
+  <ion-row *ngIf="isSelfPickup(orderObj)">
+    <ion-col class="schedule_icon ion-no-padding" size=5>
+      <ion-img src="assets\icon\self-pickup.svg" class="orderTypeImg" alt="self-pickup"></ion-img>
+      <span class="fs-12  light-blue-clr  sitefontmedium self-pick-text">Self-pickup</span>
+    </ion-col>
+    <!-- <ion-col class="ion-text-end primary-dark-clr fs-12" size=7>
+         <span > {{orderObj.deliveryInfo.slotInfo.date | date:
+           'd/M/yyyy'}}</span>
+            <span >
+           {{processTimeString(orderObj?.deliveryInfo?.slotInfo?.startTime) }} -
+           {{processTimeString(orderObj?.deliveryInfo?.slotInfo?.endTime) }}
+         </span> 
+       </ion-col>  -->
+    <div class="pb5 under-line"></div>
+  </ion-row>
+  <!-- <ng-container class=" grey-info-text"  >
+      <ion-col size=6 class="ion-text-start">
+        <span class="  fs-12 sitefontmedium">Number of items</span>
+      </ion-col>
+      <ion-col size=6 class="ion-text-end">
+        <span class="grey-info-text fs-14"> x{{ orderObj?.items?.length }}</span>
+      </ion-col>
+    </ng-container> -->
+  <ion-row>
+    <ion-col size=6 class="grey-info-text ion-text-start ion-no-padding">
+      <span class="fs-12  sitefontmedium">Number of items</span>
+    </ion-col>
+    <ion-col size=6 class="ion-text-end">
+      <span class="fs-14"> {{ orderObj?.items?.length }}</span>
+    </ion-col>
+  </ion-row>
+  <div class="under-line"></div>
+  <ion-row class="fs-14 light-grey-color">
+    <ion-col size=6 class="pb5 ion-text-start">
+      <span>Sub Total</span>
+    </ion-col>
+    <ion-col size=6 class="pb5 ion-text-end grey-info-text">
+      <span class=" fs-14"> Rs {{orderObj?.billing.subTotal | number : '1.2-2'}}</span>
+    </ion-col>
+    <ng-container *ngIf="orderObj?.billing?.taxes[0]?.value !== '0'">
+      <ion-col size=6 class="pb5 ion-text-start">
+        <span>GST / Taxes check</span>
+      </ion-col>
+      <ion-col size=6 class="pb5 ion-text-end grey-info-text">
+        <span> Rs {{orderObj?.billing?.taxes[0]?.value | number : '1.2-2'}}</span>
+      </ion-col>
+    </ng-container>
+    <ng-container *ngIf="orderObj?.billing?.charges[0]?.value !== '0'">
+      <ion-col size=6 class="pb5 ion-text-start">
+        <span>Packaging Charges</span>
+      </ion-col>
+      <ion-col size=6 class="pb5 ion-text-end grey-info-text">
+        <span class="grey-info-text"> Rs {{orderObj?.billing?.charges[0]?.value | number : '1.2-2'}}</span>
+      </ion-col>
+    </ng-container>
+    <ng-container *ngIf="orderObj?.deliveryInfo?.deliveryCharge !== 0">
+      <ion-col size=6 class="pb5 ion-text-start">
+        <span class="grey-info-text">Delivery fee</span>
+      </ion-col>
+      <ion-col size=6 class="pb5 ion-text-end grey-info-text">
+        <span class="grey-info-text"> Rs {{orderObj?.deliveryInfo?.deliveryCharge | number : '1.2-2'}}</span>
+      </ion-col>
+    </ng-container>
+    <ng-container *ngIf="orderObj?.billing?.discount !==0 ">
+      <ion-col size=6 class="pb5 ion-text-start">
+        <span class="success-color">Discounts</span>
+      </ion-col>
+      <ion-col size=6 class="pb5 ion-text-end">
+        <span class="success-color">Rs {{orderObj?.billing?.discount | number : '1.2-2'}}</span>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+  <div class="dashed"></div>
+  <ion-row>
+    <ion-col size=6 class="ion-text-start ion-no-padding">
+      <span class="black-color sitefontmedium fs-12 ">Grand Total</span>
+    </ion-col>
+    <ion-col size=6 class="ion-text-end ion-no-padding">
+      <span class="primary-dark-clr fs-14 sitefontbold"> Rs {{orderObj?.billing.totalAmount | number :
+        '1.2-2'}}</span>
+    </ion-col>
+  </ion-row>
+  <div class="dashed"></div>
+  <ion-row class="ion-no-padding">
+    <ion-col size=12 class="ion-text-start ion-no-padding pb5">
+      <span class="black-color sitefontmedium fs-14 pb5">Payment Breakup </span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-no-padding pb5" *ngFor="let payment of orderObj?.payments">
+    <ng-container *ngIf="payment.amount !== 0">
+      <ion-col size=6 class="fs-14 grey-info-text ion-no-padding">{{payment.name}} </ion-col>
+      <ion-col size=6 class="fs-14 grey-info-text ion-text-end ion-no-padding">Rs {{payment.amount | number :
+        '1.2-2'}}</ion-col>
+    </ng-container>
+  </ion-row>
+</ion-grid>
+<ion-row class="ion-no-padding" *ngIf="orderModelKey !== 'outForDelivery' && orderModelKey !== 'pastOrders'">
+  <div class="under-line thick-line"></div>
+  <ion-col class="ion-padding">
+    <ion-button class="cancelbtn  outline-btn reject-btn fs-12 btn" (click)="onCancelOrder()">
+      Cancel Order
+    </ion-button>
+  </ion-col>
+</ion-row>
+<ion-grid *ngIf="orderModelKey  === 'outForDelivery' || orderModelKey === 'pastOrders'" class="ion-no-padding">
+  <div class="under-line thick-line"></div>
+  <ion-row class="ion-padding">
+    <ion-col size=12 class="ion-text-start">
+      <span class="primary-dark-clr fs-14 sitefontmedium">Order Status</span>
+    </ion-col>
+    <ion-col>
+      <div *ngIf="getCompletedOrderStatus(orderObj)" class="order-summary">
+        <span class="checkmark">
+          <div class="checkmark_success"></div>
+          <div class="checkmark_right"> </div>
+          <div class="checkmark_left"> </div>
+        </span>
+        <span class="fs-10 order-summary-txt success-color sitefontmedium">Order delivered </span>
+      </div>
+      <div *ngIf="getRejectOrderStatus(orderObj)" class="order-summary">
+        <span class="checkmark">
+          <div class="checkmark_error"></div>
+          <div class="checkmark_cross1"> </div>
+          <div class="checkmark_cross2"> </div>
+        </span>
+        <span class="fs-10 order-summary-txt error-color sitefontmedium">
+          {{rejectionType}}
+        </span>
+      </div>
+      <div *ngIf="rejectionReason !== null">
+        <p class="fs-12">Reason :
+          <span class="sitefontmedium"> {{rejectionReason}} </span>
+        </p>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,161 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@import url("./assets/styles/_color.scss");
+@import url("./assets/styles/_font.scss");
+@import url("./assets/styles/_input.scss");
+@import url("./assets/styles/_button.scss");
+@import url("./assets/styles/_icons.scss");
+@import url("./assets/styles/_text.scss");
+@import url("./assets/styles/_px.scss");
+@import url("./assets/styles/_modal.scss");
+@import "./assets/styles/input";
+
+.toast-error {
+  --background: var(--persian-red);
+  --color: var(--nero-black);
+}
+
+.toast-success {
+  --background: var(--shamrock-green);
+  --color: var(--nero-black);
+}
+.toast-warning {
+  --background: var(--off-yellow);
+  --color: var(--nero-black);
+}
+
+* {
+  font-family: "Poppins-regular";
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+p {
+  margin: 0;
+}
+span.hide-show-psd-css {
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  color: #5a5858;
+}
+// ion-menu {
+//     --width: 67% !important;
+// }
+// .custom-ion-menu {
+//     --width: 67% !important;
+// }
+// .split-pane-visible >.split-pane-side {
+//     min-width: 150px!important;
+//     max-width: 150px!important;
+// }
+
+ion-menu.custom-ion-menu {
+  --width: 67% !important;
+}
+
+ion-header {
+  background: var(--layout-bg-color) !important;
+}
+ion-toolbar {
+  --background: var(--layout-bg-color) !important;
+}
+// modal css for cancel orders in order detail
+.modal-component-css .modal-wrapper {
+  width: 85%;
+  --border-radius: 10px;
+  --height: 50%;
+}
+//search UI
+ion-searchbar .searchbar-input {
+  border-radius: 30px !important;
+  box-shadow: none !important;
+  border: 1px solid var(--layout-bg-color) !important;
+}
+
+ion-searchbar .searchbar-search-icon.sc-ion-searchbar-md {
+  color: var(--form-text-color) !important;
+}
+
+ion-searchbar .searchbar-input.sc-ion-searchbar-md {
+  color: var(--black-color) !important ;
+}
+ion-slides .swiper-wrapper {
+  display: block;
+}
+
+.searchbar-input-container {
+  ::placeholder {
+    font-size: 12px;
+  }
+}
+
+ion-modal.itemViewModal {
+  &.bottom {
+    align-items: flex-end;
+  }
+  --height: auto;
+  .ion-page {
+    position: relative;
+    display: block;
+    contain: content;
+    .inner-content {
+      max-height: 80vh;
+      overflow: auto;
+      padding: 0px;
+    }
+  }
+}
+.alert-wrapper.sc-ion-alert-md {
+  .alert-radio-label.sc-ion-alert-md {
+    white-space: normal;
+  }
+}
+.custom-switch {
+  .custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: var(--primary-blue);
+    background-color: var(--primary-blue);
+  }
+}
+.checkbox-view {
+  line-height: 10px;
+
+  input[type="checkbox"] + label {
+    display: flex;
+    line-height: 1.6;
+    cursor: pointer;
+    align-items: center;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] + label:before {
+    content: "\2714";
+    border: 2px solid var(--from-box-color);
+    border-radius: 2px;
+    width: 1rem;
+    height: 1rem;
+    font-size: 11px;
+    vertical-align: middle;
+    margin-right: 14px;
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    background-color: var(--primary-dark-clr);
+    border-color: var(--primary-dark-clr);
+    color: var(--white-clr);
+  }
+}

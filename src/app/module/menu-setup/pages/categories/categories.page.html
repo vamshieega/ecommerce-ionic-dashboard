@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-item-divider class="ion-no-padding" sticky>
+  <div *ngIf="getOutletTotalCount() !== 1" class="ion-padding">
+    <p class="fs-14 sitefontsemibold">{{locality}}</p>
+    <p class="fs-12">
+      <span class="primary-light-clr ion-padding-end" (click)="onChangeOutlet()">Change outlet </span>
+      <span class="primary-dark-clr icon-arrow-dropdown fs-10"></span>
+    </p>
+  </div>
+</ion-item-divider>
+<ion-content>
+  <form [formGroup]="categoryForm" *ngIf="categoryCount !==0">
+    <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
+      <div *ngFor="let cate of category; let i= index">
+
+        <div class="ion-margin">
+          <div [ngClass]="{'underline': i!==0}"></div>
+        </div>
+        <div class="categoryForm">
+          <ion-item *ngIf="cate.categoryName" lines="none" class="categoryName">
+            <span class="icon-open-grid-two-up ion-padding-end"></span>
+            <!-- <span class=" icon-open-list-rich"></span> -->
+            <!-- <ion-icon style="width: 34px;" name="pizza"></ion-icon> -->
+            <!-- <ion-reorder *ngIf="cate.categoryName" slot="start">
+          <ion-icon style="width: 34px;" class="icon-list-reorder"></ion-icon>
+        </ion-reorder> -->
+            <ion-label class="sitefontmedium fs-14 primary-dark-clr">
+              {{cate.categoryName}}
+            </ion-label>
+            <!-- date: {{cate.datepickerDismiss}} -->
+            <ion-toggle *ngIf="cate.categoryName" [checked]="cate.availableForOrder === true" style="float: right;"
+              (ionChange)="categorySwitch(i,$event)">
+            </ion-toggle>
+          </ion-item>
+          <ion-reorder-group (ionItemReorder)="doReorderSub($event,i)" disabled="false">
+            <div class="ion-padding-start" *ngFor="let sub of cate.subCategories; let j = index">
+
+              <div class="ion-padding-horizontal">
+                <div [ngClass]="{'subUnderline': j!==0}"></div>
+              </div>
+              <ion-item lines="none">
+                <span class=" icon-open-list-rich ion-padding-end"></span>
+                <!-- <ion-icon style="width: 34px;" name="fast-food-outline"></ion-icon> -->
+                <!-- <ion-reorder slot="start">
+              <ion-icon style="width: 34px;" class="icon-list-reorder"></ion-icon>
+            </ion-reorder> -->
+                <ion-label class="fs-12 sitefontnormal black-color">
+                  {{sub.subCategoryName}}
+                </ion-label>
+                <!-- sub : {{sub.subCatAvailableForOrder}}
+              ca : {{cancelpick}} -->
+                <ion-toggle [checked]="sub.subCatAvailableForOrder === true" style="float: right;"
+                  (ionChange)="subCategorySwitch(i,j,$event)">
+                </ion-toggle>
+              </ion-item>
+
+            </div>
+
+          </ion-reorder-group>
+          <ion-row *ngIf="showInput && selectedIndex === i">
+            <ion-col size=2></ion-col>
+            <ion-col size=8>
+              <ion-item lines="none" class="custom-item">
+                <ion-input type="text" class="inp-control" formControlName="subCateroryAdd" autofocus
+                  placeholder="Sub Category Name" restrictFirstSpace trimValue>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size=2 class="ion-padding-top">
+              <span class="icon-check fs-10 success-color" (click)="createSubCategory(i)"></span>
+              <span class="icon-cross fs-10 error-color ion-padding-start" (click)="removeSubInput()"></span>
+            </ion-col>
+          </ion-row>
+          <!-- <div *ngIf="cate.categoryName" class="ion-margin-horizontal">
+          <p class="ion-margin-horizontal ion-padding primary-dark-clr" (click)="addSubCategory(i)">
+            +Sub Category</p>
+        </div> -->
+          <ion-row *ngIf="cate.createCat">
+            <ion-col size=1></ion-col>
+            <ion-col size=8>
+              <ion-item lines="none" class="custom-item">
+                <ion-input type="text" formControlName="createCategory" placeholder="Category" autofocus
+                  class="inp-control" restrictFirstSpace trimValue></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size=3 class="ion-padding-top">
+              <span class="icon-check fs-10 success-color" (click)="createCategory(i,cate.categoryName)"></span>
+              <span class="icon-cross fs-10 ion-padding-start error-color" (click)="dismissInput(i)"></span>
+            </ion-col>
+          </ion-row>
+        </div>
+        <!-- <div class="ion-padding">
+        <div  class="underline"></div>
+      </div> -->
+      </div>
+      <!-- <div>
+        <p class="primary-dark-clr ion-padding pointer" (click)="addCategory()">+Category</p>
+      </div> -->
+    </ion-reorder-group>
+  </form>
+  <div class="ion-padding-top"></div>
+</ion-content>
+<ion-footer class="ion-no-border" *ngIf="categoryCount ===0">
+  <ion-row>
+    <ion-col>
+      <ion-button type="button" expand="block" class="theme-btn fs-12">
+        Create Category
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <p class="fs-14 p-0" (click)="onBack( )" slot="start">
+      <span class="icon-back ion-padding"></span>
+    </p>
+    <ion-title class="fs-14 sitefontmedium">{{headerText}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row class="outlet-selection">
+    <ion-col size=3.2>
+      <span class="grey-info-text fs-10">Change outlet : </span>
+    </ion-col>
+    <ion-col size=8.8>
+      <div *ngIf="getOutletTotalCount() !== 1" (click)="onChangeOutlet()">
+        <span class="fs-12 sitefontmedium primary-dark-clr">{{outletLocality}} </span>
+        <span class="primary-dark-clr icon-arrow-dropdown fs-10"></span>
+      </div>
+    </ion-col>
+  </ion-row>
+  <div class="menu-tab">
+    <ion-grid class="p-0">
+      <ion-row>
+        <ion-col class="options p-0" size="12">
+          <ion-segment scrollable mode="md" (click)="ionSegmentChanged()" [(ngModel)]="selectedType">
+            <ion-segment-button (click)="onOrderStatusTypeChange(i, menuItems.headerInfo)"
+              [ngStyle]="{'pointer-events':  disabledList() ? 'none' : 'inherit'}"
+              *ngFor="let menuItems of profileMenuItem;let i = index;" mode="md" [id]="i" [value]="i"
+              [class]="menuItems.isCompleted && selectedIndex === i ? 'menuOpacity' :  'lowOpacity'">
+              <ion-label class="fs-12 sitefontmedium" style="text-transform: capitalize">
+                {{ menuItems?.name }}
+              </ion-label>
+            </ion-segment-button>
+          </ion-segment>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-slides>
+    <div class="menu-content">
+      <div>
+        <app-basic-details *ngIf="selectedIndex === 0"></app-basic-details>
+      </div>
+      <div>
+        <app-outet-operational-timing *ngIf="selectedIndex === 1"></app-outet-operational-timing>
+      </div>
+      <div>
+        <app-billing-and-taxes *ngIf="selectedIndex === 2"></app-billing-and-taxes>
+      </div>
+      <div>
+        <app-fssai *ngIf="selectedIndex === 3"></app-fssai>
+      </div>
+      <div>
+        <app-bank-details *ngIf="selectedIndex === 4"></app-bank-details>
+      </div>
+      <div>
+        <app-delivery-config *ngIf="selectedIndex === 5"></app-delivery-config>
+      </div>
+      <div>
+        <app-order-config *ngIf="selectedIndex === 6"></app-order-config>
+      </div>
+    </div>
+  </ion-slides>
+</ion-content>

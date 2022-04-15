@@ -1,0 +1,83 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size=12 class="ion-no-padding">
+        <ion-img src="assets\icon\Yumzyx_logo.svg"></ion-img>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding">
+        <ion-text class="sitefontnormal title-txt">
+          <ion-text class="fs-22">
+            Start Your <ion-text class="primary-light-clr sitefontsemibold">Free </ion-text>trial now</ion-text>
+        </ion-text>
+      </ion-col>
+      <form [formGroup]="signupForm" (ngSubmit)="getOtp()" class="ion-padding-top ion-margin-top">
+        <ion-col size=12 class="ion-no-padding">
+          <ion-label class="inp-label">Name*</ion-label>
+          <ion-item lines="none" class="custom-item" [ngClass]="{ 'is-inp-invalid':getValid('name')}">
+            <ion-input autocomplete="off" type="ion-text" formControlName="name" placeholder="What is your name">
+            </ion-input>
+          </ion-item>
+          <div class="error-view ion-text-start">
+            <div *ngIf="getValid('name')" class="fw-4">
+              <ion-text *ngIf="signupForm.controls.name.errors?.required" class="error-msg-txt">
+                Please enter your Name
+              </ion-text>
+              <span *ngIf="signupForm.controls.name.errors?.minlength">Please enter atleast 6 characters</span>
+              <span *ngIf="signupForm.controls.name.errors?.pattern">Please enter valid name</span>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size=12 class="ion-no-padding">
+          <ion-label class="ion-padding-top inp-label">Mobile Number*</ion-label>
+          <ion-item lines="none" class="custom-item" [ngClass]="{ 'is-inp-invalid':getValid('mobile')}">
+            <select class="position-absolute select-country-code pointer" formControlName="countryCode">
+              <option value="+91" selected>+91</option>
+              <option value="+1">+1</option>
+            </select>
+            <ion-input autocomplete="off" maxlength="10" type="tel" formControlName="mobile" placeholder="Enter Phone">
+            </ion-input>
+          </ion-item>
+          <div class="error-view">
+            <div *ngIf="getValid('mobile')" class="fw-4">
+              <ion-text *ngIf="signupForm.controls.mobile.errors?.required">
+                Please enter your Mobile Number
+              </ion-text>
+              <ion-text *ngIf="signupForm.controls.mobile.errors?.min
+               || signupForm.controls.mobile.errors?.max">
+                Please enter a valid Mobile Number</ion-text>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size=12 class="ion-no-padding">
+          <ion-label class="inp-label">Email Address*</ion-label>
+          <ion-item lines="none" class="custom-item" [ngClass]="{ 'is-inp-invalid':getValid('email')}">
+            <ion-input autocomplete="off" type="email" formControlName="email" placeholder="What is your Email">
+            </ion-input>
+          </ion-item>
+          <div class="error-view ion-text-start">
+            <div *ngIf="getValid('email')" class="fw-4">
+              <ion-text *ngIf="signupForm.controls.email.errors?.required" class="float-left error-msg-txt">
+                Please enter your Email
+              </ion-text>
+              <ion-text *ngIf="signupForm.controls.email.errors?.pattern" class="float-left"> Please
+                enter valid Email</ion-text>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size=12 class="ion-padding-top">
+          <ion-button type="submit" expand="block" class="theme-btn">
+            <span class="sitefontmedium">Getting Started</span>
+            <span class="sitefontlight"> - for free</span>
+          </ion-button>
+        </ion-col>
+        <ion-col size=12>
+          <div class="ion-text-center">
+            <ion-text class="fs-14 mt-3 sitefontnormal grey-info-text">Already have an account? <span
+                class="primary-dark-clr pointer sitefontsemibold" [routerLink]="'/login'">Sign in</span>
+            </ion-text>
+          </div>
+        </ion-col>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>

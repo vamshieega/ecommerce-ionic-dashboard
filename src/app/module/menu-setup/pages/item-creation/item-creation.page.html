@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-basic-details (chargesBilling)="onChangeBilling($event)" [menuItemDetails]='itemDetails'></app-basic-details>
+  <ion-row class="ion-padding advance_filters">
+    <ion-col size=6>
+      <span class="fs-14 sitefontmedium">Advance Filters</span>
+    </ion-col>
+    <ion-col size=6>
+      <ion-toggle [checked]="advanceOptions" (ionChange)="advanceFilters($event)">
+      </ion-toggle>
+    </ion-col>
+    <ion-col size=10>
+      <span class="info grey-info-text fs-12">You can create Additional
+        charges | Add-ons | Variants | Timings for menu items</span>
+    </ion-col>
+  </ion-row>
+  <div [ngClass]="{'advanceFilter': !advanceOptions}">
+    <app-charges [billingData]="billingObj" [menuItemDetails]='itemDetails'></app-charges>
+    <div class="underline"></div>
+    <app-variant-addon [itemAddonsDetails]='addonsDetails'></app-variant-addon>
+    <div class="underline"></div>
+    <app-menu-timings [menuItemDetails]='itemDetails'></app-menu-timings>
+  </div>
+</ion-content>
+
+<ion-row class="footer ion-padding-horizontal">
+  <ion-col>
+    <ion-button expand="block" (click)="back()" class="outline-btn fs-12">
+      Back
+    </ion-button>
+  </ion-col>
+  <ion-col>
+    <ion-button expand="block" class="theme-btn fs-12" (click)="save()">
+      Save & Proceed
+    </ion-button>
+  </ion-col>
+</ion-row>

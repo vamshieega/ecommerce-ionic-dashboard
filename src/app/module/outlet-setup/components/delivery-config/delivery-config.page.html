@@ -1,0 +1,218 @@
+<ion-grid class="content-grid">
+  <ion-row class="content-row">
+    <div>
+      <form [formGroup]="deliveryForm" *ngIf="formInit">
+        <div class="ion-padding select-radius">
+          <p class="fs-12 sitefontmedium">Set delivery radius for your Outlet</p>
+          <p class="fs-10 grey-info-text">Marking a <b>Delivery radius</b> helps in <b>managing</b> your<br><b>outlet deliveries.</b></p>
+  
+          <button class="radius-btn ion-padding-vertical fs-12" (click)="onMarkRadius()">Mark radius</button>
+          <p *ngIf="radiusMarked" class="ion-padding-top primary-light-clr fs-10">You have marked a delivery radius of <b>{{range}}km</b> for this Outlet.</p>
+        </div>
+        <div class="under-line"></div>
+  
+        <div class="handle-delivery ion-padding">
+          <p class="fs-12 sitefontmedium">How do you want to handle your deliveries?</p>
+  
+          <div class="card-radio-view mb-4 ion-padding-top ion-justify-content-between">
+            <label class="radio-card">
+              <input type="radio" class="radio" formControlName="provider" value="self" name="provider">
+              <span class="radio-details">
+                <span class="fs-12 sitefontmedium">Self Managed</span>
+                <span class="dec-txt black-color fs-10 sitefontlight ">
+                  Handled by Partner
+                </span>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" class="radio" formControlName="provider" value="market" name="provider">
+              <span class="radio-details">
+                <span class="fs-12 sitefontmedium">Marketplace</span>
+                <span class="dec-txt black-color fs-10 sitefontlight ">
+                  Handled by YumzyX
+                </span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="under-line"></div>
+
+        <div class="service ion-padding">
+          <p class="fs-12 sitefontmedium">What kind of delivery services do you need?</p>
+
+          <p class="fs-12 grey-info-text p-2">On Demand | Scheduled | Self-Pickup</p>
+
+          <div class="card-radio-view schedule ion-padding-top ion-justify-content-between" (click)="onSelectService()">
+            <label class="radio-card schedule">
+              <input type="radio" class="radio" hidden (click)="checkForinput($event, 'services')" [checked]="servicesCount">
+              <span class="radio-details">
+                <span class="fs-12 sitefontmedium"><span [className]="deliveryType['icon']">&nbsp;</span>{{deliveryType['title']}}</span>
+                <span class="dec-txt black-color fs-10 sitefontlight ">
+                  {{deliveryType['desc']}}<img class="right-arrow" src="../../../../../assets/icon/side-arrow.svg" alt="">
+                </span>
+              </span>
+            </label>
+          </div>
+          <div class="error-view" *ngIf="servicesCount==0 && submitted">
+            <div class="fw-4">
+              <span
+                class="float-left error-color">
+                Please select atleast one from above options
+              </span>
+            </div>
+          </div>
+          <p class="light-blue-clr ion-padding-top fs-10" *ngIf="servicesCount > 1" (click)="onSelectService()"><b>+{{servicesCount-1}} more entries</b></p>
+        </div>
+
+        <div class="under-line"></div>
+
+        <div class="charges ion-padding">
+          <p class="fs-12 sitefontmedium">How do you want to calculate the delivery charges?</p>
+          <p class="fs-12 grey-info-text p-2">On cart value | Delivery Distance</p>
+          <div class="card-radio-view schedule ion-padding-top ion-justify-content-between" (click)="onSelectCartValue()">
+            <label class="radio-card schedule">
+              <input type="radio" class="radio" hidden (click)="checkForinput($event, 'range')" [checked]="rangeDetails">
+              <span class="radio-details">
+                <span class="fs-12 sitefontmedium"><span [className]="deliveryCalobj[chargeTypeV]['class']">&nbsp;</span> {{deliveryCalobj[chargeTypeV]['title']}}</span>
+                <span class="dec-txt black-color fs-10 sitefontlight ">
+                  {{deliveryCalobj[chargeTypeV]['desc']}}<img class="right-arrow" src="../../../../../assets/icon/side-arrow.svg" alt="">
+                </span>
+              </span>
+            </label>
+          </div>
+          <p class="primary-light-clr fs-10 ion-padding-top" *ngIf="chargeTypeV == 'byDistance'">Collect Delivery fee <b>Rs.{{rangeDetails[0].price}}.00</b> between a distance of <b>{{rangeDetails[0].from}} - {{rangeDetails[0].to}}</b></p>
+          <p class="light-blue-clr fs-10 ion-padding-top" *ngIf="rangeDetails?.length > 1" (click)="onSelectCartValue()"><b>+ more entries</b></p>
+        </div>
+
+        <div class="under-line"></div>
+
+        <ion-item lines="none" class="toggle-btns">
+          <ion-label class="sitefontmedium fs-12">Do you want to keep an Advance ordering <br>system?</ion-label>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="advanceOrdering" [ngModelOptions]="{standalone: true}">
+            <span class="slider round custom-toggle"></span>
+          </label>
+        </ion-item>
+        <div class="advance ion-padding" *ngIf="advanceOrdering" formGroupName="slotConfig">
+          <div class="position-relative">
+            <p class="fs-12">Order ahead cannot come be more than</p>
+            <div class="orderAhead">
+              <input type="number" formControlName="advanceDays" class="inp-control order-ahead">
+              <div class="select-days">
+                <select class="days-select" disabled>
+                  <option value='days' selected>Days</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="ion-padding-top">
+            <p class="fs-12">How many orders should be allowed in the single slot?</p>
+            <div class="allowed-input">
+              <input type="number" formControlName="maxOrdersPerSlot" placeholder="Select" class="custom-inp">
+              <span></span>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="under-line"></div>
+        
+        <div *ngIf="deliveryForm.controls['types']['controls']['scheduled'].value == true" class="handle-delivery ion-padding">
+          <p class="fs-12 sitefontmedium">How do you want to schedule your orders?</p>
+  
+          <div class="card-radio-view mb-4 ion-padding-top ion-justify-content-between">
+            <label class="radio-card">
+              <input type="radio" class="radio" name="scheduleOrdersV" value="dayWise" formControlName="scheduleOrdersV" checked>
+              <span class="radio-details">
+                <span class="fs-12 sitefontmedium">All days</span>
+                <span class="dec-txt black-color fs-10 sitefontlight ">
+                  Same for all days<br> in a week
+                </span>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" class="radio" name="scheduleOrdersV" value="custom" formControlName="scheduleOrdersV">
+              <span class="radio-details">
+                <span class="fs-12 sitefontmedium">Specific days</span>
+                <span class="dec-txt black-color fs-10 sitefontlight ">
+                  Schedule for<br> individual days
+                </span>
+              </span>
+            </label>
+          </div>
+          <div class="col-12">
+            <div class="error-view">
+              <div class="fw-4">
+                <span *ngIf="deliveryForm.controls?.scheduleOrdersV?.errors?.required && submitted"
+                  class="float-left error-color">
+                  Please select atleast one from above options
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="hr">
+
+        <!-- for weekdays selection -->
+        <div *ngIf="deliveryForm?.controls.scheduleOrdersV.value === 'dayWise' && 
+          deliveryForm.controls['types']['controls']['scheduled'].value == true" class="ion-padding">
+          <app-daywise-ophours [timings]="existingTime"></app-daywise-ophours>
+        </div>
+        
+
+        <div *ngIf="deliveryForm?.controls.scheduleOrdersV.value === 'custom' && 
+          deliveryForm.controls['types']['controls']['scheduled'].value == true">
+          <div class="timings ion-padding">
+            <p class="fs-12 grey-info-text">You can <b>Edit or Add</b> new <b>timings</b> by clicking <b>Edit timings</b> below.</p>
+
+            <button class="radius-btn ion-padding-vertical fs-12" (click)="onEditTiming()"><span> <img src="../../../../../assets/icon/edit.svg" alt=""></span>  Edit timings</button>
+
+            <div class="days-of-week" *ngFor="let time of customTiming | keyvalue; let i = index">
+              <ion-item class="toggle-btns ion-no-padding time-toggle">
+                <ion-col size="2" class="fs-12 capitalize">{{getDay(time.key)}}</ion-col>
+                <ion-col size="1"></ion-col>
+                <ion-col size="6">
+                  <div *ngIf="time.value['slots'].length > 0">
+                    <span *ngIf="time.value['slots'][0].startTime === '0000' && time.value['slots'][0].endTime === '2359';else allslots">
+                      <p class="fs-12 ion-text-center">24 Hours</p>
+                    </span>
+                  </div>
+                  <ng-template #allslots>
+                    <span class="fs-12" *ngIf="time.value['slots'].length > 0">{{getTime(time.value['slots'][0].startTime)}} - {{getTime(time.value['slots'][0].endTime)}}</span>
+                    <span *ngIf="time.value['slots'].length === 0"><b>-</b></span>
+                  </ng-template>
+                </ion-col>
+                <label class="switch float-right">
+                  <input [checked]="time.value['operational']" type="checkbox" (click)="toggleOutlet($event, i)">
+                  <span class="slider round custom-toggle"></span>
+                </label>
+                <span class="status fs-12" [ngClass]="{'form-text-color': time.value['operational'] === false, 'success-color': time.value['operational'] === true}" [innerText]="time.value['operational'] ? 'Open' : 'Closed'" (click)="onEditTiming(i)">Open</span>
+              </ion-item>
+            </div>
+          </div>
+
+        </div>
+
+        
+      </form>
+    </div>
+  </ion-row>
+</ion-grid>
+
+
+<ion-footer class="ion-no-border">
+  <ion-row class="footer ion-padding-horizontal">
+    <ion-col>
+      <ion-button expand="block" class="outline-btn fs-12" (click)="back()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" class="theme-btn fs-12" (click)="saveAndProceed()">
+        Save & Proceed
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

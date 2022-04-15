@@ -1,0 +1,101 @@
+.modal-hdr {
+  height: 34px;
+  background-color: var(--white-clr) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.colorPaletterModal-page .modal-wrapper {
+  width: 95%;
+  height: 80%;
+  --border-radius: 10px;
+}
+
+.categories-modal .modal-wrapper {
+  position: absolute;
+  bottom: 6%;
+  --width: 90%;
+  --height: 24%;
+  --border-radius: 10px;
+}
+.itemViewModal .modal-wrapper {
+  position: absolute;
+  bottom: 0%;
+}
+.discountCode-modal .modal-wrapper {
+  position: absolute;
+  bottom: 0 !important;
+  height: 38% !important;
+}
+.itemSearch-modal .modal-wrapper {
+  position: absolute;
+  bottom: 0%;
+  --height: 60%;
+}
+.itemSearch-modal
+  .modal-wrapper
+  ion-searchbar
+  .searchbar-search-icon.sc-ion-searchbar-md {
+  color: var(--primary-light-clr) !important;
+}
+.outlet-select-modal .modal-wrapper {
+  position: absolute;
+  bottom: 0 !important;
+  height: 60% !important;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.imageCropper-modal .modal-wrapper {
+  --border-radius: 0px;
+  position: absolute;
+  bottom: 20%;
+  --width: 90%;
+  border-radius: 15px;
+  height: 52% !important;
+}
+
+.itemViewModal2 .modal-wrapper {
+  width: 100% !important;
+  --border-radius: 0px;
+  position: absolute;
+  bottom: 0px;
+}
+
+.Confirmationmodal .modal-wrapper {
+  width: 100% !important;
+  --border-radius: 0px;
+  position: absolute;
+  bottom: 0px;
+}
+
+@media screen and (max-height: 880px) {
+  .Confirmationmodal .modal-wrapper {
+    --height: 37%;
+  }
+}
+@media screen and (max-height: 800px) {
+  .Confirmationmodal .modal-wrapper {
+    --height: 39% !important;
+  }
+}
+@media screen and (max-height: 720px) {
+  .Confirmationmodal .modal-wrapper {
+    --height: 43% !important;
+  }
+}
+@media screen and (max-height: 640px) {
+  .Confirmationmodal .modal-wrapper {
+    --height: 45% !important;
+  }
+  .itemViewModal2 .modal-wrapper {
+    --height: 38% !important;
+  }
+}
+@media screen and (max-height: 568px) {
+  .Confirmationmodal .modal-wrapper {
+    --height: 50% !important;
+  }
+}

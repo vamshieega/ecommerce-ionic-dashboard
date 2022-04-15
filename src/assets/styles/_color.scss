@@ -1,0 +1,178 @@
+:root {
+  --sundown: #ffb7b6;
+  --cream: #fbe7c6;
+  --mint: #b7f7c4;
+  --charlotte: #b3e6f5;
+  --gray: #989898;
+  --primary-dark-clr: #3d2643;
+  --primary-light-clr: #f67280;
+  --white-clr: #ffffff;
+
+  --error-color: #e8423e;
+  --error-overlay-color: #ffe9e8;
+  --pending-color: #ffb300;
+  --pending-overlay-color: #fff1d1;
+  --success-color: #3cc480;
+  --success-overlay-color: #ebfef3;
+  --grey-number-text: #9f9f9f;
+
+  --light-grey-color: #afafaf;
+  --grey-info-text: #707070;
+  --form-text-color: #cccccc;
+  --from-box-color: #ddddde;
+  --side-nav-button: #bdbbc1;
+  --text-button-color: #b0bac9;
+  --nav-tab-hover: #13091f;
+  --disabled-color: #efefef;
+  --black-color: #000000;
+  --layout-bg-color: #f0eff4;
+  --dark-gray: #656565;
+  --secondary-blue-clr: #5f49f6;
+
+  --nero-black: #202020;
+  --shamrock-green: #38cfab;
+  --persian-red: #d32f2f;
+  --narvik: #f3fbf4;
+  --off-yellow: #fef6e9;
+  --green-yellow: greenYellow;
+  --green-dark:#28a745; /* reports */
+  --red-600:#dc3545; /* reports */
+  --purple-dark:#663399; /* reports */
+  --yellow-dark:#ffc107; /* reports */
+  --clay: #1c242a; /* reports */
+  --weird-green: #58d896;
+  --toast-txt-clr: var(--nero-black);
+  --toast-success-bdr-clr: var(--shamrock-green);
+  --toast-error-bdr-clr: var(--persian-red);
+  --toast-success-bg-clr: var(--narvik);
+  --toast-error-bg-clr: var(--off-yellow);
+  --toast-success-clr: var(--green-yellow);
+  --toast-close-clr: var(--weird-green);
+   --light-blue-clr:#6C63FF;
+   --page-bg-clr: #eef4fc;
+   /* Operation report page */
+  --total-orders: var(--purple-dark);
+  --cancelled-orders: var(--red-600);
+  --food-ready: var(--yellow-dark);
+  --completed-order:var(--green-dark);
+  --report-label-name: var(--clay);
+
+  /* Revenue report page */
+  --revenue-generated: var(--green-dark);
+  --tax-component: var(--purple-dark);
+  --avg-order-value: var(--yellow-dark);
+  --revenue-value: var(--red-600);
+}
+
+.primary-dark-background {
+  --background: var(--primary-dark-clr) !important;
+}
+
+.primary-dark-clr {
+  color: var(--primary-dark-clr) !important;
+}
+
+.secondary-blue-clr {
+  color: var(--secondary-blue-clr) !important;
+}
+.primary-light-clr {
+  color: var(--primary-light-clr) !important;
+}
+.gray-clr {
+  color: var(--gray) !important;
+}
+// Toaster Colors
+
+.error-overlay-color {
+  color: var(--error-overlay-color);
+}
+
+.pending-color {
+  color: var(--pending-color);
+}
+
+.error-color {
+  color: var(--error-color) !important;
+}
+
+.pending-overlay-color {
+  color: var(--pending-overlay-color);
+}
+
+.success-overlay-color {
+  color: var(--success-overlay-color);
+}
+
+.success-color {
+  color: var(--success-color);
+}
+
+/*
+Text Colors
+*/
+
+.grey-info-text {
+  color: var(--grey-info-text);
+}
+
+.form-text-color {
+  color: var(--form-text-color);
+}
+
+.green-dark-clr {
+  color: var(--green-dark);
+}
+
+.red-clr {
+  color: var(--red-600);
+}
+
+.from-box-color {
+  color: var(--from-box-color);
+}
+
+.light-grey-color {
+  color: var(--light-grey-color) !important;
+}
+
+.side-nav-button {
+  color: var(--side-nav-button);
+}
+
+.text-button-color {
+  color: var(--text-button-color);
+}
+
+.bg-text-button-color {
+  background-color: var(--text-button-color);
+}
+
+.nav-tab-hover {
+  color: var(--nav-tab-hover);
+}
+
+.disabled-color {
+  color: var(--disabled-color);
+}
+.white-color {
+  color: var(--white-clr);
+}
+.dark-gray-clr {
+  color: var(--dark-gray);
+}
+.black-color {
+  color: var(--black-color) !important;
+}
+
+.light-blue-clr{
+  color: var(--light-blue-clr) !important;
+}
+.layout-bg-color{
+  color: var(--layout-bg-color) !important;
+}
+.grey-bg-color{
+  color: var(--grey-bg-color) !important;
+}
+.grey-number-text{
+  color: var(--grey-number-text) !important;
+}

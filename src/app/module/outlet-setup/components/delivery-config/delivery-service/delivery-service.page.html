@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <p class="fs-14" slot="start">
+      <span
+        class="icon-back ion-padding"
+        (click)="onNavigateBack()"
+      ></span>
+    </p>
+    <ion-title class="fs-12 sitefontnormal">Delivery Services</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-text ion-padding" [formGroup]="serviceForm" *ngIf="formInit">
+    <p class="fs-12 sitefontmedium ion-padding-bottom">Type of delivery service</p>
+    <p class="fs-12 grey-info-text">You can select any <b>one or Multiple options</b> based on the <b>delivery service</b> required for your <b>customers.</b></p>
+    
+    <div class="card-radio-view schedule mb-4 ion-padding-top ion-justify-content-between">
+      <label class="radio-card schedule">
+        <input type="checkbox" class="radio" name="onDemand" formControlName="onDemand">
+        <span class="radio-details">
+          <span class="fs-12 sitefontmedium"><span class="icon-timer">&nbsp;</span>On Demand</span>
+          <span class="dec-txt black-color fs-10 sitefontlight ">
+            Users pick up orders in real time
+          </span>
+        </span>
+      </label>
+    </div>
+    <div *ngIf="self" class="card-radio-view schedule mb-4 ion-padding-top ion-justify-content-between">
+      <label class="radio-card schedule">
+        <input type="checkbox" class="radio" name="scheduled" formControlName="scheduled">
+        <span class="radio-details">
+          <span class="fs-12 sitefontmedium"><span class="icon-calendar">&nbsp;</span>Scheduled</span>
+          <span class="dec-txt black-color fs-10 sitefontlight ">
+            Scheduled based delivery
+          </span>
+        </span>
+      </label>
+    </div>
+    <div class="card-radio-view schedule mb-4 ion-padding-top ion-justify-content-between">
+      <label class="radio-card schedule">
+        <input type="checkbox" class="radio" name="self" formControlName="self">
+        <span class="radio-details">
+          <span class="fs-12 sitefontmedium"><span><img src="../../../../../assets/icon/self-pickup.svg" alt=""> &nbsp;</span>Self-Pickup</span>
+          <span class="dec-txt black-color fs-10 sitefontlight ">
+            Customers will pick up the orders
+          </span>
+        </span>
+      </label>
+    </div>
+  </div>
+</ion-content>
+
+
+<ion-footer>
+  <ion-button (click)="onSubmit()" class="theme-btn fs-12"
+    >Confirm delivery service</ion-button
+  >
+</ion-footer>

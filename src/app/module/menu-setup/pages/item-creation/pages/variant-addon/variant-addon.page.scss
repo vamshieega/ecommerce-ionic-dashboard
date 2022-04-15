@@ -1,0 +1,35 @@
+.variant-Addon {
+  ion-toggle {
+    width: 38px;
+    height: 20px;
+    padding: 0px;
+    --handle-width: 18px;
+    --handle-height: 18px;
+    --background-checked: var(--success-color);
+    --handle-background: var(--white-clr);
+    --handle-background-checked: var(--white-clr);
+    --handle-spacing: 2px;
+    float: right;
+  }
+  .variant-msg {
+    margin: 0 20px 20px 20px;
+    border: 1px dashed var(--primary-dark-clr);
+    background-color: var(--layout-bg-color);
+    height: 72px;
+    padding: 12px;
+    .customisation {
+      margin-top: 7px;
+    }
+  }
+  .underline {
+    border-bottom: 2px solid var(--disabled-color);
+    width: 100%;
+  }
+  .right-arrow {
+    position: absolute;
+    bottom: 8px;
+    height: 10px;
+    color: var(--light-blue-clr);
+    transform: rotate(180deg);
+  }
+}

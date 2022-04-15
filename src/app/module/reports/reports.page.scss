@@ -1,0 +1,120 @@
+ion-header {
+    padding-right: 48px;
+    text-align: center;
+    ion-menu-button {
+      color: var(--black-color);
+    }
+}
+
+.heading {
+    position: relative;
+}
+
+.heading::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 1px;
+    bottom: -5px;
+    left: 0%;
+    border-bottom: 2px solid var(--text-button-color);
+}
+
+
+ion-datetime {
+    margin-top: 8px;
+    padding: 7px;
+    border-radius: 4px;
+    border: 1px solid var(--from-box-color);
+    --placeholder-color: var(--light-grey-color) !important;
+    width: auto;
+}
+
+.submit-btn {
+    margin-left: 12px;
+}
+
+.date-center {
+    position: relative;
+    top: 10px;
+    text-align: center;
+}
+
+ion-button {
+    width: 78px;
+    height: 38px;
+    margin-top: 10px;
+    font-size: 12px;
+    --border-radius: 20px;
+    --box-shadow: none;
+}
+.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.no-padding {
+    padding: 0;
+}
+
+.card:nth-child(1), .card:nth-child(4) {
+    width: 54%;
+}
+.card {
+    box-shadow: 0 0 4px #0000001D;
+    border: 0;
+    border-radius: 4px;
+    width: 44%;
+    height: 86px;
+    font-size: 12px;
+    padding: 10px;
+    margin-top: 10px;
+    .icon {
+        margin-right: 6px;
+    }
+    .report {
+        width: 12px;
+    }
+    .rupee {
+        font-family: none;
+    }
+    .amount {
+        font-size: 24px;
+        margin-top: 12px;
+    }
+    .revenue-generated {
+        color: var(--green-dark);
+    }
+    .revenue-value {
+        color: var(--red-600);
+    }
+    .total-orders {
+        color: var(--primary-dark-clr);
+    }
+    .cancelled-orders {
+        color: var(--red-600);
+    }
+    .completed-order {
+        color: var(--green-dark);
+    }
+    .tax-component {
+        color: var(--tax-component);
+    }
+    .avg-order-value {
+        color: var(--avg-order-value);
+    }
+    .food-ready {
+        color: var(--food-ready);
+    }
+}
+
+.under-line {
+    background: var(--layout-bg-color);
+    height: 0.4rem;
+    width: 100%;
+}
+
+.hr {
+    background: var(--disabled-color);
+    height: 1px;
+}
+

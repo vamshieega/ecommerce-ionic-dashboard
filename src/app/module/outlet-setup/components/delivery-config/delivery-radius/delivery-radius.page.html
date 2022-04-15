@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <p class="fs-14" slot="start">
+      <span class="icon-back ion-padding" (click)="onNavigateBack()"></span>
+    </p>
+    <ion-title class="fs-12 sitefontnormal">Delivery Radius</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <agm-map [latitude]="outletlat" [longitude]="outletlng" [zoom]="10" [streetViewControl]="false">
+
+
+      <agm-marker *ngFor="let post of positions" [latitude]="post.post_latitude"
+        iconUrl="assets/images/icons/agm-map-icons/restauranticon.svg" [longitude]="post.post_longitude">
+      </agm-marker>
+
+      <!-- <agm-marker [latitude]="lat1" [agmFitBounds]="true" iconUrl="assets/images/icons/agm-map-icons/restauranticon.svg"
+        [longitude]="long1">
+      </agm-marker> -->
+
+      <!-- <agm-marker [latitude]="lat1" [agmFitBounds]="true" iconUrl="assets/images/icons/agm-map-icons/restauranticon.svg"
+        [longitude]="long1">
+      </agm-marker>
+    -->
+
+      <!-- <agm-marker [latitude]="lat2" [agmFitBounds]="true" iconUrl="assets/images/icons/agm-map-icons/restauranticon.svg"
+        [longitude]="long2">
+      </agm-marker> -->
+      <agm-circle [latitude]="outletlat" [longitude]="outletlng" [radius]="rangeInKM" [editable]="false"
+        [strokeWeight]="1" [fillOpacity]="0.1">
+      </agm-circle>
+    </agm-map>
+  </div>
+
+  <div class="radius-range ion-padding">
+    <p class="fs-12 sitefontmedium">Set Delivery radius for your outlet</p>
+    <p class="fs-12 sitefontregular grey-info-text">Charges will be varied based on delivery radius</p>
+    <div class="slider-range">
+      <ion-item lines="none">
+        <ion-range type="range" min="0" max="20" [(ngModel)]="range" [value]="range" class="slider-primary-color"
+          id="myRange" (ionChange)="updateRange($event)"></ion-range>
+        <ion-label><span class="fs-10 ml-1"> max <span class="fs-12">20 km</span></span></ion-label>
+      </ion-item>
+      <div>
+        {{range}} km
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="ion-padding">
+    <p class="fs-12 sitefontmedium">Delivery Providers</p>
+    <p class="grey-info-text fs-12">Delivery providers based on Selected radius</p>
+    <div class="ion-padding-top">
+      <div *ngFor=" let provider of deliveryProvider" class="mb-3 sitefontmedium col-6 fs-16">
+        <img height="30px" src="{{provider.icon}}" style="border-radius: 10px;">
+        <span style="position: relative; bottom: 10px; left: 8px;">{{provider.name}}</span>
+      </div>
+      <div *ngIf="deliveryProvider?.length === 0" class="fs-12">
+        Note: For the Longer Listance, Partner has to deliver the Order.
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button (click)="onSubmit()" class="theme-btn fs-12">Mark delivery radius</ion-button>
+</ion-footer>

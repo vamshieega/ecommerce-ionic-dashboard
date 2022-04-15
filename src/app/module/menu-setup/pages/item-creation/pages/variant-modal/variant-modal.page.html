@@ -1,0 +1,113 @@
+<div class="inner-content">
+  <form [formGroup]="variantForm">
+    <ion-row class="ion-padding-horizontal ion-padding-top ml-4">
+      <ion-col size=12 class="p-0">
+        <p class="fs-12">Option Name</p>
+        <ion-input formControlName="optionName" placeholder="Enter Option name" maxlength="30" twoDigitDecimal min="0"
+          [ngClass]="{ 'is-inp-invalid': getValid('optionName')}" class="ion-custom">
+        </ion-input>
+      </ion-col>
+      <ion-col size=6 class="p-0">
+        <div class="error-view">
+          <div *ngIf="getValid('optionName')" class="fs-11 fw-4">
+            <span *ngIf="variantForm?.controls.optionName.errors?.required  && isSubmitted"
+              class="float-left error-msg-txt">
+              Please enter Original Price
+            </span>
+            <span class="float-left error-msg-txt"
+              *ngIf="variantForm?.controls.optionName.errors?.maxLength  && isSubmitted">
+              maxLength required
+            </span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-radio-group style="position: relative;" formControlName="type">
+      <span style="position: absolute; top:-5px; z-index: 6;" class="fs-12 radio_items ion-padding-start">Type</span>
+      <ion-row style="height: 46px;">
+        <ion-col size=2.9 class="first_item">
+          <ion-item lines="none">
+            <ion-radio class="veg" mode="md" item-left value="Veg"></ion-radio>
+            <ion-label class="radio_items text-button-color">Veg</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size=4.2 class="second_item">
+          <ion-item lines="none">
+            <ion-radio class="non_veg" mode="md" item-left value="Non-Veg"></ion-radio>
+            <ion-label class="radio_items text-button-color">Non-Veg</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size=3 class="first_item">
+          <ion-item lines="none">
+            <ion-radio class="egg" mode="md" item-left value="Egg"></ion-radio>
+            <ion-label class="radio_items text-button-color">Egg</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-radio-group>
+    <ion-row class="ion-padding-start error-view" style="margin-left: 4px;">
+      <span class="float-left error-msg-txt fs-10" *ngIf="variantForm?.controls.type.errors?.required && isSubmitted">
+        please choose Type
+      </span>
+    </ion-row>
+    <ion-row class="ion-padding-horizontal">
+      <ion-col *ngIf="type ==='variant' " size=6>
+        <p class="fs-12">Select Original Price</p>
+        <div class="d-flex">
+          <ion-input formControlName="originalCost" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+            (ionChange)="onEnter()" twoDigitDecimal type="number"
+            [ngClass]="{ 'is-inp-invalid': getValid('originalCost')}" class="fs-12 ion-custom" placeholder="0.00"
+            min="0">
+          </ion-input>
+          <div class="custom-label primary-dark-clr sitefontmedium fs-12"> {{currency?.name}}</div>
+        </div>
+        <div class="error-view">
+          <span class="float-left error-msg-txt fs-10"
+            *ngIf="variantForm?.controls.originalCost.errors?.required && isSubmitted">
+            Original Cost Required
+          </span>
+          <span class="float-left error-msg-txt fs-10"
+            *ngIf="variantForm?.controls.originalCost.errors?.min && isSubmitted">
+            Price should not be 0
+          </span>
+        </div>
+      </ion-col>
+      <ion-col size=6>
+        <p class="fs-12">{{priceName}} Price</p>
+        <div class="d-flex">
+          <ion-input formControlName="cost" type="number" class="fs-12 ion-custom" placeholder="0.00" min="0"
+            (ionChange)="onEnter()" [ngClass]="{ 'is-inp-invalid': getValid('cost')}"
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" twoDigitDecimal>
+          </ion-input>
+          <div class="custom-label primary-dark-clr sitefontmedium fs-12"> {{currency?.name}}</div>
+        </div>
+        <div class="error-view">
+          <span class="float-left error-msg-txt fs-10"
+            *ngIf="variantForm?.controls.cost.errors?.required && isSubmitted">
+            {{priceName}} Price Required
+          </span>
+          <span class="float-left error-msg-txt fs-10" *ngIf="variantForm?.controls.cost.errors?.min && isSubmitted">
+            Price should not be 0
+          </span>
+          <span class="float-left error-msg-txt fs-10" *ngIf="minMaxDiscount">
+            Discount should be less than price
+          </span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </form>
+</div>
+<ion-footer class="ion-no-border ion-padding">
+  <ion-row class="accept-btn">
+    <ion-col (click)="cancel()">
+      <ion-button expand="block" class="back-btn fs-14">
+        Cancel
+      </ion-button>
+    </ion-col>
+    <ion-col class="accept-btn" (click)="submit()">
+      <ion-button expand="block" class="sitefontmedium theme-btn fs-14">
+        Create option
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

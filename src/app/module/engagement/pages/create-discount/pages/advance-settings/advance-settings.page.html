@@ -1,0 +1,117 @@
+<form [formGroup]="advanceSettingsForm">
+  <div class="advance_settings">
+    <div class="d-flex">
+      <p class="success-color">Advance Settings</p>
+      <ion-toggle (ionChange)="advanceSetting($event)" formControlName="advancedSettingSelectedV"> </ion-toggle>
+    </div>
+    <p class="fs-12 grey-info-text mt-3">Customer eligibility | Scheduling | Use-age limits.</p>
+  </div>
+  <div *ngIf="offerFormGrp.advancedSettingSelectedV.value">
+    <div class="p-20">
+      <p class="fs-12 sitefontmedium">Customer eligibility</p>
+      <p class="fs-12  grey-info-text mt-10">Everyone | Specific Groups | Specific customers.</p>
+      <div class="selection-box mt-10">
+        <div class="fs-12 success-color d-flex">
+          <p class="fs-12 sitefontmedium">Everyone</p>
+        </div>
+        <div class="fs-12 d-flex mt-10">
+          <p class="success-color">Discount applied to anyone using it</p>
+          <span class="icon-back"></span>
+        </div>
+      </div>
+    </div>
+    <div class="underline"></div>
+    <div class="p-20" formGroupName="usage">
+      <p class="fs-12 sitefontmedium">Usage limits</p>
+      <p class="fs-12  grey-info-text mt-10">Choose one of the methods to set usage limit</p>
+      <ion-radio-group formControlName="usageLimitV" (ionChange)="usage($event)">
+        <ion-item lines="none">
+          <ion-radio class="quantity" value="total"></ion-radio>
+          <ion-label class="fs-14 ion-text-wrap ion-margin-start grey-info-text">Number of times this discount can be
+            used in total
+          </ion-label>
+        </ion-item>
+        <ion-input *ngIf="usageFormGrp.usageLimitV.value === 'total'" type="text"
+          class="mt-10 fs-12 usageValue ion-custom order_value ion-margin-bottom" formControlName="totalTimes"
+          placeholder="0.00">
+        </ion-input>
+        <div class="underline"></div>
+
+        <ion-item lines="none">
+          <ion-radio class="quantity" value="per-customer"></ion-radio>
+          <ion-label class="fs-14  ion-margin-start grey-info-text">Limit to one use per customer</ion-label>
+        </ion-item>
+        <div class="usageValue" formGroupName="perCustomer">
+          <div *ngIf="usageFormGrp.usageLimitV.value === 'per-customer'">
+            <div style="display: flex;">
+              <div>
+                <ion-input type="text" class="mt-10 fs-12 ion-custom order_value" formControlName="intervalValue"
+                  placeholder="0.00">
+                </ion-input>
+              </div>
+              <div>
+                <ion-select id="type" class="fs-12" formControlName="intervalUnit" placeholder="Select outletname">
+                  <ion-select-option value="days">Days </ion-select-option>
+                  <ion-select-option value="months">Month</ion-select-option>
+                  <ion-select-option value="hours">Hour</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+            <p class="fs-12 mt-10">No. of times discount applied</p>
+            <ion-input type="text" class="mt-10 fs-12 ion-custom order_value" formControlName="limit"
+              placeholder="0.00">
+            </ion-input>
+          </div>
+        </div>
+      </ion-radio-group>
+    </div>
+    <div class="underline"></div>
+    <div class="p-20">
+      <p class="fs-12 sitefontmedium">Active dates</p>
+      <div formGroupName="dateSpan">
+        <ion-row class="mt-10">
+          <ion-col size="5.5" class="fs-12 ion-no-padding">Start date</ion-col>
+          <ion-col size="1"></ion-col>
+          <ion-col size="5.5" class="fs-12 ion-no-padding">End date</ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-bottom">
+          <ion-col class="ion-no-padding" size="5.5">
+            <ion-datetime (ionChange)="onDateChange($event)" formControlName="startDate" displayFormat="YYYY-MM-DD"
+              [min]="min" placeholder="Select Date">
+            </ion-datetime>
+          </ion-col>
+          <ion-col size="1" class="ion-text-center">
+            <span class="date-center">-</span>
+          </ion-col>
+          <ion-col class="ion-no-padding" size="5.5">
+            <ion-datetime (ionChange)="onDateChange($event)" formControlName="endDate" displayFormat="YYYY-MM-DD"
+              [min]="min" [max]="max" placeholder="Select Date"></ion-datetime>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div class="underline"></div>
+      <p class="fs-12 sitefontmedium ion-padding-top">Schedule your discount</p>
+      <p class="fs-12  grey-info-text mt-10">All day | Daywise | Specific time</p>
+      <div (click)="discountSchedule()" class="selection-box mt-10">
+        <div class="fs-12 sitefontmedium success-color d-flex">
+          <p *ngIf="discountModel['activeSlots']['category'] === 'all-day'">All day</p>
+          <p *ngIf="discountModel['activeSlots']['category'] === 'weekdays'">Daywise</p>
+          <p *ngIf="discountModel['activeSlots']['category'] === 'slots'">Specific Time </p>
+        </div>
+        <div class="fs-12 d-flex mt-10 success-color">
+          <p *ngIf="discountModel['activeSlots']['category'] === 'all-day'">Discount will be applied to All days in a
+            week</p>
+          <p *ngIf="discountModel['activeSlots']['category'] === 'weekdays'">You can select individual or multiple days
+            in a week</p>
+          <p *ngIf="discountModel['activeSlots']['category'] === 'slots'">You set Start time & End-time for a discount
+          </p>
+          <span class="icon-back"></span>
+        </div>
+      </div>
+      <p class="fs-12  light-blue-clr mt-10">Discount will be applied to All days in a week till it reach end date</p>
+    </div>
+  </div>
+</form>
+<ion-button (click)="save()">
+  temp Save
+</ion-button>

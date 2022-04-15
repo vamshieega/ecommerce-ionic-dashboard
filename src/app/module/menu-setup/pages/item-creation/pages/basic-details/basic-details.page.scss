@@ -1,0 +1,215 @@
+.basic-details {
+  padding: 40px 20px 0px 20px;
+  .image_details {
+    position: relative;
+    width: 118px;
+    .remove-img {
+      position: absolute;
+      top: -15px;
+      right: -18px;
+    }
+  }
+  .insert-images {
+    width: 120px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #b2bac8;
+    border-image-slice: 2px;
+    border-image-width: initial;
+    border-image-outset: 2px;
+    .item-image {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      object-fit: fill;
+    }
+  }
+  .insert-images-text {
+    width: 75%;
+    padding-top: 12px;
+  }
+}
+
+.headline {
+  margin-top: 6px;
+  border-bottom: 2px solid var(--text-button-color);
+  border-radius: 10%;
+  width: 10%;
+}
+
+select {
+  border: 1px solid #cccccc;
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  background: white;
+}
+
+ion-textarea {
+  border: 1px solid var(--from-box-color);
+  border-radius: 4px;
+  margin: 5px 0 20px 0;
+}
+
+.border {
+  height: 8px;
+  background: var(--layout-bg-color);
+}
+.input-section {
+  padding: 20px 20px 20px 20px;
+  ion-item {
+    margin: 5px 0px 0px;
+  }
+  ion-select {
+    width: 100%;
+  }
+}
+.button-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px 20px 20px;
+  ion-button {
+    width: 160px !important;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    --border-radius: 4px;
+  }
+  ion-button:first-child {
+    color: var(--black-color);
+    --background: var(--white-clr) !important;
+    border: 1px solid var(--primary-dark-clr);
+    border-radius: 4px;
+  }
+}
+
+.card-radio-view {
+  display: flex;
+  padding-top: 8px;
+  .radio-name {
+    margin-top: 7px;
+  }
+  .radio-card {
+    height: 56px;
+    background-color: #fff;
+    border-radius: 4px;
+    position: relative;
+    width: 31%;
+    border: none;
+    box-shadow: 0px 0px 1px 1px var(--from-box-color);
+
+    .radio {
+      font-size: inherit;
+      margin: 0;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+    }
+
+    .radio {
+      margin-top: 7px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: #fff;
+      border: 2px solid var(--grey-info-text);
+      border-radius: 50%;
+      cursor: pointer;
+      height: 1rem;
+      outline: none;
+      transition: background 0.2s ease-out, border-color 0.2s ease-out;
+      width: 1rem;
+
+      &::after {
+        border: 2px solid #fff;
+        border-top: 0;
+        border-left: 0;
+        content: "";
+        display: block;
+        height: 0.45rem;
+        left: 16%;
+        position: absolute;
+        top: 40%;
+        transform: rotate(45deg) translate(-50%, -50%);
+        width: 0.16rem;
+      }
+
+      &:checked {
+        background: var(--success-color);
+        border-color: var(--success-color) !important;
+      }
+    }
+    .radio:checked ~ .card {
+      background-color: var(--secondary-card-btn-clr) !important;
+    }
+
+    .radio-details {
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 10px;
+      transition: border-color 0.2s ease-out;
+    }
+
+    .radio:checked ~ .radio-details {
+      background-color: var(--success-overlay-color) !important;
+      height: 100%;
+      border: 1px solid var(--success-color);
+      color: var(--success-color) !important;
+      box-shadow: 0px 0px 3px var(--success-color);
+      .dec-txt {
+        color: var(--success-color) !important;
+      }
+    }
+
+    .radio:disabled ~ .radio-details {
+      color: var(--color-dark-gray);
+      cursor: default;
+    }
+  }
+}
+.disabledOption {
+  cursor: no-drop !important;
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+ion-toggle {
+  width: 38px;
+  height: 20px;
+  padding: 0px;
+  --handle-width: 18px;
+  --handle-height: 18px;
+  --background-checked: var(--success-color);
+  --handle-background: var(--white-clr);
+  --handle-background-checked: var(--white-clr);
+  --handle-spacing: 2px;
+  float: right;
+}
+.ion-custom {
+  border: 0.6px solid var(--from-box-color);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  height: 44px;
+  --placeholder-opacity: 0.3;
+}
+.custom-label {
+  background-color: var(--from-box-color);
+  border: 0.6px solid var(--from-box-color);
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding: 11px 15px 13px 12px;
+}
+.d-flex {
+  display: flex;
+  width: 48%;
+  margin: 5px 0;
+}
+ion-footer {
+  box-shadow: 0px -2px 6px 1px #00000020;
+  padding: 10px 0;
+}

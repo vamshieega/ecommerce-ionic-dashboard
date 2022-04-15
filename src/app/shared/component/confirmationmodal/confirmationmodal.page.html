@@ -1,0 +1,32 @@
+<ion-content>
+  <div class="image">
+    <div class="circle {{icon}}">
+    </div>
+  </div>
+
+  <div class="title">
+    <p class="fs-16 sitefontmedium  primary-dark-clr ion-text-center">
+      {{title}}
+    </p>
+  </div>
+  <div class="subtitle">
+    <p class="fs-12 ion-padding-top ion-text-center grey-info-text">
+      Click <span class="sitefontbold"> 'cancel' </span> to return to page
+      or <span class="sitefontbold"> 'confirm'</span> to  {{endMsg}}
+    </p>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <ion-row class="accept-btn">
+    <ion-col>
+      <ion-button expand="block" (click)="cancel()" class="back-btn fs-14">
+        Cancel
+      </ion-button>
+    </ion-col>
+    <ion-col class="accept-btn">
+      <ion-button expand="block" (click)="confirm()" class="sitefontmedium theme-btn fs-14">
+        Confirm
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

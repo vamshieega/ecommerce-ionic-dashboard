@@ -1,0 +1,56 @@
+ion-header {
+  box-shadow: 0 2px 4px #0000001F;
+  background-color: var(--white-color) !important;
+}
+
+.grey-info-text {
+  color: var(--grey-info-text);
+}
+//using locally
+.back-btn {
+  border: 1px solid var(--primary-dark-clr);
+  --background: transparent;
+  color: var(--primary-dark-clr);
+  height: 46px;
+  border-radius: 3px;
+  --ripple-color: transparent;
+  font-family: "Poppins-medium";
+}
+
+.image {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 8px;
+}
+
+.outletList {
+  height: 100%;
+}
+
+ion-radio {
+  --color-checked: var(--primary-dark-clr);
+}
+
+ion-item {
+  --ripple-color: transparent;
+}
+
+.title {
+  position: absolute;
+  top: 16px;
+  left: 1rem;
+}
+
+ion-footer {
+  padding: 10px 10px 20px 10px;
+}
+
+.circle {
+  background-color: transparent;
+  border-radius: 50%;
+  height: 46px;
+  width: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

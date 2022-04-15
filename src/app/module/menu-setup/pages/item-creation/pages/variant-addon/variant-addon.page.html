@@ -1,0 +1,56 @@
+<div class="variant-Addon">
+    <form [formGroup]="itemVariantForm" class="mx-2">
+        <ion-row class="ion-padding">
+            <ion-col class="fs-14 primary-dark-clr sitefontmedium" size=10.6>
+                Do you want to keep variants for your menu?
+            </ion-col>
+            <ion-col size=1.4>
+                <ion-toggle [checked]="this.itemVariantForm.value.variantAdded" formControlName="variantAdded">
+                </ion-toggle>
+            </ion-col>
+        </ion-row>
+        <ion-grid (click)="itemVariant()" *ngIf="this.itemVariantForm.value.variantAdded">
+            <ion-row *ngIf="this.variantsCount === 0" class="variant-msg">
+                <ion-col size=12>
+                    <div class="ion-text-center primary-dark-clr fs-12">
+                        <span class=" sitefontbold">+ Make Your Own</span>
+                        <p style="margin-top: 7px;">Build your own customisation</p>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="this.variantsCount !== 0" class="ion-padding-start ion-padding-bottom">
+                <ion-col size=8 class="fs-12 sitefontmedium">
+                    <span class="light-blue-clr">{{this.variantsCount}} variant Created</span>
+                    <img class="ion-margin-start right-arrow" src="assets\icon\arrow-round-back.svg" alt="">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div class="underline"></div>
+        <ion-row class="ion-padding">
+            <ion-col class="fs-14 primary-dark-clr sitefontmedium" size=10.6>
+                Do you want to keep Addons for your menu?
+            </ion-col>
+            <ion-col size=1.4>
+                <ion-toggle [checked]="this.itemVariantForm.value.addonAdded" formControlName="addonAdded">
+                </ion-toggle>
+            </ion-col>
+        </ion-row>
+        <ion-grid *ngIf="this.itemVariantForm.value.addonAdded">
+            <ion-row (click)="addAddons(true)" class="variant-msg">
+                <ion-col size=12>
+                    <div class="ion-text-center primary-dark-clr fs-12">
+                        <span class=" sitefontbold">+ Make Your Own</span>
+                        <p class="customisation">Build your own customisation</p>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="this.addonsCount !==0" (click)="addAddons(false)"
+                class="ion-padding-horizontal ion-padding-bottom">
+                <ion-col size=8 class="fs-12 sitefontmedium">
+                    <span class="light-blue-clr">{{this.addonsCount}} Addons Created</span>
+                    <img class="ion-margin-start right-arrow" src="assets\icon\arrow-round-back.svg" alt="">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</div>

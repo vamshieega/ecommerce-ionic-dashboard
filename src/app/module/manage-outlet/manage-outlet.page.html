@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>All Outlets</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="pullToRefresh($event)">
+    <ion-refresher-content pulling-icon="arrow-down-outline" pulling-text="Pull to refresh..."
+      refreshing-text="Refreshing..." refreshing-spinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-item-divider *ngIf='listLength !== 0' class="ion-no-padding " sticky>
+    <ion-searchbar placeholder="Search by outlet name or location" [formControl]="search"></ion-searchbar>
+  </ion-item-divider>
+  <div class="ion-text-center background-image" *ngIf='listLength  === 0'>
+    <div class="image-content-new-user">
+      <ion-img src="assets\icon\create-outlet.svg" class="image-view"></ion-img>
+      <p class="black-color sitefontmedium image-status  fs-16">Create Outlet</p>
+      <p class="black-color image-txt fs-12">Configure an outlet that will receive and prepare orders.</p>
+    </div>
+  </div>
+  <div class="ion-text-center background-image" *ngIf='setOrderListLength'>
+    <div class="image-content">
+      <ion-img src="assets\icon\valid-outlet.svg" class="image-view"></ion-img>
+      <p class="black-color sitefontmedium  image-status  fs-16">Outlet Not Found</p>
+      <p class="black-color image-txt fs-12">Please enter a valid outlet name</p>
+    </div>
+  </div>
+  <div class="ion-margin" *ngFor="let toggle of copyOutletList; index as i">
+    <div class="outlet-section"
+      [ngClass]="{'disabled-box' : (toggle.status === 'inactive' && isViewType === 'MAIN_HEADER') ,'toggle-active':toggle.available === 'on' && toggle.status !== 'inactive' }">
+      <div class="p-0 ion-align-self-start">
+        <div class="outlet-text-section">
+          <p class="sitefontmedium fs-14"> {{toggle?.outletName}} </p>
+          <div *ngIf="isViewType === 'MAIN_HEADER'" [style.pointerEvents]="toggle.status === 'inactive' ? 'none':''">
+            <label class="toggle-button">
+              <ion-toggle (ionChange)="switchOnOff(toggle)" #toggleSwitch type="'ios' | 'md'"
+                [checked]="toggle.available === 'on' && toggle.status === 'active'"></ion-toggle>
+              <span *ngIf="toggleSwitch.checked" class="toggle-button-text-on"
+                [ngClass]="toggle.available === 'on'    && toggle.status === 'active' ? 'onSwitch' : 'disabled'">On</span>
+              <span *ngIf="!toggleSwitch.checked" class="toggle-button-text-off"
+                [ngClass]="toggle.available === 'off' && toggle.status === 'active'? 'offSwitch' : 'disabled'">Off</span>
+            </label>
+          </div>
+        </div>
+        <p class="sitefontnormal fs-12" style="padding-top: 10px;"> {{toggle?.locality}}</p>
+        <div class="position-relative" *ngIf="isViewType === 'SUB_HEADER'">
+          <div [ngClass]="{active: isActive(toggle.outletId)}" class="pending-color fs-14 sitefontmedium"
+            (click)="toggleButton(toggle, i)">
+            {{buttonName}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

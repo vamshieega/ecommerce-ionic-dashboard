@@ -1,0 +1,246 @@
+ion-header {
+  ion-menu-button {
+    color: var(--black-color);
+  }
+  ion-img {
+    display: inline-block;
+    padding: 15px;
+  }
+}
+
+ion-footer {
+  background-color: var(--white-clr);
+  ion-segment {
+    --offset-bottom: auto !important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+.header-info {
+  position: relative;
+  width: 100%;
+}
+
+.order-type {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  .order-type-img {
+    margin: 0px 4px 0px 0px;
+    width: 11px;
+    display: inline-grid;
+  }
+  .order-type-txt {
+    position: relative;
+    top: -2px;
+    left: 2px;
+  }
+  .error-color {
+    color: var(--error-color) !important;
+  }
+}
+
+.header-center {
+  position: absolute;
+  text-align: center;
+  left: 40%;
+  top: 50%;
+  transform: translate(-20%, -50%);
+}
+
+.header-left {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+// .vertical-align-content
+//   {
+//        display: flex!important;
+//        align-content: center!important;
+//        align-items: end!important;
+//   }
+
+.background-image {
+  .image-content-new-user {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%);
+  }
+  .image-content {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%, -55%);
+  }
+  .image-view {
+    width: 260px;
+  }
+  .image-status {
+    margin: 20px 0px 15px 0px;
+  }
+  .image-txt {
+    margin: 0 15px 0 15px;
+  }
+  .image-card {
+    border: 1px solid var(--layout-bg-color);
+    height: 85px;
+    box-shadow: 0px 0px 5px var(--primary-dark-clr);
+    padding: 10px;
+    position: absolute;
+    left: 9%;
+    bottom: 6%;
+    transform: translate(-5%, -34%);
+    border-radius: 3px;
+    background-color: var(--layout-bg-color);
+  }
+  .info-image {
+    height: 11px;
+    display: inline-flex;
+  }
+  .image-assest {
+    height: 10px;
+    float: right;
+  }
+  .outlet-btn {
+    position: absolute;
+    bottom: 0px;
+    width: 94%;
+    margin: 3% 3% 1% 3%;
+  }
+}
+
+ion-badge {
+  --color: var(--grey-bg-color);
+  padding: 4px 7px 4px 7px;
+  --background: var(--layout-bg-color);
+  margin-bottom: -5px;
+  font-size: 12px;
+  font-weight: 100;
+}
+
+ion-badge.selected {
+  --color: var(--white-clr);
+  --background: var(--primary-light-clr);
+}
+
+ion-label.selected {
+  .icon-timer:before {
+    color: var(--primary-light-clr);
+  }
+}
+
+ion-segment-button {
+  --ripple-color: transparent;
+  --color-checked: var(--primary-light-clr);
+  text-transform: capitalize;
+}
+
+.ordersList {
+  padding: 10px;
+  margin: 15px 15px 0 15px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  button {
+    padding: 10px;
+    width: 100%;
+    background-color: var(--primary-dark-clr);
+    color: var(--white-clr);
+    border-radius: 4px;
+  }
+}
+
+.background-img {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  height: 350px;
+  width: 100%;
+}
+
+.right-arrow {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  height: 12px;
+  transform: rotate(180deg);
+}
+
+.right-content {
+  position: relative;
+}
+
+.checkmark {
+  display: inline-block;
+  width: 22px;
+  height: 10px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+
+  .checkmark_success {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: var(--success-color);
+    border-radius: 11px;
+    left: 0;
+    top: 0;
+  }
+
+  //global error color not applying using here
+  .error-color {
+    color: var(--error-color) !important;
+  }
+
+  .checkmark_error {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: var(--error-color);
+    border-radius: 11px;
+    left: 0;
+    top: 0;
+  }
+
+  .checkmark_cross1 {
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    background-color: #fff;
+    left: 6px;
+    top: 3px;
+  }
+
+  .checkmark_cross2 {
+    position: absolute;
+    width: 8px;
+    height: 2px;
+    background-color: var(--white-clr);
+    left: 3px;
+    top: 6px;
+  }
+
+  .checkmark_right {
+    position: absolute;
+    width: 2px;
+    height: 9px;
+    background-color: #fff;
+    left: 7px;
+    top: 2px;
+  }
+
+  .checkmark_left {
+    position: absolute;
+    width: 4px;
+    height: 2px;
+    background-color: var(--white-clr);
+    left: 4px;
+    top: 9px;
+  }
+}

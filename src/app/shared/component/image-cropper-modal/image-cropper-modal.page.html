@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <p (click)="cancel()" class="fs-14 p-0" slot="start">
+      <span class="icon-back ion-padding"></span>
+    </p>
+    <ion-title class="fs-14 sitefontmedium">Adjust Margins</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row class="ion-padding">
+    <ion-col size=9>
+      <span class="fs-12 grey-info-text">Max of 2MB, at least 400 x 300 pixels & only JPEG and PNG are allowed.</span>
+    </ion-col>
+    <ion-col size=12 class="ion-padding-top">
+      <ion-button class="upload-btn  outline-btn sitefontmedium fs-14" (click)="file.click()"
+        (change)="uploadNewImage($event)">
+        <div class="upload-new-button-box">
+          <input type="file" #file accept="image/x-png,image/gif,image/jpeg" />
+        </div>
+        Upload new image
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <div class="ion-margin">
+    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+      (imageCropped)="imageCropped($event)" [transform]="transform" (imageLoaded)="imageLoaded($event)"
+      (cropperReady)="cropperReady($event)" (loadImageFailed)="loadImageFailed()">
+    </image-cropper>
+  </div>
+  <div class="slider-range ion-margin">
+    <span class="fs-12 grey-info-text">Drag the slider to zoom in/out</span>
+    <ion-item lines="none">
+      <img src="assets\icon\insert-picture-icon.svg" height="20" alt="img">
+      <ion-range type="range" min="0" max="20" [(ngModel)]="value" class="slider-primary-color" id="myRange"
+        (ionChange)="onZoom($event)"></ion-range>
+      <img src="assets\icon\insert-picture-icon.svg" height="30" alt="img">
+    </ion-item>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-row class="footer ion-padding-horizontal">
+    <ion-col>
+      <ion-button expand="block" (click)="cancel()" class="outline-btn fs-12">
+        Cancel
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="crop()" expand="block" class="theme-btn fs-12">
+        Crop & Save
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,45 @@
+<ion-content class="ion-no-padding" [scrollEvents]="true">
+  <ion-row *ngFor="let menu of orderObj?.items ; let i=index " class="ion-padding-top">
+    <ion-col class="ion-padding-start" size=1>
+      <span class="icon-indicator" [ngClass]="getVegNonVegItem(menu?.isVeg,menu?.containsEgg)"></span>
+      <!-- <span class="icon-indicator" [ngClass]="menu?.isVeg ? 'success-color' : 'error-color'"></span>  -->
+    </ion-col>
+    <ion-col class="ion-padding-start" size=7.6>
+      <ion-text> {{menu.name}}</ion-text>
+      <p *ngIf="menu?.variant">
+        <span class="fs-12 gray-clr"> Variant: </span>
+        <span class="fs-14 blue-color">{{menu?.variant?.options?.optionName}} </span>
+      </p>
+      <div *ngFor="let addon of menu.addons; let i=index" class="fw-4 row addon-div">
+        <span class="fs-12 gray-clr " *ngIf="i === 0"> Add on: </span>
+        <ng-container *ngFor="let option of addon.options; let isLast = last">
+          <span class=" fs-14 blue-color ">{{option.optionName}}
+            <ng-container *ngIf="!isLast">, </ng-container>
+          </span>
+        </ng-container>
+      </div>
+    </ion-col>
+    <ion-col size=1>
+      x{{menu.quantity}}
+    </ion-col>
+    <ion-col class="ion-padding-bottom" size=2.4>
+      ₹{{menu?.billing?.subTotal}}
+    </ion-col>
+    <div class="under-line"> </div>
+  </ion-row>
+  <div class="under-line"> </div>
+  <div class="ion-padding" *ngIf="orderObj?.specialInstructions !== ''">
+    <p class="fs-14 fw-5 primary-dark-clr">
+      Special Instructions :
+    </p>
+    <div class="instructions">
+      <span>{{orderObj?.specialInstructions}} </span>
+    </div>
+  </div>
+  <div *ngIf="Items" (click)="scrollDown()">
+    <div class="items"
+      *ngIf="(orderModelKey === 'acceptanceWait') || (orderModelKey === 'foodPreparation') || (orderModelKey === 'foodReady')">
+      <ion-icon class="arrow-down" name="arrow-down"></ion-icon> More items
+    </div>
+  </div>
+</ion-content>

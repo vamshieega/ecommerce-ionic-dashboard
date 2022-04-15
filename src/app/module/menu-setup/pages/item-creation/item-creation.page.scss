@@ -1,0 +1,32 @@
+ion-content {
+  .advance_filters {
+    background: #f6f6f6;
+    .info {
+      display: block;
+    }
+  }
+  ion-toggle {
+    width: 38px;
+    height: 20px;
+    padding: 0px;
+    --handle-width: 18px;
+    --handle-height: 18px;
+    --background-checked: var(--success-color);
+    --handle-background: var(--white-clr);
+    --handle-background-checked: var(--white-clr);
+    --handle-spacing: 2px;
+    float: right;
+  }
+  .advanceFilter {
+    display: none;
+  }
+  .underline {
+    border-bottom: 2px solid var(--disabled-color);
+    width: 100%;
+  }
+  .footer {
+    bottom: 0%;
+    width: 100%;
+    background: white;
+  }
+}

@@ -1,0 +1,131 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>billing-and-taxes</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+  
+<!-- <ion-content> -->
+  <ion-grid class="content-grid">
+    <ion-row class="content-row ion-padding-horizontal">
+      <div class="gstin-page">
+        <div class="fs-12 sitefontmedium ion-padding-horizontal ion-margin-vertical">Want to include Taxes on your items ?</div>
+
+        <form [formGroup]="gstInForm">
+          <div class="card-radio-view mb-4 ion-padding-horizontal">
+            <label class="radio-card">
+              <input type="radio" class="radio" name="gstinEntered" value="true" formControlName="gstinEntered">
+              <!-- <input type="radio" class="radio" id="allTime" name="opSettingType" value="allTime"
+                formControlName="opSettingType"> -->
+              <span class="radio-details">
+                <span class="fs-12 sitefontmedium">Yes</span>
+                <span class="dec-txt black-color fs-10 sitefontlight ">
+                  Include Taxes on my items
+                </span>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" class="radio" name="gstinEntered" value="false" formControlName="gstinEntered">
+              <span class="radio-details" aria-hidden="true">
+                <span class="fs-12 sitefontmedium">No</span>
+                <span class="dec-txt black-color fs-10 sitefontlight">
+                  Do not include Taxes on my items
+                </span>
+              </span>
+            </label>
+          </div>
+
+          <div *ngIf="gstInForm.controls.gstinEntered.value === 'true'">
+            <div class="inp-group ion-padding-horizontal ion-padding-top">
+              <label class="fs-12 sitefontregular">GSTIN number</label>
+              <br>
+              <input type="text" class="inp-control fs-12 input-fields" placeholder="Enter your GSTIN number" autocomplete="off"
+                [ngClass]="{ 'is-inp-invalid': getValid('gstinNumber')}" formControlName="gstinNumber" restrictFirstSpace
+                trimValue>
+              <div class="error-view">
+                <div *ngIf="getValid('gstinNumber')" class="fs-11 fw-4">
+                  <span *ngIf="gstInForm.controls.gstinNumber.errors?.required" class="float-left error-msg-txt">Please
+                    enter GSTIN number
+                  </span>
+                  <span *ngIf="gstInForm.controls.gstinNumber.errors?.pattern" class=" float-left error-msg-txt">Please
+                    enter valid GSTIN number
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="under-line"></div>
+
+            <div class="ion-padding-top ion-padding-horizontal">
+              <label class="fs-12 sitefontmedium black-color">How do you place your GST calculation?</label>
+              <div class="card-radio-view ion-padding-vertical d-flex mb-4">
+                <label class="radio-card">
+                  <input type="radio" class="radio" name="gstApplicableOn" formControlName="gstApplicableOn" value="outlet">
+                  <span class="radio-details">
+                    <div>
+                      <span class="fs-12 sitefontregular">Outlet Specific</span>
+                    </div>
+                    <span class="dec-txt black-color fs-10 sitefontlight">
+                      Single GST % for all <br>items
+                    </span>
+                  </span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" class="radio" name="gstApplicableOn" formControlName="gstApplicableOn" value="item">
+                  <span class="radio-details" aria-hidden="true">
+                    <div>
+                      <span class="fs-12 sitefontregular">Item Specific</span>
+                    </div>
+                    <span class="dec-txt black-color fs-10 sitefontlight">
+                      You need to select GST <br>for each item
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="mb-2" *ngIf="gstInForm.controls.gstApplicableOn.value === 'outlet'">
+              <div>
+                <label class="fs-12 black-color sitefontmedium ion-padding">Select GST % for items</label>
+              </div>
+              <div class="ion-padding d-inline">
+                <select class="" formControlName="gstinPercent">
+                  <!-- <option selected disabled>0%</option> -->
+                  <option value="{{gstin.key}}" *ngFor="let gstin of gstinTaxes">{{gstin.value}}</option>
+                </select>
+                <div class="error-view">
+                  <div *ngIf="getValid('gstinPercent')" class="fs-10 fw-4">
+                    <span *ngIf="gstInForm.controls.gstinPercent.errors?.required" class="float-left error-msg-txt">
+                      Please Select GstinPercent
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </form>
+
+      </div>
+    </ion-row>
+  </ion-grid>
+
+<!-- </ion-content> -->
+
+  <ion-footer class="ion-no-border">
+    <ion-row class="footer ion-padding-horizontal">
+    <ion-col>
+      <ion-button expand="block" class="outline-btn fs-12" (click)="back()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" class="theme-btn   fs-12 " (click)="saveAndProceed()">
+        Save & Proceed
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  </ion-footer>
+

@@ -1,0 +1,19 @@
+.inner-content{
+    margin: 20px;
+    .code{
+        border-bottom: 1px solid var(--from-box-color);
+    }
+    .items {
+        color: var(--primary-dark-clr);
+        margin-top: 10px;
+        &::before {
+          display: inline-block;
+          content: "";
+          width: 10px;
+          height: 10px;
+          margin-right: 16px;
+          border-radius: 50%;
+          background-color: var(--primary-dark-clr);
+        }
+      }
+}

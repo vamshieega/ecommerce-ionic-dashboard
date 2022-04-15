@@ -1,0 +1,229 @@
+<form [formGroup]="itemBasicDetailsForm" *ngIf="formInit">
+  <ion-grid class="p-0">
+    <ion-row>
+      <ion-col class="p-0">
+        <div class="basic-details">
+          <div class="image_details">
+            <span *ngIf="restLogoUrl" class="icon-cross-outline remove-img" (click)="onRemoveImage()">
+            </span>
+            <input type="file" style="display: none" #file (change)="onRestLogoSelect($event)"
+              accept="image/x-png,image/gif,image/jpeg" />
+            <div class="insert-images" *ngIf="restLogoUrl === ''">
+              <ion-img src="assets/images/insert-picture-icon.svg" (click)="file.click()"></ion-img>
+            </div>
+            <div *ngIf="restLogoUrl">
+              <div class="insert-images">
+                <ion-img [src]="restLogoUrl" class="item-image" (click)="file.click()"></ion-img>
+              </div>
+            </div>
+          </div>
+          <div class="insert-images-text">
+            <p class="gray-clr fs-12">
+              *Max of 2MB, atleast 400 x 300 pixels & onlg JPEG and PNG are
+              allowed
+            </p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="p-0">
+    <ion-row>
+      <ion-col class="p-0">
+        <div class="input-section">
+          <div>
+            <ion-col size="12" class="p-0">
+              <ion-label for="name" class="fs-12 black-color">
+                Item name</ion-label>
+              <ion-item lines="none"  [ngClass]="{ 'is-inp-invalid': getValid('name')}" class="custom-item">
+                <ion-input type="text" placeholder="Enter the name of your item" restrictFirstSpace trimValue
+                  formControlName="name" [id]="getValid('name') ? 'is-inp-invalid': ''" >
+                </ion-input>
+              </ion-item>
+              <div class="error-view">
+                <div *ngIf="getValid('name')" class="fs-11 fw-4">
+                  <span *ngIf="itemBasicDetailsForm?.controls.name.errors?.required" class="float-left error-msg-txt">
+                    Please enter Item name
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+          </div>
+          <div class="p-0">
+            <ion-col size=12 class="ion-no-padding">
+              <ion-label for="city" class="fs-12 inp-label">Description
+              </ion-label>
+              <ion-textarea rows="3" restrictFirstSpace trimValue class="fs-12" placeholder="Description of your item"
+                maxlength=120 formControlName="description">
+              </ion-textarea>
+            </ion-col>
+            <ion-label for="city" class="fs-12 inp-label">Type of Item
+            </ion-label>
+            <div class="card-radio-view ion-justify-content-between">
+              <label class="radio-card">
+                <input type="radio" class="radio" id="veg" name="isVeg" value="veg" formControlName="isVeg">
+                <span class="radio-details">
+                  <span class="fs-12 sitefontmedium radio-name "> Veg</span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" class="radio" id="nonVeg" name="isVeg" value="non-veg" formControlName="isVeg">
+                <span class="radio-details">
+                  <span class="fs-12 sitefontmedium radio-name">Non Veg</span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" class="radio" id="eggId" name="isVeg" value="egg" formControlName="isVeg">
+                <span class="radio-details">
+                  <span class="fs-12 sitefontmedium radio-name">Egg</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="error-view" *ngIf="itemBasicDetailsForm?.controls.isVeg.errors?.required && isSubmitted">
+              <div class="fs-11">
+                <span class="float-left error-msg-txt">
+                  Please Select Type
+                </span>
+              </div>
+            </div>
+            <ion-row class="ion-margin-top">
+              <ion-col size="12" class="p-0">
+                <ion-label for="name" class="fs-12 inp-label">
+                  Ribbons <span class="grey-info-text">(optional)</span></ion-label>
+                <ion-item lines="none" class="custom-item">
+                  <ion-input id="name" type="text" maxLength="50" restrictFirstSpace trimValue formControlName="ribbon"
+                    placeholder="Name of your store">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-margin-top">
+              <ion-col size="12" class="ion-no-padding">
+                <ion-label for="city" class="fs-12 inp-label ion-margin-top">Select Item Category
+                </ion-label>
+                <ion-item lines="none"  [ngClass]="{ 'is-inp-invalid': getValid('category')}" class="custom-item" [id]="getValid('category') ? 'is-inp-invalid': ''">
+                  <ion-select [interfaceOptions]="categoryAlertOptions" *ngIf="categoryDetailsList.length !==0" id="type" class="sitefontmedium fs-14"
+                    formControlName="category" restrictFirstSpace trimValue>
+                    <ion-select-option value="{{item.catId}}" class="p-2" *ngFor="let item of categoryDetailsList">
+                      {{item?.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <div class="error-view">
+                  <div *ngIf="getValid('category')" class="fs-11 fw-4">
+                    <span *ngIf="itemBasicDetailsForm?.controls.category.errors?.required  && isSubmitted"
+                      class="float-left error-msg-txt">
+                      Please Select Item Category
+                    </span>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-col size="12" class="ion-no-padding" *ngIf="subCategoryDetailsList[0]?.subCategories.length > 0">
+              <ion-label for="city" class="fs-12 inp-label ion-margin-top">Select Item Sub Category
+              </ion-label>
+              <ion-item lines="none" class="custom-item" [id]="getValid('subCategory') ? 'is-inp-invalid': ''">
+                <ion-select [interfaceOptions]="subCategoryAlertOptions" id="type" class="sitefontmedium fs-14" formControlName="subCategory" restrictFirstSpace
+                  trimValue>
+                  <ion-select-option value="{{item.catId}}"
+                    *ngFor="let item of subCategoryDetailsList[0].subCategories">
+                    {{item?.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="error-view">
+                <div *ngIf="getValid('subCategory')" class="fs-11 fw-4">
+                  <span *ngIf="itemBasicDetailsForm?.controls.subCategory.errors?.required  && isSubmitted"
+                    class="float-left error-msg-txt">
+                    Please Select Item Sub Category
+                  </span>
+                </div>
+              </div>
+            </ion-col>
+            <div>
+              <span class="text-button-color fs-14">
+                Billing details
+              </span>
+              <span class="grey-info-text fs-12">
+                (Excluding all Package Charges)
+              </span>
+            </div>
+            <div class="headline"></div>
+            <ion-row class="ion-margin-top">
+              <ion-col size=10 class="p-0">
+                <span class="primary-dark-clr fs-14">Do you want to keep discount price?</span>
+              </ion-col>
+              <ion-col size=2>
+                <ion-toggle formControlName="discountAdded">
+                </ion-toggle>
+              </ion-col>
+            </ion-row>
+            <div class="ion-margin-top">
+              <p class="fs-12">Select Original Price</p>
+              <div class="d-flex">
+                <ion-input type="number" [ngClass]="{ 'is-inp-invalid': getValid('originalPrice')}" class="fs-12 ion-custom" placeholder="0.00" formControlName="originalPrice"
+                  twoDigitDecimal [id]="getValid('originalPrice') ? 'is-inp-invalid': ''" min="0"
+                  (input)="onEnterPrice('originalPrice')"></ion-input>
+                <div class="custom-label fs-12">{{currency?.name}}</div>
+              </div>
+              <div class="error-view">
+                <div *ngIf="getValid('originalPrice')" class="fs-11 fw-4">
+                  <span *ngIf="itemBasicDetailsForm?.controls.originalPrice.errors?.required  && isSubmitted"
+                    class="float-left error-msg-txt">
+                    Please enter Original Price
+                  </span>
+                  <span class="float-left error-msg-txt"
+                    *ngIf="itemBasicDetailsForm?.controls.originalPrice.errors?.min  && isSubmitted">
+                    Original price field should be more than 0
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="itemBasicDetailsForm.get('discountAdded').value">
+              <p class="fs-12">Discount Price</p>
+              <div class="d-flex">
+                <ion-input type="number" class="fs-12 ion-custom" placeholder="0.00" formControlName="price"
+                  twoDigitDecimal
+                  [id]="getValid('price') && itemBasicDetailsForm.get('discountAdded').value ? 'is-inp-invalid': ''"
+                  min="0" (input)="onEnterPrice('price')"></ion-input>
+                <div class="custom-label fs-12">{{currency?.name}}</div>
+              </div>
+              <div class="error-view">
+                <div *ngIf="getValid('price')" class="fs-11 fw-4">
+                  <span *ngIf="itemBasicDetailsForm?.controls.price.errors?.required  && isSubmitted"
+                    class="float-left error-msg-txt">
+                    Discount Price field can not be empty
+                  </span>
+                  <span class="float-left error-msg-txt"
+                    *ngIf="itemBasicDetailsForm?.controls.price.errors?.min  && isSubmitted">
+                    Discount price field should be more than 0
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <ion-label for="city" class="fs-12 inp-label">Taxes(GST)
+              </ion-label>
+              <ion-row>
+                <ion-col class="ion-no-padding" size=6>
+                  <select class="select-control w-100 input-fields" formControlName="gst"
+                    [ngClass]="{'disabledOption': selectedGstType}">
+                    <option value="" class="fs-12" selected disabled>Please Select Taxes</option>
+                    <option value="{{gstin.key}}" *ngFor="let gstin of gstinTaxesList">{{gstin.value}}</option>
+                  </select>
+                </ion-col>
+                <div class="error-view">
+                  <div class="fs-11 fw-4">
+                    <span *ngIf="itemBasicDetailsForm?.controls.gst.errors?.required && isSubmitted"
+                      class="float-left error-msg-txt">
+                      Please Select Taxes (GST)
+                    </span>
+                  </div>
+                </div>
+              </ion-row>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>

@@ -1,0 +1,77 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size=12 class="ion-no-padding">
+        <ion-img src="assets\icon\Yumzyx_logo.svg"></ion-img>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding">
+        <ion-text class="sitefontsemibold title-txt">Welcome to YumzyX (Real) </ion-text>
+      </ion-col>
+      <ion-col size=12 class="ion-no-padding">
+        <ion-text class="sitefontnormal sub-title-txt">Empowering your Hyper local brand</ion-text>
+      </ion-col>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="ion-padding-top ion-margin-top">
+        <ion-col size=12 class="ion-padding-top ion-margin-top ion-no-padding">
+          <ion-label class="ion-padding-top inp-label">Mobile Number*</ion-label>
+          <ion-item lines="none" class="custom-item" [ngClass]="{ 'is-inp-invalid':getValid('userName')}">
+            <select class="position-absolute select-country-code pointer" formControlName="countryCode">
+              <option value="+91" selected>+91</option>
+              <option value="+1">+1</option>
+            </select>
+            <!-- keypress event is depreciated in some android devices using maxlength -->
+            <ion-input maxlength="10" type="tel" formControlName="userName" placeholder="Mobile Number"></ion-input>
+          </ion-item>
+          <div class="error-view">
+            <div *ngIf="getValid('userName')" class="fw-4">
+              <ion-text *ngIf="loginForm.controls.userName.errors?.required">
+                Mobile number is required.
+              </ion-text>
+              <ion-text *ngIf="loginForm.controls.userName.errors?.min
+                     || loginForm.controls.userName.errors?.max">
+                Invalid mobile number</ion-text>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size=12 class="ion-no-padding">
+          <ion-label class="inp-label">Password*</ion-label>
+          <ion-item lines="none" class="custom-item" [ngClass]="{ 'is-inp-invalid':getValid('password')}">
+            <ion-input [type]="passwordType" formControlName="password" placeholder="Enter Password">
+            </ion-input>
+            <ion-icon *ngIf="passwordShown" (click)="togglePassword()" name="eye"></ion-icon>
+            <ion-icon *ngIf="!passwordShown" (click)="togglePassword()" name="eye-off"></ion-icon>
+          </ion-item>
+          <div [routerLink]="'/forget-password'">
+            <ion-label class="inputlabel primary-dark-clr forget-pass">Forgot Password ?</ion-label>
+          </div>
+          <div class="error-view ion-text-start">
+            <div *ngIf="getValid('password')" class="fw-4">
+              <ion-text *ngIf="loginForm.controls.password.errors?.required" class="float-left error-msg-txt">
+                Password is required
+              </ion-text>
+              <span *ngIf="loginForm.controls.password.errors?.minlength" class="float-left">Enter atleast 6
+                characters</span>
+            </div>
+          </div>
+        </ion-col>
+        <!-- <ion-col class="ion-no-padding">
+          <div class="error-view ion-text-start">
+            <div *ngIf="getValid('password')" class="fw-4">
+              <span *ngIf="loginForm.controls.password.errors?.minlength" class="float-left"> Please enter atleast 6
+                characters</span>
+            </div>
+          </div>
+        </ion-col> -->
+        <ion-col size=12 class="ion-padding-top">
+          <ion-button class="theme-btn" expand="block" type="submit">LOGIN</ion-button>
+        </ion-col>
+        <ion-col size=12>
+          <div class="ion-text-center">
+            <p class="grey-info-text">Want to create an account?</p>
+            <p [routerLink]="'/signup'" class="sitefontsemibold primary-dark-clr"> <u class="sitefontsemibold">Create
+                Account</u> </p>
+          </div>
+        </ion-col>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>

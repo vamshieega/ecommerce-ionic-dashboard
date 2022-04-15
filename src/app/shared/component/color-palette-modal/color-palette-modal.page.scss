@@ -1,0 +1,43 @@
+.header-color {
+  --background: var(--primary-dark-clr) !important;
+}
+.color-palette-modal {
+  .color-palette-list {
+    height: 450px;
+    width: 400px;
+  }
+
+  .color-list {
+    display: inline-flex;
+    padding-top: 5px;
+  }
+
+  .color-palettes {
+    border: 1px solid var(--color-gray);
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+  }
+
+  .palette-card {
+    border: 1px solid var(--from-box-color);
+    border-radius: 8px;
+    width: 145px;
+    height: 90px;
+    padding: 10px;
+    margin: 13px 15px;
+    display: inline-block;
+    &:hover {
+      box-shadow: 0px 0px 4px #00000038;
+    }
+  }
+
+  .selected {
+    border: 1px solid var(--success-color);
+    box-shadow: 0px 0px 4px var(--success-color);
+  }
+
+  .txt-align-center {
+    text-align: center;
+  }
+}

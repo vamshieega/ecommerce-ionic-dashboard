@@ -1,0 +1,164 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <p class="fs-14 p-0" (click)="backPage()" slot="start">
+            <span class="icon-back ion-padding"></span>
+        </p>
+        <ion-title class="fs-14 sitefontmedium">{{title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <ng-container *ngIf="addonsPage">
+        <form [formGroup]="itemAddonsForm">
+            <ion-row class="variant_name">
+                <ion-col size=4>
+                    <span class="primary-light-clr fs-12">Addons Name : </span>
+                </ion-col>
+                <ion-col size=8>
+                    <ion-item lines="none" class="variant-item">
+                        <ion-input formControlName="addonName" (ionChange)="onAddonFormSubmit($event)"
+                            placeholder="Enter variant name">
+                        </ion-input>
+                        <span class="text-button-color icon-pen fs-12"></span>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="min_addons">
+                <ion-col size=4 style="margin-left: 5px;" class="ion-no-padding">
+                    <span class="fs-10">Minimum Add-ons</span>
+                    <ion-item lines="none" class="variant-item">
+                        <ion-input type="number" formControlName="minSelection"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" twoDigitDecimal
+                            (ionChange)="onAddonmin($event)" placeholder="Enter variant name">
+                        </ion-input>
+                        <span class="text-button-color icon-pen fs-12"></span>
+                    </ion-item>
+                    <span *ngIf="itemAddonsForm.errors?.minValueInvalid && onDirtyTouchInp('minSelection')"
+                        class="float-left error-color fs-10">
+                        Min value should be lesser than Max value.
+                    </span>
+                </ion-col>
+                <ion-col size=0.2 class="addons_col_border"></ion-col>
+                <ion-col size=4 class="ion-no-padding">
+                    <span class="fs-10">Maximum Add-ons</span>
+                    <ion-item lines="none" class="variant-item">
+                        <ion-input type="number" formControlName="maxSelection" (ionChange)="onAddonmax($event)"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" twoDigitDecimal
+                            placeholder="Enter variant name">
+                        </ion-input>
+                        <span class="text-button-color icon-pen fs-12"></span>
+                    </ion-item>
+                    <span *ngIf="itemAddonsForm?.errors?.maxValueInvalid && onDirtyTouchInp('maxSelection') "
+                        class="float-left error-color fs-10">
+                        Max should be greater than min
+                    </span>
+                </ion-col>
+            </ion-row>
+        </form>
+        <div class="underline"> </div>
+        <ion-row class="ion-padding" style="margin-left: 2px;">
+            <ion-col size=12>
+                <p class="fs-14 black-color sitefontmedium">Set Add-on options</p>
+            </ion-col>
+            <ion-col size=12>
+                <p class="fs-12 grey-info-text">Create Add-on options based on your variant requirements.</p>
+            </ion-col>
+        </ion-row>
+        <ion-row [ngClass]="{'disabledOption': !this.itemAddonsForm.valid}" (click)="addOptionsAddon()"
+            class="variant-msg ion-margin-bottom">
+            <ion-col size=12 class="ion-no-padding">
+                <div class="ion-text-center success-color fs-12">
+                    <span class=" sitefontbold">Create Add-on options</span>
+                    <p style="margin-top: 7px;">Build your own customisation</p>
+                </div>
+            </ion-col>
+        </ion-row>
+        <div class="ion-padding-top variantLine"> </div>
+        <ion-row class="ion-padding">
+            <ion-col size=12 class="p-0">
+                <p class="fs-12 sitefontmedium text-button-color" style="margin-left: 4px;">List of Addons</p>
+            </ion-col>
+            <ion-col>
+                <div class="heading_line"></div>
+            </ion-col>
+        </ion-row>
+        <ion-row class="variant_options" *ngFor="let options of addonOptions; let i = index;">
+            <ion-col style="padding: 10px;" size=12>
+                <p class="fs-10 grey-info-text">Option name</p>
+                <p class="fs-14 sitefontmedium"> {{options.optionName}} </p>
+            </ion-col>
+            <ion-row class="option_values">
+                <ion-col size=3.4 style="margin-left: 5px;" class="ion-no-padding">
+                    <p class="fs-10 grey-info-text">Variant type</p>
+                    <p class="fs-14 sitefontmedium">{{getVegNonVegItem(options.isVeg,options.containsEgg)}}</p>
+                </ion-col>
+                <ion-col size=4.2 class="col_border ion-no-padding">
+                    <p class="fs-10 grey-info-text">Price of Add-on</p>
+                    <p class="fs-14 sitefontmedium">{{currency.symbol}} {{options.cost}}</p>
+                </ion-col>
+            </ion-row>
+            <div class="underline ion-margin-top"></div>
+            <ion-row>
+                <ion-col class="sitefontmedium">
+                    <button (click)="editOptionsAddon(i)" ion-button full no-margin class="item_btn">Edit</button>
+                    <button (click)="deleteOptionAddon(i)" ion-button full no-margin class="item_btn">Delete</button>
+                </ion-col>
+            </ion-row>
+        </ion-row>
+        <div *ngIf="addonOptions.length === 0" class="ion-text-center no_variants">
+            <span class="fs-12 black-color sitefontmedium">"You haven't created any variant options."</span>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!addonsPage">
+        <ion-row class="ion-padding" style="margin-left: 2px;">
+            <ion-col size=12>
+                <p class="fs-14 black-color sitefontmedium">Existing Add-ons</p>
+            </ion-col>
+            <ion-col size=12>
+                <p class="fs-12 grey-info-text">You can click View & Edit to see information related to existing add-on.
+                </p>
+            </ion-col>
+        </ion-row>
+        <ion-row class="variant_options" *ngFor="let addons of addonDetails; let i = index;">
+            <ion-col style="padding: 10px;" size=12>
+                <p class="fs-10 grey-info-text">Add-on name</p>
+                <p class="fs-14 sitefontmedium"> {{addons.addonName}} </p>
+            </ion-col>
+            <ion-row class="option_values">
+                <ion-col size=3.4 style="margin-left: 5px;" class="ion-no-padding">
+                    <p class="fs-10 grey-info-text">No.of Options</p>
+                    <p class="fs-14 sitefontmedium">{{addons.options?.length}}</p>
+                </ion-col>
+                <ion-col size=4.5 class="col_border ion-no-padding">
+                    <p class="fs-10 grey-info-text">Mini limit</p>
+                    <p class="fs-14 sitefontmedium ">{{addons.minSelection}}</p>
+                </ion-col>
+                <ion-col size=3.8 class="col_border ion-no-padding">
+                    <p class="fs-10 grey-info-text">Max limit</p>
+                    <p class="fs-14 sitefontmedium">{{addons.maxSelection}}</p>
+                </ion-col>
+            </ion-row>
+            <div class="underline ion-margin-top"></div>
+            <ion-row>
+                <ion-col class="sitefontmedium">
+                    <button (click)="editAddonOptions(i)" ion-button full no-margin class="item_btn">VIEW &
+                        EDIT</button>
+                    <button (click)="deleteAddonOptions(i)" ion-button full no-margin class="item_btn">DELETE</button>
+                </ion-col>
+            </ion-row>
+        </ion-row>
+        <div *ngIf="addonDetails.length === 0" class="ion-text-center no_variants">
+            <span class="fs-12 black-color sitefontmedium">"You haven't created any Addon options."</span>
+        </div>
+    </ng-container>
+</ion-content>
+<ion-footer *ngIf="!addonsPage" class="ion-no-border">
+    <ion-row>
+        <ion-col size=12>
+            <ion-button class="theme-btn" expand="block" (click)="createAddonsFn()">
+                Create New Add-on
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

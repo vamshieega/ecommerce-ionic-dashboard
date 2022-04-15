@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>On Call Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div [ngStyle]="{'background-image': backgroundImageURL$ | async}" class="background-img">
+    </div>
+    <div class="ion-text-center">
+      <p class="black-color sitefontmedium fs-16">Coming Soon…</p>
+      <p class="black-color fs-12 ion-padding-top">In case of any inquiries please contact us.</p>
+    </div>
+  </div>
+</ion-content>

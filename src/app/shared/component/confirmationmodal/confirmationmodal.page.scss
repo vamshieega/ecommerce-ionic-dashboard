@@ -1,0 +1,56 @@
+.grey-info-text {
+  color: var(--grey-info-text);
+}
+//using locally
+.back-btn {
+  border: 1px solid var(--primary-dark-clr);
+  --background: transparent;
+  color: var(--primary-dark-clr);
+  height: 46px;
+  border-radius: 3px;
+  --ripple-color: transparent;
+  font-family: "Poppins-medium";
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+ion-footer {
+  padding: 10px 10px 26px 10px;
+}
+
+.circle {
+  background-color: var(--layout-bg-color);
+  border-radius: 50%;
+  height: 46px;
+  width: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-logout {
+  color: var(--primary-light-clr);
+}
+.icon-off{
+  font-size: 24px;
+  color: var(--error-color);
+}
+.icon-delete{
+  color: var(--error-color) !important;
+}
+.icon-on {
+  font-size: 24px;
+  color: var(--success-color);
+}
+
+.title {
+  margin: 0% 20% 0% 20%;
+}
+
+.subtitle {
+  margin: 0% 23% 0% 23%;
+}

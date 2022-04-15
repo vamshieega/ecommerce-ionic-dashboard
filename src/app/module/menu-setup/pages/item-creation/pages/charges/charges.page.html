@@ -1,0 +1,67 @@
+<div class="item-charge-view-page">
+    <form [formGroup]="itemChargeForm" *ngIf="formInit">
+        <ion-row class="ion-padding" [ngClass]="{'disabled-event': onDisableFields()}">
+            <ion-col class="fs-14 black-color sitefontmedium" size=10.6>
+                Do you want to keep Packing Charges?
+                <p class="fs-12 grey-info-text"> (You have selected
+                    Order level charges in Outlet Setup)</p>
+            </ion-col>
+            <ion-col size=1.4>
+                <ion-toggle formControlName="packingChargesAdded">
+                </ion-toggle>
+            </ion-col>
+        </ion-row>
+        <div *ngIf="itemChargeForm.controls.packingChargesAdded.value">
+            <div formGroupName="packingCharges" [ngClass]="{'disabled-event': onDisableFields()}">
+                <ion-row class="ion-padding-horizontal">
+                    <div class="card-radio-view ion-justify-content-between">
+                        <label class="radio-card">
+                            <input type="radio" class="radio" id="orderLevelId" name="chargesPer"
+                                formControlName="chargesPer" value="qty">
+                            <span class="radio-details">
+                                <span class="fs-12 sitefontmedium radio-name"> Quantity Level</span>
+                                <span class="dec-txt radio-subname black-color fs-12">
+                                    Charges collected for entire orders</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" class="radio" name="chargesPer" id="itemLevelId" value="item"
+                                formControlName="chargesPer">
+                            <span class="radio-details">
+                                <span class="fs-12 sitefontmedium radio-name">Item Level</span>
+                                <span class="dec-txt radio-subname black-color fs-12">
+                                    Charges collected for each item </span>
+                            </span>
+                        </label>
+                    </div>
+                </ion-row>
+                <div class="underline"></div>
+                <div class="ion-margin-horizontal ion-margin-top">
+                    <p class="fs-12">Enter Packing Charges</p>
+                    <div class="d-flex">
+                        <ion-input type="number" placeholder="0.00" formControlName="charge" restrictFirstSpace
+                            trimValue [ngClass]="{ 'is-inp-invalid': getNextGrpValid('packingCharges','charge')}"
+                            class="fs-12 ion-custom"></ion-input>
+                        <div class="custom-label fs-12">{{currency?.name}}</div>
+                    </div>
+                    <div class="error-view">
+                        <div *ngIf="nestedGrpControl.charge.errors?.required" class="fs-11 fw-4">
+                            <span class="float-left error-msg-txt">
+                                Please enter packaging charges
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ion-margin-horizontal disabled-event ion-margin-bottom">
+                <p class="fs-12 ">Final Price <span class="grey-info-text">(Including all
+                        taxes)</span></p>
+                <div class="d-flex">
+                    <ion-input class="fs-12 ion-custom" type="number" placeholder="0.00" restrictFirstSpace trimValue
+                        formControlName="finalPrice"></ion-input>
+                    <div class="custom-label fs-12">{{currency?.name}}</div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

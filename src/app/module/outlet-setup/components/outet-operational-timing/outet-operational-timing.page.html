@@ -1,0 +1,80 @@
+<div class="outlet-op-timing content">
+  <div class="delivery-service">
+    <form [formGroup]="opTimeForm">
+      <ion-text class="fs-12 sitefontmedium">What kind of delivery services do you need?</ion-text>
+      <div class="card-radio-view">
+        <label class="radio-card op-time-select-card" for="allTime">
+          <input type="radio" class="radio" id="allTime" name="opSettingType" value="allday"
+            formControlName="opSettingType" />
+          <span class="radio-details">
+            <span class="title-txt fs-14 sitefontmedium">24X7</span>
+            <span class="dec-txt black-color fs-14 sitefontlight">
+              Same timing for all days in a week
+            </span>
+          </span>
+        </label>
+
+        <label class="radio-card mx-3 op-time-select-card" for="dayWise">
+          <input type="radio" class="radio" id="dayWise" name="opSettingType" value="dayWise"
+            formControlName="opSettingType" />
+          <span class="radio-details">
+            <span class="title-txt fs-14 sitefontmedium">Day Wise</span>
+            <span class="dec-txt black-color fs-14 sitefontlight">
+              Store operating same time for all days
+            </span>
+          </span>
+        </label>
+        <label class="radio-card mx-3 op-time-select-card" for="custom">
+          <input type="radio" class="radio" id="custom" name="opSettingType" value="custom"
+            formControlName="opSettingType" />
+          <span class="radio-details">
+            <span class="title-txt fs-14 sitefontmedium">Custom</span>
+            <span class="dec-txt black-color fs-14 sitefontlight">
+              Different Timings for each day</span>
+          </span>
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="border"></div>
+
+  <!-- For all Time Form -->
+
+  <div class="navigation-secton">
+    <div *ngIf="opTimeForm?.controls.opSettingType.value === 'allday'">
+      <div class="img-section">
+        <ion-img src="assets/icon/icon-info.svg"></ion-img>
+        <span class="fs-12">Most suitable for Scheduled orders</span>
+      </div>
+      <p class="fs-12 black-color">
+        <span class="sitefontbold">Store opens </span> completely for
+        <span class="sitefontbold"> 24 X 7</span>
+      </p>
+    </div>
+
+    <!-- for weekdays selection -->
+    <div *ngIf="opTimeForm?.controls.opSettingType.value === 'dayWise'">
+      <app-daywise-ophours [timings]="existingTime"></app-daywise-ophours>
+    </div>
+
+    <!-- for custom selection -->
+    <div *ngIf="opTimeForm?.controls?.opSettingType.value === 'custom'">
+      <app-operational-timing [setTimeFor]="setTimeFor" [timings]="existingTime"></app-operational-timing>
+    </div>
+  </div>
+</div>
+
+<ion-footer class="ion-no-border">
+  <ion-row class="footer ion-padding-horizontal">
+    <ion-col>
+      <ion-button expand="block" class="outline-btn fs-12" (click)="back()">
+        Back
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" class="theme-btn fs-12" (click)="onOpTimingSave()">
+        Save & Proceed
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
