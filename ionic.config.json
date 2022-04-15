@@ -1,0 +1,7 @@
+{
+  "name": "ecommerce-ionic-dashboard",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
