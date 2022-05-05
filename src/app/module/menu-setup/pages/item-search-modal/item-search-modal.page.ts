@@ -45,7 +45,7 @@ export class ItemSearchModalPage implements OnInit {
   }
 
   getVegNonVegItem(isVeg, containsEgg) {
-    return  getVegNonVegItemImg(isVeg, containsEgg);
+    return getVegNonVegItemImg(isVeg, containsEgg);
   }
 
   search(data) {
@@ -64,7 +64,7 @@ export class ItemSearchModalPage implements OnInit {
     }
   }
 
-  async confirmModal(toggle, id) {
+  async confirmModal(toggle, id, menu_item) {
     this.menuListDisplay[this.index]['availableForOrder'] = toggle;
     let modal = await this.modalController.create({
       component: ConfirmationmodalPage, cssClass: 'Confirmationmodal',
@@ -86,7 +86,7 @@ export class ItemSearchModalPage implements OnInit {
           });
         }
         setTimeout(() => { this.cancelModal = false; }, 1);
-        toggle === true ? this.menuService.offMenuItems(this.createObjForMenuOnOff('active', id)) : this.switchOff(id);
+        toggle === true ? this.menuService.offMenuItems(this.createObjForMenuOnOff('active', id, menu_item)) : this.switchOff(id, menu_item);
         AppData.menuListDisplaySub$.next(this.menuListDisplayCopy);
       }
       else {
@@ -96,34 +96,37 @@ export class ItemSearchModalPage implements OnInit {
     return await modal.present()
   }
 
-  createObjForMenuOnOff(onOffStatus, id) {
+  createObjForMenuOnOff(onOffStatus, id, menu_item) {
+    console.log('menu_item modal', menu_item)
     const body = {
       itemId: id,
       outletId: AppData.outletId,
-      status: onOffStatus
+      status: onOffStatus,
+      sub_cat_index: menu_item.sub_cat_index,
+      menu_index: menu_item.menu_index,
     }
     return body;
   }
 
-  switchOff(id) {
+  switchOff(id, menu_item) {
     let time = new Date();
     time.setDate(time.getDate() + 1)
     time.setHours(2);
     time.setMinutes(0);
-    const reqBody = this.createObjForMenuOnOff('inactive', id);
+    const reqBody = this.createObjForMenuOnOff('inactive', id, menu_item);
     reqBody['nextAvailable'] = time.toISOString();
     this.menuService.offMenuItems(reqBody);
   }
 
-  switchOnOff(event, id: any, index) {
+  switchOnOff(event, id: any, index, menu_item) {
     this.index = index;
     if (event.detail.checked && this.cancelModal === false) {
       this.cancelModal = true;
-      this.confirmModal(event.detail.checked, id);
+      this.confirmModal(event.detail.checked, id, menu_item);
     }
     else if (event.detail.checked === false && this.cancelModal === false) {
       this.cancelModal = true;
-      this.confirmModal(event.detail.checked, id);
+      this.confirmModal(event.detail.checked, id, menu_item);
     }
     else {
       this.cancelModal = false;

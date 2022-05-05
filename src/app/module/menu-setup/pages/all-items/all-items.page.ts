@@ -178,26 +178,29 @@ export class AllItemsPage implements OnInit {
     });
   }
 
-  createObjForMenuOnOff(onOffStatus, id) {
+  createObjForMenuOnOff(onOffStatus, id, menu_item) {
+    console.log('menu_item', menu_item);
     this.menuListDisplay[this.index]['nextAvailable'] = '';
     const body = {
       itemId: id,
       outletId: AppData.outletId,
-      status: onOffStatus
+      status: onOffStatus,
+      sub_cat_index: menu_item.sub_cat_index,
+      menu_index: menu_item.menu_index,
     }
     return body;
   }
 
-  switchOnOff(event, id: any, index) {
+  switchOnOff(event, id: any, index, menu_item) {
     if (!this.searchModal) {
       this.index = index;
       if (event.detail.checked && this.cancelModal === false) {
         this.cancelModal = true;
-        this.confirmModal(event.detail.checked, id, this.index);
+        this.confirmModal(event.detail.checked, id, this.index, menu_item);
       }
       else if (event.detail.checked === false && this.cancelModal === false) {
         this.cancelModal = true;
-        this.confirmModal(event.detail.checked, id, this.index);
+        this.confirmModal(event.detail.checked, id, this.index, menu_item);
       }
       else {
         this.cancelModal = false;
@@ -205,7 +208,7 @@ export class AllItemsPage implements OnInit {
     }
   }
 
-  async confirmModal(toggle, id, index) {
+  async confirmModal(toggle, id, index, menu_item) {
     this.menuListDisplay[index]['availableForOrder'] = toggle;
     let modal = await this.modalController.create({
       component: ConfirmationmodalPage, cssClass: 'Confirmationmodal',
@@ -217,7 +220,7 @@ export class AllItemsPage implements OnInit {
     modal.onDidDismiss().then(async (res) => {
       if (res.data) {
         this.cancelModal = false;
-        toggle === true ? this.menuService.offMenuItems(this.createObjForMenuOnOff('active', id)) : this.switchOff(id);
+        toggle === true ? this.menuService.offMenuItems(this.createObjForMenuOnOff('active', id, menu_item)) : this.switchOff(id, menu_item);
       }
       else {
         this.menuListDisplay[index]['availableForOrder'] = !toggle;
@@ -226,12 +229,12 @@ export class AllItemsPage implements OnInit {
     return await modal.present()
   }
 
-  switchOff(id) {
+  switchOff(id, menu_item) {
     let time = new Date();
     time.setDate(time.getDate() + 1)
     time.setHours(2);
     time.setMinutes(0);
-    const reqBody = this.createObjForMenuOnOff('inactive', id);
+    const reqBody = this.createObjForMenuOnOff('inactive', id, menu_item);
     reqBody['nextAvailable'] = time.toISOString();
     this.menuListDisplay[this.index]['nextAvailable'] = time.toISOString();
     this.menuService.offMenuItems(reqBody);
@@ -310,7 +313,7 @@ export class AllItemsPage implements OnInit {
     }
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.menuService.transformList(null);
     this.resetArray();
   }

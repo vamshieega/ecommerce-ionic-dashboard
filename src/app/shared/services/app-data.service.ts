@@ -20,6 +20,7 @@ export class AppData {
 	// static commonBaseUrl = environment.commonBaseUrl;
 	static googleMapUrl = environment.googleMapUrl;
 	//static commonBaseUrl = environment.commonBaseUrl;
+	static socketUrl = environment.socketUrl;
 
 	static userDataSub$ = new BehaviorSubject(null);
 	static userData: UserModel;

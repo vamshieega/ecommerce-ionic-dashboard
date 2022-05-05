@@ -99,6 +99,9 @@ export class MenuItemService {
           const tempMenu = JSON.parse(JSON.stringify(menu));
           tempMenu.cat_id = category.cat_id;
           tempMenu.cat_name = category.cat_name;
+          tempMenu.sub_cat_index = null;
+          tempMenu.menu_index = index;
+
           index === 0 ? tempMenu.showCat = true : tempMenu.showCat = false;
           // if(tempList.length <= 20){
           //   tempList.push(tempMenu);
@@ -111,7 +114,9 @@ export class MenuItemService {
         category.sub_cat.forEach((subCategory, catIndex) => {
           const subCat = {
             sub_cat_name: subCategory.sub_cat_name,
-            sub_cat_id: subCategory.sub_cat_id
+            sub_cat_id: subCategory.sub_cat_id,
+            sub_cat_index: catIndex
+
           };
           catDetails.sub_cat.push(subCat);
           // processing Menu Items
@@ -121,6 +126,9 @@ export class MenuItemService {
             tempMenu.cat_name = category.cat_name;
             tempMenu.sub_cat_name = subCategory.sub_cat_name;
             tempMenu.sub_cat_id = subCategory.sub_cat_id;
+            tempMenu.sub_cat_index = catIndex
+            tempMenu.menu_index = index;
+
             catIndex === 0 && index === 0 ? tempMenu.showCat = true : tempMenu.showCat = false;
             index === 0 ? tempMenu.showSubCat = true : tempMenu.showSubCat = false;
             // if(tempList.length <= 20){

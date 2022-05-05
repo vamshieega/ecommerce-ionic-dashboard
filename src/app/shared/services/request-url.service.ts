@@ -20,11 +20,11 @@ export type URL_KEYS =
   | 'getCategory' | 'offMenuItem' | 'addSubCategory' | 'addCategory' | 'categoryReorder'
   | 'categorySwitch' | 'subCategorySwitch'
 
-    //Discount
-    | 'discountV3' | 'dCollection' | 'dProducts' | 'dGetDiscounts'
-    | 'dGetDisById' | 'dGetCatByCatId' | 'dGetCatItemByCatIds' | 'dGetItmByItmId'
-    | 'dUpdateCoupon' | 'dDeleteCoupon'
-    
+  //Discount
+  | 'discountV3' | 'dCollection' | 'dProducts' | 'dGetDiscounts'
+  | 'dGetDisById' | 'dGetCatByCatId' | 'dGetCatItemByCatIds' | 'dGetItmByItmId'
+  | 'dUpdateCoupon' | 'dDeleteCoupon'
+
   //Account Verification Api(s)
   | 'initVerification' | 'verify'
 
@@ -39,7 +39,7 @@ export type URL_KEYS =
 
 
 const UrlMapping = {
-  login: { url: AppData.baseUrl + '/account/login', showMsg: false, showLoading: true },
+  login: { url: AppData.baseUrl + '/account/login', showMsg: true, showLoading: true },
   signup: { url: AppData.baseUrl + '/account/v2/signup', showMsg: true, showLoading: true },
   logout: { url: AppData.baseUrl + '/account/logout', showMsg: false, showLoading: false },
   initSignup: { url: AppData.baseUrl + '/account/initSignup', showMsg: false, showLoading: true },
