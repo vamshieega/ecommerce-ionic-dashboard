@@ -76,7 +76,6 @@
     "cordova-plugin-app-version": "^0.1.12",
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-device": "^2.0.2",
-    "cordova-plugin-fcm-with-dependecy-updated": "^7.0.10",
     "cordova-plugin-firebase-analytics": "^6.0.1",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -132,7 +131,13 @@
       "cordova-plugin-android-permissions": {},
       "cordova-open-native-settings": {},
       "call-number": {},
-      "cordova-plugin-youtube-video-player": {}
+      "cordova-plugin-youtube-video-player": {},
+      "cordova-plugin-fcm-with-dependecy-updated": {
+        "ANDROID_FCM_VERSION": "19.0.0",
+        "ANDROID_GRADLE_TOOLS_VERSION": "3.5.3",
+        "ANDROID_GOOGLE_SERVICES_VERSION": "4.3.3",
+        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher"
+      }
     },
     "platforms": [
       "android"

@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "521524263993",
-    "firebase_url": "https://restaurant-panel-d80b6.firebaseio.com",
-    "project_id": "restaurant-panel-d80b6",
-    "storage_bucket": "restaurant-panel-d80b6.appspot.com"
+    "project_number": "484849410399",
+    "project_id": "fir-58440",
+    "storage_bucket": "fir-58440.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:521524263993:android:abeed692e14f8d142861e8",
+        "mobilesdk_app_id": "1:484849410399:android:4aa7475329b178c04616ea",
         "android_client_info": {
-          "package_name": "com.yumzy.partnerapp"
+          "package_name": "com.vamshi.ionicfcm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "521524263993-fedgv9ludvqigla2ne5h0g4kqgflh9mj.apps.googleusercontent.com",
+          "client_id": "484849410399-r7p6o61vd1tequoqi89csf7f18b0rpto.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBsuTLIF0MD21ng0GWl8Npu8RoSrnbd2-s"
+          "current_key": "AIzaSyCGMVtKDWqD4DUbS4KjMVw0mmiT2aOcvZQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "521524263993-fedgv9ludvqigla2ne5h0g4kqgflh9mj.apps.googleusercontent.com",
+              "client_id": "484849410399-r7p6o61vd1tequoqi89csf7f18b0rpto.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
